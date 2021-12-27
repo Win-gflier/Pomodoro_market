@@ -1,110 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main_page.MainPageFragment"
-        android:backgroundTint="@color/main_background">
+        android:backgroundTint="@color/main_background"
+        tools:context=".ui.main_page.MainPageFragment">
 
         <TextView
-            android:id="@+id/timer_txt"
+            android:id="@+id/work_state_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="70sp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/work_state"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/progressCountdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="25:00" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressCountdown"
             style="@style/Widget.MaterialProgressBar.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progress="100"
             android:background="@drawable/pb_circle_shape"
             android:minWidth="306dp"
             android:minHeight="306dp"
-            android:progressTint="@color/purple_500"
+            android:progress="55"
+            android:progressTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.326" />
+
+        <TextView
+            android:id="@+id/timer_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="70sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.396"
+            tools:text="25:00" />
+
 
         <ImageButton
             android:id="@+id/play_btn"
             android:layout_width="wrap_content"
-            android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
-            app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+            app:srcCompat="@drawable/ic_play_btn_work" />
 
         <ImageButton
             android:id="@+id/pause_btn"
             android:layout_width="wrap_content"
-            android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="96dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
-            app:srcCompat="@drawable/ic_baseline_pause_24" />
-
-        <ImageButton
-            android:id="@+id/stop_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:backgroundTint="@color/white"
-            android:layout_marginTop="4dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
-            app:srcCompat="@drawable/ic_baseline_stop_24" />
+            app:srcCompat="@drawable/ic_pause_btn_work" />
 
-        <TableRow
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/five_min_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5 min" />
-
-            <Button
-                android:id="@+id/ten_min_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10 min" />
-
-            <Button
-                android:id="@+id/fifteen_min_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15 min" />
-
-            <Button
-                android:id="@+id/twenty_min_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:text="20min" />
-
-        </TableRow>
+            app:srcCompat="@drawable/ic_full_cycle_work"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="416dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.pomodorolike.R
@@ -71,9 +72,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 //        }
 //
 //    }
-//    fun getLastTime(){
-//
-//    }
+
 //
 
 //
@@ -85,28 +84,28 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         binding.timerTxt.text = "25:00"
-        binding.fiveMinBtn.setOnClickListener {
-            binding.timerTxt.text = "05:00"
-            timerLengthMinutes = 5
-
-        }
-        binding.tenMinBtn.setOnClickListener {
-            Log.e("TAG", "10")
-            binding.timerTxt.text = "10:00"
-            timerLengthMinutes = 10
-        }
-        binding.fifteenMinBtn.setOnClickListener {
-            Log.e("TAG", "15")
-            binding.timerTxt.text = "15:00"
-            timerLengthMinutes = 15
-
-        }
-        binding.twentyMinBtn.setOnClickListener {
-            Log.e("TAG", "twenty")
-            binding.timerTxt.text = "20:00"
-            timerLengthMinutes = 20
-
-        }
+//        binding.fiveMinBtn.setOnClickListener {
+//            binding.timerTxt.text = "05:00"
+//            timerLengthMinutes = 5
+//
+//        }
+//        binding.tenMinBtn.setOnClickListener {
+//            Log.e("TAG", "10")
+//            binding.timerTxt.text = "10:00"
+//            timerLengthMinutes = 10
+//        }
+//        binding.fifteenMinBtn.setOnClickListener {
+//            Log.e("TAG", "15")
+//            binding.timerTxt.text = "15:00"
+//            timerLengthMinutes = 15
+//
+//        }
+//        binding.twentyMinBtn.setOnClickListener {
+//            Log.e("TAG", "twenty")
+//            binding.timerTxt.text = "20:00"
+//            timerLengthMinutes = 20
+//
+//        }
         binding.playBtn.setOnClickListener {
             Log.e("TAG", "play")
             timerLengthSeconds = timerLengthMinutes * 60L
@@ -122,14 +121,14 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             }
             updateButtonActiveState()
         }
-        binding.stopBtn.setOnClickListener {
-            viewModel.stopTimer()
-            binding.progressCountdown.progress = 0
-            binding.timerTxt.text = "25:00"
-            timerLengthMinutes = 25
-            updateButtonActiveState()
-
-        }
+//        binding.stopBtn.setOnClickListener {
+//            viewModel.stopTimer()
+//            binding.progressCountdown.progress = 0
+//            binding.timerTxt.text = "25:00"
+//            timerLengthMinutes = 25
+//            updateButtonActiveState()
+//
+//        }
 
 
     }
@@ -153,28 +152,26 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         viewModel.timerState().observe(viewLifecycleOwner) {
             when (it) {
                 MainPageViewModel.TimerState.Running -> {
-                    binding.stopBtn.isEnabled = true
                     binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
-                    binding.fiveMinBtn.isEnabled = false
-                    binding.tenMinBtn.isEnabled = false
-                    binding.fifteenMinBtn.isEnabled = false
-                    binding.twentyMinBtn.isEnabled = false
-                }
-                MainPageViewModel.TimerState.Paused -> {
-                    binding.stopBtn.isEnabled = true
-                    binding.pauseBtn.isEnabled = false
-                    binding.playBtn.isEnabled = true
+
                 }
                 else -> {
-                    binding.stopBtn.isEnabled = false
-                    binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
-                    binding.fiveMinBtn.isEnabled = true
-                    binding.tenMinBtn.isEnabled = true
-                    binding.fifteenMinBtn.isEnabled = true
-                    binding.twentyMinBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = false
+                    binding.playBtn.isVisible = true
                 }
+//                else -> {
+//                    binding.stopBtn.isEnabled = false
+//                    binding.pauseBtn.isEnabled = true
+//                    binding.playBtn.isEnabled = true
+//                    binding.fiveMinBtn.isEnabled = true
+//                    binding.tenMinBtn.isEnabled = true
+//                    binding.fifteenMinBtn.isEnabled = true
+//                    binding.twentyMinBtn.isEnabled = true
+//                }
             }
         }
 
