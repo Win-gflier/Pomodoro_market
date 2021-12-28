@@ -9,34 +9,65 @@
         android:backgroundTint="@color/main_background"
         tools:context=".ui.main_page.MainPageFragment">
 
+        <android.widget.Toolbar
+            android:id="@+id/tool_bar_main_page"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/black">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/app_name"
+                android:textColor="@color/orange"
+                android:textSize="32sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+            <ImageButton
+                android:id="@+id/tool_bar_settings_btn"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/ic_settings_btn_work" />
+        </android.widget.Toolbar>
+
         <TextView
             android:id="@+id/work_state_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/poppins"
             android:text="@string/work_state"
             android:textColor="@color/black"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/progressCountdown"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar_main_page" />
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        <ProgressBar
             android:id="@+id/progressCountdown"
-            style="@style/Widget.MaterialProgressBar.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="340dp"
+            android:layout_height="340dp"
             android:background="@drawable/pb_circle_shape"
-            android:minWidth="306dp"
-            android:minHeight="306dp"
-            android:progress="55"
-            android:progressTint="@color/orange"
+            android:progress="94"
+            android:progressDrawable="@drawable/circular_pb"
+            android:rotation="-90"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.326" />
+            app:layout_constraintVertical_bias="0.337" />
 
         <TextView
             android:id="@+id/timer_txt"
@@ -53,11 +84,189 @@
             tools:text="25:00" />
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/full_circle_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressCountdown">
+
+            <ImageView
+                android:id="@+id/full_circle_work1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.518"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work1"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work2"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work3"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work4"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work5"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work6"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/full_circle_work7"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/empty_circle_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="44dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressCountdown">
+
+            <ImageView
+                android:id="@+id/empty_circle_work1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/empty_circle_work8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_circle_work7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_empty_cycle_work" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageButton
             android:id="@+id/play_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -77,14 +286,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
             app:srcCompat="@drawable/ic_pause_btn_work" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_full_cycle_work"
-            tools:layout_editor_absoluteX="75dp"
-            tools:layout_editor_absoluteY="416dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

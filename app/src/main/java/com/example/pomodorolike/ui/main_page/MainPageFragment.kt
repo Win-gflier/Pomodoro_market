@@ -4,10 +4,10 @@ import android.nfc.Tag
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,7 +21,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
     private var timerLengthMinutes = 25
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,7 +81,9 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
+        requireActivity().window.statusBarColor = resources.getColor(R.color.grey_dark)
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
 //            binding.timerTxt.text = "05:00"
