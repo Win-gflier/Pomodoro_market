@@ -24,6 +24,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("TAg","test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
     }
 
