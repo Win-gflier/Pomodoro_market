@@ -10,5 +10,10 @@
 
     <!--Custom Colors-->
     <color name="main_background">#E5E5E5</color>
+    <color name="orange">#F7936F</color>
+    <color name="orange_light">#F9F1ED</color>
+    <color name="grey_dark">#CDCDCD</color>
+    <color name="grey_light">#EAEAEA</color>
+    <color name="grey_very_light">#FBFBFB</color>
 
 </resources>

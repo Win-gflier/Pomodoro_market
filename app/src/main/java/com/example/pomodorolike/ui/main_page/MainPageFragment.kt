@@ -1,13 +1,16 @@
 package com.example.pomodorolike.ui.main_page
 
+import android.graphics.Color
 import android.nfc.Tag
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.pomodorolike.R
@@ -20,94 +23,50 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
     private var timerLengthMinutes = 25
-
+    private var numberOfCycles = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.e("TAg","test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        initTimer()
-//    }
-//
-//    fun initTimer(){
-//        viewModel.timerLengthSeconds().observe(viewLifecycleOwner) {
-//            timerLengthSeconds = it
-//            if (timerState == MainPageViewModel.TimerState.Stopped){
-//                viewModel.setNewTimerLength(timerLengthMinutes)
-//                binding.progressCountdown.max = timerLengthSeconds.toInt()
-//            }
-//            else{
-//                binding.progressCountdown.max = timerLengthSeconds.toInt()
-//            }
-//            if (timerState == MainPageViewModel.TimerState.Running || timerState == MainPageViewModel.TimerState.Paused){
-//                viewModel.secondsRemaining().observe(viewLifecycleOwner, Observer {
-//                    secondsRemaining = it
-//                })
-//            }
-//            else{
-//                secondsRemaining = timerLengthSeconds
-//            }
-//
-//            if(timerState == MainPageViewModel.TimerState.Running){
-//                viewModel.startTimer(secondsRemaining * 1000)
-//            }
-//            viewModel.updateButtons()
-//            updateCountdownUI()
-//        }
-//
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        if (timerState == MainPageViewModel.TimerState.Running){
-//            viewModel.pauseTimer()
-//            //StartBackgroundTimer
-//        }
-//        else if(timerState == MainPageViewModel.TimerState.Paused){
-//            //show notif and pass the state
-//        }
-//
-//    }
-//    fun getLastTime(){
-//
-//    }
-//
-
-//
 //    companion object {
 //        fun newInstance() = MainPageFragment()
 //    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requireActivity().window.decorView.systemUiVisibility =View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.white)
+        }
         binding.timerTxt.text = "25:00"
-        binding.fiveMinBtn.setOnClickListener {
-            binding.timerTxt.text = "05:00"
-            timerLengthMinutes = 5
-
-        }
-        binding.tenMinBtn.setOnClickListener {
-            Log.e("TAG", "10")
-            binding.timerTxt.text = "10:00"
-            timerLengthMinutes = 10
-        }
-        binding.fifteenMinBtn.setOnClickListener {
-            Log.e("TAG", "15")
-            binding.timerTxt.text = "15:00"
-            timerLengthMinutes = 15
-
-        }
-        binding.twentyMinBtn.setOnClickListener {
-            Log.e("TAG", "twenty")
-            binding.timerTxt.text = "20:00"
-            timerLengthMinutes = 20
-
-        }
+//        binding.fiveMinBtn.setOnClickListener {
+//            binding.timerTxt.text = "05:00"
+//            timerLengthMinutes = 5
+//
+//        }
+//        binding.tenMinBtn.setOnClickListener {
+//            Log.e("TAG", "10")
+//            binding.timerTxt.text = "10:00"
+//            timerLengthMinutes = 10
+//        }
+//        binding.fifteenMinBtn.setOnClickListener {
+//            Log.e("TAG", "15")
+//            binding.timerTxt.text = "15:00"
+//            timerLengthMinutes = 15
+//
+//        }
+//        binding.twentyMinBtn.setOnClickListener {
+//            Log.e("TAG", "twenty")
+//            binding.timerTxt.text = "20:00"
+//            timerLengthMinutes = 20
+//
+//        }
         binding.playBtn.setOnClickListener {
             Log.e("TAG", "play")
             timerLengthSeconds = timerLengthMinutes * 60L
@@ -118,18 +77,10 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
-            viewModel.mSecondsRemaining().observe(viewLifecycleOwner){
+            viewModel.mSecondsRemaining().observe(viewLifecycleOwner) {
                 timerLengthMSeconds = it
             }
             updateButtonActiveState()
-        }
-        binding.stopBtn.setOnClickListener {
-            viewModel.stopTimer()
-            binding.progressCountdown.progress = 0
-            binding.timerTxt.text = "25:00"
-            timerLengthMinutes = 25
-            updateButtonActiveState()
-
         }
 
 
@@ -154,27 +105,16 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         viewModel.timerState().observe(viewLifecycleOwner) {
             when (it) {
                 MainPageViewModel.TimerState.Running -> {
-                    binding.stopBtn.isEnabled = true
                     binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
-                    binding.fiveMinBtn.isEnabled = false
-                    binding.tenMinBtn.isEnabled = false
-                    binding.fifteenMinBtn.isEnabled = false
-                    binding.twentyMinBtn.isEnabled = false
-                }
-                MainPageViewModel.TimerState.Paused -> {
-                    binding.stopBtn.isEnabled = true
-                    binding.pauseBtn.isEnabled = false
-                    binding.playBtn.isEnabled = true
+
                 }
                 else -> {
-                    binding.stopBtn.isEnabled = false
-                    binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
-                    binding.fiveMinBtn.isEnabled = true
-                    binding.tenMinBtn.isEnabled = true
-                    binding.fifteenMinBtn.isEnabled = true
-                    binding.twentyMinBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = false
+                    binding.playBtn.isVisible = true
                 }
             }
         }
