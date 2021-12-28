@@ -31,9 +31,9 @@
             <ImageButton
                 android:id="@+id/tool_bar_settings_btn"
                 android:layout_width="wrap_content"
-                android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/ic_settings_btn_work" />
         </android.widget.Toolbar>
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:fontFamily="@font/poppins"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/work_state"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -59,9 +59,9 @@
             android:layout_width="340dp"
             android:layout_height="340dp"
             android:background="@drawable/pb_circle_shape"
-            android:progress="94"
+            android:progress="100"
             android:progressDrawable="@drawable/circular_pb"
-            android:rotation="-90"
+            android:rotation="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
@@ -83,99 +83,12 @@
             app:layout_constraintVertical_bias="0.396"
             tools:text="25:00" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/full_circle_group"
+        <RelativeLayout
+            android:id="@+id/circle_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressCountdown">
-
-            <ImageView
-                android:id="@+id/full_circle_work1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.518"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work1"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work2"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work3"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work4"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work5"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work6"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-
-            <ImageView
-                android:id="@+id/full_circle_work8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/full_circle_work7"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_full_cycle_work" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/empty_circle_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="44dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -186,105 +99,163 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work1"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work1"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work1"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work2"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work2"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work2"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work3"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work3"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work3"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work4"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work4"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work4"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work5"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work5"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work5"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work6"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work6"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
+
+            <ImageView
+                android:id="@+id/full_circle_work7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work6"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
 
             <ImageView
                 android:id="@+id/empty_circle_work8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/empty_circle_work7"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/empty_circle_work7"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_empty_cycle_work" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/full_circle_work8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/full_circle_work7"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_full_cycle_work" />
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/play_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
+            app:layout_constraintTop_toBottomOf="@+id/circle_group"
             app:srcCompat="@drawable/ic_play_btn_work" />
 
         <ImageButton
             android:id="@+id/pause_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressCountdown"
+            app:layout_constraintTop_toBottomOf="@+id/circle_group"
             app:srcCompat="@drawable/ic_pause_btn_work" />
 
 
