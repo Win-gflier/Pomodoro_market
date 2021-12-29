@@ -1,20 +1,26 @@
 package com.example.pomodorolike.ui.main_page
 
+import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.nfc.Tag
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import androidx.core.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.pomodorolike.R
 import com.example.pomodorolike.databinding.MainPageFragmentBinding
+import android.widget.RelativeLayout
+
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private lateinit var viewModel: MainPageViewModel
@@ -23,14 +29,16 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
     private var timerLengthMinutes = 25
-    private var numberOfCycles = 0
+    private var numberOfCycles = 4
+    private var numberOfCompleteCycles = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAg","test")
+        Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
     }
-//    companion object {
+
+    //    companion object {
 //        fun newInstance() = MainPageFragment()
 //    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -38,12 +46,14 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requireActivity().window.decorView.systemUiVisibility =View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
+        addImageView(numberOfCycles, numberOfCompleteCycles)
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
 //            binding.timerTxt.text = "05:00"
@@ -85,6 +95,63 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
 
     }
+
+    private fun addImageView(numberOfCycles: Int, xthCycle: Int) {
+        var i = 0
+        while (i < numberOfCycles+1) {
+            var id = i
+            val imageView = ImageView(requireContext())
+            binding.circleGroup.addView(imageView)
+            imageView.id = id
+            imageView.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_work))
+            imageView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            imageView.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+            val params = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.addRule(RelativeLayout.RIGHT_OF, id - 1)
+            imageView.layoutParams = params
+            imageView.setMargins(left = 5.px, right = 5.px)
+
+
+            i++
+        }
+        var j = 0
+        while (j < xthCycle+1) {
+            var id = j
+            val imageView = ImageView(requireContext())
+            binding.circleGroup.addView(imageView)
+            imageView.id = id
+            imageView.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_work))
+            imageView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            imageView.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+            val params = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.addRule(RelativeLayout.RIGHT_OF, id - 1)
+            imageView.layoutParams = params
+            imageView.setMargins(left = 5.px, right = 5.px)
+
+
+            j++
+        }
+    }
+
+    fun View.setMargins(
+        left: Int = this.marginLeft,
+        top: Int = this.marginTop,
+        right: Int = this.marginRight,
+        bottom: Int = this.marginBottom,
+    ) {
+        layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+            setMargins(left, top, right, bottom)
+        }
+    }
+
+    val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     fun updateCountdownUI() {
         viewModel.mSecondsRemaining().observe(viewLifecycleOwner) {
