@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PomodoroLike</string>
+    <string name="app_name">Pomodoro</string>
     <string name="work_state">Work</string>
     <string name="break_state_short">Short Break</string>
     <string name="break_state_long">Long Break</string>
