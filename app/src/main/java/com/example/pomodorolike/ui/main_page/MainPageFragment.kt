@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.pomodorolike.R
 import com.example.pomodorolike.databinding.MainPageFragmentBinding
 import android.widget.RelativeLayout
+import com.example.pomodorolike.ui.rest_page.RestPageFragment
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {
@@ -22,7 +24,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private lateinit var timerState: MainPageViewModel.TimerState
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 25
+    private var timerLengthMinutes = 1
     private var numberOfCycles = 4
     private var numberOfCompleteCycles = 3
 
@@ -32,9 +34,10 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
     }
 
-    //    companion object {
-//        fun newInstance() = MainPageFragment()
-//    }
+    companion object {
+        fun newInstance() = MainPageFragment()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
@@ -47,6 +50,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
+
         addIVCycleWorkPage(numberOfCycles, numberOfCompleteCycles)
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
@@ -92,7 +96,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
-        while (i < numberOfCycles+1) {
+        while (i < numberOfCycles + 1) {
             var id = i
             val ivWorkCycle = ImageView(requireContext())
             binding.circleGroup.addView(ivWorkCycle)
@@ -103,13 +107,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
             )
-            params1.addRule(RelativeLayout.RIGHT_OF, id-1)
+            params1.addRule(RelativeLayout.RIGHT_OF, id - 1)
             ivWorkCycle.layoutParams = params1
             ivWorkCycle.setMargins(left = 5.px, right = 5.px)
-            if(i < xthCycle+1){
+            if (i < xthCycle + 1) {
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_work))
 
-            }else{
+            } else {
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_work))
             }
             i++
@@ -155,11 +159,19 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isEnabled = false
 
                 }
-                else -> {
+                MainPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
+                }
+                else ->{
+                    val restPageFragment = RestPageFragment()
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.flFragment, restPageFragment)
+                        addToBackStack(null)
+                        commit()
+                    }
                 }
             }
         }
