@@ -24,7 +24,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var timerLengthSeconds = 0L
     private var timerLengthMinutes = 25
     private var numberOfCycles = 4
-    private var numberOfCompleteCycles = 1
+    private var numberOfCompleteCycles = 3
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,7 +47,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
-        addCycleImageViewWork(numberOfCycles, numberOfCompleteCycles)
+        addIVCycleWorkPage(numberOfCycles, numberOfCompleteCycles)
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
 //            binding.timerTxt.text = "05:00"
@@ -90,40 +90,28 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     }
 
-    private fun addCycleImageViewWork(numberOfCycles: Int, xthCycle: Int) {
+    private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
         while (i < numberOfCycles+1) {
             var id = i
+            val ivWorkCycle = ImageView(requireContext())
+            binding.circleGroup.addView(ivWorkCycle)
+            ivWorkCycle.id = id
+            ivWorkCycle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            ivWorkCycle.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+            val params1 = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+            params1.addRule(RelativeLayout.RIGHT_OF, id-1)
+            ivWorkCycle.layoutParams = params1
+            ivWorkCycle.setMargins(left = 5.px, right = 5.px)
             if(i < xthCycle+1){
-                val workFullCycle = ImageView(requireContext())
-                binding.circleGroup.addView(workFullCycle)
-                workFullCycle.id = id
-                workFullCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_work))
-                workFullCycle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                workFullCycle.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-                val params1 = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params1.addRule(RelativeLayout.RIGHT_OF, id-1)
-                workFullCycle.layoutParams = params1
-                workFullCycle.setMargins(left = 5.px, right = 5.px)
-            }else{
-                val workEmptyCycle = ImageView(requireContext())
-                binding.circleGroup.addView(workEmptyCycle)
-                workEmptyCycle.id = id
-                workEmptyCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_work))
-                workEmptyCycle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                workEmptyCycle.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-                val params = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.RIGHT_OF, id-1)
-                workEmptyCycle.layoutParams = params
-                workEmptyCycle.setMargins(left = 5.px, right = 5.px)
-            }
+                ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_work))
 
+            }else{
+                ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_work))
+            }
             i++
         }
 
