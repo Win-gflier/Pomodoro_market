@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -15,28 +14,42 @@ import androidx.databinding.DataBindingUtil
 import com.example.pomodorolike.R
 import com.example.pomodorolike.databinding.MainPageFragmentBinding
 import android.widget.RelativeLayout
-import com.example.pomodorolike.ui.rest_page.RestPageFragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private lateinit var viewModel: MainPageViewModel
     private lateinit var binding: MainPageFragmentBinding
-    private lateinit var timerState: MainPageViewModel.TimerState
+    lateinit var navController: NavController
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
     private var timerLengthMinutes = 1
     private var numberOfCycles = 4
-    private var numberOfCompleteCycles = 3
+    private var numberOfCompleteCycles = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
+        navController = Navigation.findNavController(view)
+        Log.e("TAG",numberOfCompleteCycles.toString()+"onviewCreated")
+
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.e("TAG",(arguments?.getInt("cycle_count") ?: 0).toString())
+        Log.e("TAG",numberOfCompleteCycles.toString())
+        numberOfCompleteCycles += arguments?.getInt("cycle_count") ?: 0
     }
 
     companion object {
         fun newInstance() = MainPageFragment()
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -50,7 +63,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
-
         addIVCycleWorkPage(numberOfCycles, numberOfCompleteCycles)
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
@@ -103,12 +115,12 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             ivWorkCycle.id = id
             ivWorkCycle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             ivWorkCycle.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-            val params1 = RelativeLayout.LayoutParams(
+            val params = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
             )
-            params1.addRule(RelativeLayout.RIGHT_OF, id - 1)
-            ivWorkCycle.layoutParams = params1
+            params.addRule(RelativeLayout.RIGHT_OF, id - 1)
+            ivWorkCycle.layoutParams = params
             ivWorkCycle.setMargins(left = 5.px, right = 5.px)
             if (i < xthCycle + 1) {
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_work))
@@ -118,7 +130,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             }
             i++
         }
-
     }
 
     fun View.setMargins(
@@ -165,13 +176,8 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
                 }
-                else ->{
-                    val restPageFragment = RestPageFragment()
-                    fragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.flFragment, restPageFragment)
-                        addToBackStack(null)
-                        commit()
-                    }
+                else -> {
+                    navController.navigate(R.id.action_mainPageFragment2_to_restPageFragment2)
                 }
             }
         }
