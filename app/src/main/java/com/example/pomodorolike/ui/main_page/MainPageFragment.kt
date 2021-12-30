@@ -24,26 +24,14 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     lateinit var navController: NavController
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 25
+    private var timerLengthMinutes = 1
     private var numberOfCycles = 4
     private var numberOfCompleteCycles = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(view)
-        Log.e("TAG",numberOfCompleteCycles.toString()+"onviewCreated")
-
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        Log.e("TAG",(arguments?.getInt("cycle_count") ?: 0).toString())
-        Log.e("TAG",numberOfCompleteCycles.toString())
-        numberOfCompleteCycles += arguments?.getInt("cycle_count") ?: 0
     }
 
     companion object {
@@ -55,6 +43,14 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
+        arguments?.getInt("cycle_count")?.let {
+            viewModel.setCompletedCycleCount(it)
+        }
+        viewModel.completeCycleCount().observe(viewLifecycleOwner) {
+            addIVCycleWorkPage(numberOfCycles, it)
+        }
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -63,7 +59,8 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
-        addIVCycleWorkPage(numberOfCycles, numberOfCompleteCycles)
+
+
         binding.timerTxt.text = "25:00"
 //        binding.fiveMinBtn.setOnClickListener {
 //            binding.timerTxt.text = "05:00"
@@ -91,7 +88,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.playBtn.setOnClickListener {
             Log.e("TAG", "play")
-            viewModel.startTimer(timerLengthMSeconds)
+            viewModel.startTimer(1000)
             updateCountdownUI()
             updateButtonActiveState()
         }

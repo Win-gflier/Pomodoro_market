@@ -10,9 +10,19 @@ class MainPageViewModel : ViewModel() {
     private var _timerLengthSecond = MutableLiveData<Long>()
     private var _mSecondsRemaining = MutableLiveData<Long>()
     private var _timerState = MutableLiveData<TimerState>()
+    private var _completeCycleCount = MutableLiveData(0)
 
     enum class TimerState {
         Stopped, Paused, Running
+    }
+
+
+    fun completeCycleCount(): LiveData<Int> {
+        return _completeCycleCount
+    }
+
+    fun setCompletedCycleCount(i: Int) {
+            _completeCycleCount.value = _completeCycleCount.value!! + i
     }
 
 
@@ -31,12 +41,9 @@ class MainPageViewModel : ViewModel() {
             override fun onTick(p0: Long) {
                 _mSecondsRemaining.value = p0
             }
-
             override fun onFinish() = stopTimer()
-
         }.start()
     }
-
 
 
     fun pauseTimer() {
