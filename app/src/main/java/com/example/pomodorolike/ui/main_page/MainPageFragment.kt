@@ -54,6 +54,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
+
         binding.timerTxt.text = "25:00"
 
         arguments?.getInt("cycle_count")?.let {
