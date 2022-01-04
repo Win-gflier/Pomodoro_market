@@ -44,7 +44,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
@@ -87,7 +86,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.playBtn.setOnClickListener {
-            Log.e("TAG", "play")
             viewModel.startTimer(1000)
             updateCountdownUI()
             updateButtonActiveState()

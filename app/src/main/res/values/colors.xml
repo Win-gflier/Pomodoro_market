@@ -15,5 +15,7 @@
     <color name="grey_dark">#CDCDCD</color>
     <color name="grey_light">#EAEAEA</color>
     <color name="grey_very_light">#FBFBFB</color>
+    <color name="rest_page_pb_background">#eaeaea</color>
+    <color name="rest_page_pb_foreground">#fbfbfb</color>
 
 </resources>
