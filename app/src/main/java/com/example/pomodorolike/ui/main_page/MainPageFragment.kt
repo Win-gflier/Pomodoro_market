@@ -36,10 +36,10 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(requireView())
     }
-
-    companion object {
-        fun newInstance() = MainPageFragment()
-    }
+//
+//    companion object {
+//        fun newInstance() = MainPageFragment()
+//    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -86,7 +86,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.playBtn.setOnClickListener {
-            viewModel.startTimer(timerLengthMSeconds)
+            viewModel.startTimer(1000/*timerLengthMSeconds*/)
             updateCountdownUI()
             updateButtonActiveState()
         }

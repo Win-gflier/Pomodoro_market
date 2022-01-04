@@ -27,7 +27,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 5
+    private var timerLengthMinutes = 1//5
     private var numberOfCycles = 4
 
 
