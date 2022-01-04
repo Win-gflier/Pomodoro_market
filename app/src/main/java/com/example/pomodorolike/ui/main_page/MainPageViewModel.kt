@@ -7,31 +7,16 @@ import androidx.lifecycle.ViewModel
 
 class MainPageViewModel : ViewModel() {
     private lateinit var timer: CountDownTimer
-    private var _timerLengthSecond = MutableLiveData<Long>()
-    private var _mSecondsRemaining = MutableLiveData<Long>()
-    private var _timerState = MutableLiveData<TimerState>()
-    private var _completeCycleCount = MutableLiveData(0)
+    val _mSecondsRemaining: MutableLiveData<Long> by lazy {
+        MutableLiveData<Long>()
+    }
+    val _timerState: MutableLiveData<TimerState> by lazy{
+        MutableLiveData<TimerState>()
+    }
+
 
     enum class TimerState {
         Stopped, Paused, Running
-    }
-
-
-    fun completeCycleCount(): LiveData<Int> {
-        return _completeCycleCount
-    }
-
-    fun setCompletedCycleCount(i: Int) {
-            _completeCycleCount.value = _completeCycleCount.value!! + i
-    }
-
-
-    fun mSecondsRemaining(): LiveData<Long> {
-        return _mSecondsRemaining
-    }
-
-    fun timerState(): LiveData<TimerState> {
-        return _timerState
     }
 
 

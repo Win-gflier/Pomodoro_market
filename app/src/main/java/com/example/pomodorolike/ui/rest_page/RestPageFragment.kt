@@ -35,12 +35,17 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
-        // TODO: Use the ViewModel
+        getPrevCycleCount()
         binding.textBtn.setOnClickListener {
-            val bundle = bundleOf("cycle_count" to 1)
-            navController.navigate(R.id.action_restPageFragment2_to_mainPageFragment2, bundle)
+            viewModel._completeCycleCount.value = ++viewModel.initialNumber
+            viewModel._completeCycleCount.observe(viewLifecycleOwner){
+                navController.navigate(R.id.action_restPageFragment2_to_mainPageFragment2, bundleOf("cycle_count" to it))
 
+            }
         }
+    }
+    fun getPrevCycleCount(){
+        viewModel.initialNumber = arguments?.getInt("cycle_count")!!
     }
 
 }

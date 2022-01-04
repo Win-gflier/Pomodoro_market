@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.pomodorolike.R
 import com.example.pomodorolike.databinding.MainPageFragmentBinding
 import android.widget.RelativeLayout
+import androidx.core.os.bundleOf
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 
@@ -28,10 +30,11 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var numberOfCycles = 4
     private var numberOfCompleteCycles = 0
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
-        navController = Navigation.findNavController(view)
+        navController = Navigation.findNavController(requireView())
     }
 
     companion object {
@@ -43,14 +46,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
-        arguments?.getInt("cycle_count")?.let {
-            viewModel.setCompletedCycleCount(it)
-        }
-        viewModel.completeCycleCount().observe(viewLifecycleOwner) {
-            addIVCycleWorkPage(numberOfCycles, it)
-        }
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -59,9 +54,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
         }
-
-
         binding.timerTxt.text = "25:00"
+
+        arguments?.getInt("cycle_count")?.let {
+            addIVCycleWorkPage(numberOfCycles, it)
+            numberOfCompleteCycles = it
+        }
+
 //        binding.fiveMinBtn.setOnClickListener {
 //            binding.timerTxt.text = "05:00"
 //            timerLengthMinutes = 5
@@ -94,7 +93,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
-            viewModel.mSecondsRemaining().observe(viewLifecycleOwner) {
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
                 timerLengthMSeconds = it
             }
             updateButtonActiveState()
@@ -144,7 +143,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     fun updateCountdownUI() {
-        viewModel.mSecondsRemaining().observe(viewLifecycleOwner) {
+        viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
             var secondsStr = secondInMinuteUntilFinished.toString()
@@ -159,7 +158,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     }
 
     fun updateButtonActiveState() {
-        viewModel.timerState().observe(viewLifecycleOwner) {
+        viewModel._timerState.observe(viewLifecycleOwner) {
             when (it) {
                 MainPageViewModel.TimerState.Running -> {
                     binding.pauseBtn.isEnabled = true
@@ -174,11 +173,11 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isVisible = true
                 }
                 else -> {
-                    navController.navigate(R.id.action_mainPageFragment2_to_restPageFragment2)
+                    navController.navigate(R.id.action_mainPageFragment2_to_restPageFragment2,
+                        bundleOf("cycle_count" to numberOfCompleteCycles))
                 }
             }
         }
 
     }
-
 }
