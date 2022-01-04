@@ -26,7 +26,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     lateinit var navController: NavController
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 1
+    private var timerLengthMinutes = 25
     private var numberOfCycles = 4
     private var numberOfCompleteCycles = 0
 
@@ -86,7 +86,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.playBtn.setOnClickListener {
-            viewModel.startTimer(1000)
+            viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
             updateButtonActiveState()
         }

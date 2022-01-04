@@ -27,7 +27,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 1
+    private var timerLengthMinutes = 5
     private var numberOfCycles = 4
 
 
@@ -55,6 +55,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.orange)
         }
+        setBreakText(timerLengthMinutes)
 
         binding.timerTxt.text = "05:00"
 
@@ -169,5 +170,13 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             }
         }
 
+    }
+    fun setBreakText(length: Int){
+        if(length == 5){
+            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
+        }else{
+            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
+
+        }
     }
 }
