@@ -18,6 +18,8 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_play_btn_dark.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_play_btn_work.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_plus_btn.xml" value="0.4675925925925926" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_right_arrow.xml" value="0.3990740740740741" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_right_arrow_orange.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_settings_btn.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_settings_btn_rest.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/pb_circle_shape.xml" value="0.42685185185185187" />
@@ -27,7 +29,7 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/main_page_fragment.xml" value="0.22" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/rest_page_fragment.xml" value="0.2" />
-        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.5703125" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.25" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/menu/menu.xml" value="0.2" />
       </map>
     </option>

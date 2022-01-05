@@ -47,6 +47,8 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -58,11 +60,10 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         setBreakText(timerLengthMinutes)
 
         binding.timerTxt.text = "05:00"
-
-        viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
+        openSettings()
 
         getPrevCycleCount()
-        addIVCycleWorkPage(numberOfCycles,viewModel.initialNumber)
+        addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
 
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
@@ -142,7 +143,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    fun updateButtonActiveState() {
+    private fun updateButtonActiveState() {
         viewModel._timerState.observe(viewLifecycleOwner) {
             when (it) {
                 RestPageViewModel.TimerState.Running -> {
@@ -171,11 +172,19 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
 
     }
-    fun setBreakText(length: Int){
-        if(length == 5){
+
+    private fun setBreakText(length: Int) {
+        if (length == 5) {
             binding.workStateTxt.text = resources.getText(R.string.break_state_short)
-        }else{
+        } else {
             binding.workStateTxt.text = resources.getText(R.string.break_state_long)
+
+        }
+    }
+
+    private fun openSettings(){
+        binding.toolBarSettingsBtn.setOnClickListener {
+            navController.navigate(R.id.action_restPageFragment2_to_settingsPageFragment)
 
         }
     }

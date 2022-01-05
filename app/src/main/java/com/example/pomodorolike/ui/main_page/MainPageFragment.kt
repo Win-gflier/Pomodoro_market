@@ -55,7 +55,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
 
         binding.timerTxt.text = "25:00"
-
+        openSettings()
         arguments?.getInt("cycle_count")?.let {
             addIVCycleWorkPage(numberOfCycles, it)
             numberOfCompleteCycles = it
@@ -178,5 +178,11 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             }
         }
 
+    }
+    private fun openSettings(){
+        binding.toolBarSettingsBtn.setOnClickListener {
+            navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
+
+        }
     }
 }
