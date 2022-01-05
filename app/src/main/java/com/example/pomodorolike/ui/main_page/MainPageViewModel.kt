@@ -1,7 +1,6 @@
 package com.example.pomodorolike.ui.main_page
 
 import android.os.CountDownTimer
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -11,12 +10,12 @@ class MainPageViewModel : ViewModel() {
         MutableLiveData<Long>()
     }
     val _timerState: MutableLiveData<TimerState> by lazy{
-        MutableLiveData<TimerState>()
+        MutableLiveData<TimerState>(TimerState.Uninitialized)
     }
 
 
     enum class TimerState {
-        Stopped, Paused, Running
+        Stopped, Paused, Running, Uninitialized
     }
 
 

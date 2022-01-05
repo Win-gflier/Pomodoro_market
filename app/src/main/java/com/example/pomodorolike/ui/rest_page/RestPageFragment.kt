@@ -48,15 +48,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requireActivity().window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.orange)
-        }
+        setStatusBar()
         setBreakText(timerLengthMinutes)
 
         binding.timerTxt.text = "05:00"
@@ -150,7 +142,6 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isEnabled = true
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
-
                 }
                 RestPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
@@ -182,10 +173,25 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    private fun openSettings(){
+    private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
-            navController.navigate(R.id.action_restPageFragment2_to_settingsPageFragment)
+            viewModel.pauseTimer()
+            navController.navigate(
+                R.id.action_restPageFragment2_to_settingsPageFragment,
+                bundleOf()
+            )
 
+        }
+    }
+
+    private fun setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.orange)
         }
     }
 }

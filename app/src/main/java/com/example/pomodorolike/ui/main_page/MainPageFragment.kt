@@ -34,7 +34,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
-        navController = Navigation.findNavController(requireView())
+        navController = Navigation.findNavController(view)
     }
 //
 //    companion object {
@@ -45,15 +45,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requireActivity().window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
-        }
-
+        setStatusBar()
         binding.timerTxt.text = "25:00"
         openSettings()
         arguments?.getInt("cycle_count")?.let {
@@ -86,7 +78,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.playBtn.setOnClickListener {
-            viewModel.startTimer(1000/*timerLengthMSeconds*/)
+            viewModel.startTimer(10000/*timerLengthMSeconds*/)
             updateCountdownUI()
             updateButtonActiveState()
         }
@@ -181,8 +173,23 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     }
     private fun openSettings(){
         binding.toolBarSettingsBtn.setOnClickListener {
-            navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
+            if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized){
+                navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
 
+            }else{
+                navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
+            }
+        }
+    }
+
+    private fun setStatusBar(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.white)
         }
     }
 }

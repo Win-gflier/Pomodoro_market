@@ -243,7 +243,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:height="30dp" />
+                android:layout_marginEnd="15dp"
+                android:height="30dp"
+                android:checked="false"
+                android:thumb="@drawable/settings_page_switch_thumb"
+                app:track="@drawable/settings_page_switch_track" />
 
 
         </RelativeLayout>
@@ -271,12 +275,17 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
+
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/auto_work_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:height="30dp" />
+                android:layout_marginEnd="15dp"
+                android:height="30dp"
+                android:checked="true"
+                android:thumb="@drawable/settings_page_switch_thumb"
+                app:track="@drawable/settings_page_switch_track" />
 
 
         </RelativeLayout>

@@ -35,6 +35,10 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
+        setStatusBar()
+    }
+
+    private fun setStatusBar(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
