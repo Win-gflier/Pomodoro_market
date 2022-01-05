@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainPageFragment2">
+
+    <fragment
+        android:id="@+id/mainPageFragment2"
+        android:name="com.example.pomodorolike.ui.main_page.MainPageFragment"
+        android:label="MainPageFragment">
+        <action
+            android:id="@+id/action_mainPageFragment2_to_restPageFragment2"
+            app:destination="@id/restPageFragment2"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+
+
+        <argument
+            android:name="cycle_count"
+            android:defaultValue="0"/>
+    </fragment>
+    <fragment
+        android:id="@+id/restPageFragment2"
+        android:name="com.example.pomodorolike.ui.rest_page.RestPageFragment"
+        android:label="RestPageFragment">
+        <action
+            android:id="@+id/action_restPageFragment2_to_mainPageFragment2"
+            app:destination="@id/mainPageFragment2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_left"/>
+
+        <argument
+            android:name="cycle_count"
+            android:defaultValue="0"/>
+    </fragment>
+</navigation>
