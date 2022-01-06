@@ -16,5 +16,8 @@
     <string name="settings_notifications">Notifications</string>
     <string name="settings_end_focus_sound">End focus Sound</string>
     <string name="settings_end_break_sound">End break sound</string>
-    <string name="settings_choose">Choose</string>
+    <string name="settings_choose">Choose  ></string>
+
+    <!--End Focus and Break Soun Page-->
+    <string name="none">None</string>
 </resources>

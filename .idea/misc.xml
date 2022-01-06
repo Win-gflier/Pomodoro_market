@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb_rest.xml" value="0.4675925925925926" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_choose_btn.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_circular_pb_corners.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle_rest.xml" value="0.5074074074074074" />
@@ -29,9 +30,13 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/settings_page_switch_track.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/end_sound_page_fragment.xml" value="0.5" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/focus_sound_page_fragment.xml" value="0.32760416666666664" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/fragment_scrolling.xml" value="0.49375866851595007" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/main_page_fragment.xml" value="0.22" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/rest_page_fragment.xml" value="0.2" />
-        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.5" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/sound_page_fragment.xml" value="0.5703125" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/menu/menu.xml" value="0.2" />
       </map>
     </option>

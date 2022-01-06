@@ -106,4 +106,7 @@ dependencies {
     //progress bar
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
 
+    //switch lib
+    implementation 'com.kyleduo.switchbutton:library:2.1.0'
+
 }

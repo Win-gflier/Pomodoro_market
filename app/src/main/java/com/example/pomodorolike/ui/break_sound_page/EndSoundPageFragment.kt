@@ -1,49 +1,43 @@
-package com.example.pomodorolike.ui.settings_page
+package com.example.pomodorolike.ui.break_sound_page
 
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
-import com.example.pomodorolike.databinding.MainPageFragmentBinding
-import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
+import com.example.pomodorolike.databinding.EndSoundPageFragmentBinding
 
-class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
-    private lateinit var viewModel: SettingsPageViewModel
-    private lateinit var binding: SettingsPageFragmentBinding
+class EndSoundPageFragment : Fragment(R.layout.end_sound_page_fragment) {
+    private lateinit var viewModel: EndSoundPageViewModel
+    private lateinit var binding: EndSoundPageFragmentBinding
     lateinit var navController: NavController
 
     companion object {
-        fun newInstance() = SettingsPageFragment()
+        fun newInstance() = EndSoundPageFragment()
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = DataBindingUtil.setContentView(requireActivity(), R.layout.settings_page_fragment)
+        viewModel = ViewModelProvider(this).get(EndSoundPageViewModel::class.java)
+        binding = DataBindingUtil.setContentView(requireActivity(), R.layout.end_sound_page_fragment)
         navController = Navigation.findNavController(view)
+
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
         setStatusBar()
-        binding.dropdownEndBreakSoundTxt.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_endSoundPageFragment)
-        }
-        binding.dropdownEndFocusSoundTxt.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_focusSoundPageFragment)
-        }
-    }
 
+        // TODO: Use the ViewModel
+    }
     private fun setStatusBar(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
