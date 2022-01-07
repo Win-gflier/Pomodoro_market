@@ -109,4 +109,7 @@ dependencies {
     //switch lib
     implementation 'com.kyleduo.switchbutton:library:2.1.0'
 
+    //timePicker
+    implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
+
 }
