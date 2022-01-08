@@ -53,6 +53,12 @@
         <action
             android:id="@+id/action_settingsPageFragment_to_focusSoundPageFragment"
             app:destination="@id/focusSoundPageFragment" />
+        <action
+            android:id="@+id/action_settingsPageFragment_to_restPageFragment2"
+            app:destination="@id/restPageFragment2" />
+        <action
+            android:id="@+id/action_settingsPageFragment_to_mainPageFragment2"
+            app:destination="@id/mainPageFragment2" />
     </fragment>
     <fragment
         android:id="@+id/EndSoundPageFragment"

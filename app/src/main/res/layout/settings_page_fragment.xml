@@ -20,7 +20,7 @@
             app:titleTextColor="@color/black">
 
             <ImageButton
-                android:id="@+id/tool_bar_settings_btn"
+                android:id="@+id/tool_bar_back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:gravity="fill_vertical"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_focus">
@@ -136,7 +136,7 @@
                         android:layout_height="145dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
                         app:wrapSelectorWheel="true" />
 
@@ -160,7 +160,7 @@
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/focus_picker_hours"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
                         app:wrapSelectorWheel="true" />
 
@@ -250,9 +250,9 @@
                         android:layout_height="145dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
-                        app:wrapSelectorWheel="true" />
+                        app:wrapSelectorWheel="true"/>
 
 
                     <TextView
@@ -274,9 +274,9 @@
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/short_break_picker_hours"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
-                        app:wrapSelectorWheel="true" />
+                        app:wrapSelectorWheel="true"/>
 
                 </RelativeLayout>
 
@@ -364,7 +364,7 @@
                         android:layout_height="145dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
                         app:wrapSelectorWheel="true" />
 
@@ -388,7 +388,7 @@
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/long_break_picker_hours"
                         app:selectedTextColor="@color/orange"
-                        app:textColor="@color/grey_very_light"
+                        app:textColor="@color/grey_dark"
                         app:wheelItemCount="3"
                         app:wrapSelectorWheel="true" />
 

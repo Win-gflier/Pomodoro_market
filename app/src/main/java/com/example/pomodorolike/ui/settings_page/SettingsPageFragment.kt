@@ -67,6 +67,12 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
+    private fun onToolBarBackBtnClick(){
+        binding.toolBarBackBtn.setOnClickListener {
+        }
+    }
+
+
     private fun onFocusClick() {
         binding.relativeLayoutDropdownFocus.setOnClickListener {
             if (binding.focusTimePicker.visibility == View.GONE) {
@@ -217,28 +223,25 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
+
+
     private fun setNumberPickerProperties() {
         //focus time
         binding.focusPickerHours.setMin(0)
         binding.focusPickerMinutes.setMin(0)
         binding.focusPickerHours.setMax(24)
         binding.focusPickerMinutes.setMax(59)
-        binding.focusPickerHours.setUnselectedTextColor(R.color.grey_light)
-        binding.focusPickerMinutes.setUnselectedTextColor(R.color.grey_light)
+
         //short break
         binding.shortBreakPickerHours.setMin(0)
         binding.shortBreakPickerMinutes.setMin(0)
         binding.shortBreakPickerHours.setMax(24)
         binding.shortBreakPickerMinutes.setMax(59)
-        binding.shortBreakPickerHours.setUnselectedTextColor(R.color.grey_light)
-        binding.shortBreakPickerMinutes.setUnselectedTextColor(R.color.grey_light)
         //long break
         binding.longBreakPickerHours.setMin(0)
         binding.longBreakPickerMinutes.setMin(0)
         binding.longBreakPickerHours.setMax(24)
         binding.longBreakPickerMinutes.setMax(59)
-        binding.longBreakPickerHours.setUnselectedTextColor(R.color.grey_light)
-        binding.longBreakPickerMinutes.setUnselectedTextColor(R.color.grey_light)
         //cycleCount
         binding.cycleCountInsideTxt.text = initialCycleCount.toString()
     }
