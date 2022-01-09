@@ -18,67 +18,68 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.pomodorolike.data.preferences.PrefRepository
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private lateinit var viewModel: MainPageViewModel
     private lateinit var binding: MainPageFragmentBinding
     lateinit var navController: NavController
+    private val prefRepository by lazy { PrefRepository(requireContext()) }
+
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 25
-    private var numberOfCycles = 4
+    private var timerLengthMinutes = 0L
+    private var timerLengthHours = 0L
+    private var numberOfCycles = 0
     private var numberOfCompleteCycles = 0
 
+    fun testPurposeInitialSetup(){
+        prefRepository.setFocusTimerLengthMSeconds(0L)
+        prefRepository.setFocusTimerLengthMinutes(25L)
+        prefRepository.setFocusTimerLengthSeconds(0L)
+        prefRepository.setFocusTimerLengthHours(0L)
+        prefRepository.setNumberOfCycles(4)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(view)
+        timerLengthMSeconds = prefRepository.getFocusTimerLengthMSeconds()
+        timerLengthSeconds = prefRepository.getFocusTimerLengthSeconds()
+        timerLengthMinutes = prefRepository.getFocusTimerLengthMinutes()
+        timerLengthHours = prefRepository.getFocusTimerLengthHours()
+        numberOfCycles = prefRepository.getNumberOfCycles()
+
+
     }
+
 //
 //    companion object {
 //        fun newInstance() = MainPageFragment()
 //    }
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         setStatusBar()
-        binding.timerTxt.text = "25:00"
         openSettings()
         arguments?.getInt("cycle_count")?.let {
             addIVCycleWorkPage(numberOfCycles, it)
             numberOfCompleteCycles = it
         }
 
-//        binding.fiveMinBtn.setOnClickListener {
-//            binding.timerTxt.text = "05:00"
-//            timerLengthMinutes = 5
-//
-//        }
-//        binding.tenMinBtn.setOnClickListener {
-//            Log.e("TAG", "10")
-//            binding.timerTxt.text = "10:00"
-//            timerLengthMinutes = 10
-//        }
-//        binding.fifteenMinBtn.setOnClickListener {
-//            Log.e("TAG", "15")
-//            binding.timerTxt.text = "15:00"
-//            timerLengthMinutes = 15
-//
-//        }
-//        binding.twentyMinBtn.setOnClickListener {
-//            Log.e("TAG", "twenty")
-//            binding.timerTxt.text = "20:00"
-//            timerLengthMinutes = 20
-//
-//        }
+        timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
+        binding.timerTxt.text = "$timerLengthMinutes:00"
+        Log.e("MainOnCreate" , prefRepository.getNumberOfCycles().toString() + "cycleCount")
+        Log.e("MainOnCreate" , prefRepository.getFocusTimerLengthMinutes().toString() + "minutes")
         binding.playBtn.setOnClickListener {
-            viewModel.startTimer(10000/*timerLengthMSeconds*/)
+            viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
             updateButtonActiveState()
         }

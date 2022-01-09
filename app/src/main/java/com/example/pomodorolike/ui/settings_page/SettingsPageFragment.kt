@@ -6,11 +6,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
+import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
 import com.super_rabbit.wheel_picker.OnValueChangeListener
 import com.super_rabbit.wheel_picker.WheelPicker
@@ -19,8 +21,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private lateinit var viewModel: SettingsPageViewModel
     private lateinit var binding: SettingsPageFragmentBinding
     lateinit var navController: NavController
-
-    var initialCycleCount = 0
+    private val prefRepository by lazy { PrefRepository(requireContext()) }
 
 
     companion object {
@@ -45,6 +46,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             navController.navigate(R.id.action_settingsPageFragment_to_focusSoundPageFragment)
         }
         setNumberPickerProperties()
+        setOrangeText()
         onFocusClick()
         onShortBreakClick()
         onLongBreakClick()
@@ -67,7 +69,8 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-    private fun onToolBarBackBtnClick(){
+
+    private fun onToolBarBackBtnClick() {
         binding.toolBarBackBtn.setOnClickListener {
         }
     }
@@ -128,22 +131,24 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun onFocusTimeSelected() {
         binding.focusPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownFocusHoursTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownFocusHoursTxt.visibility = View.VISIBLE
-                    binding.dropdownFocusHoursTxt.text = newVal + " hours"
-                }
+                var newValue = newVal.toLong()
+                prefRepository.setFocusTimerLengthHours(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getFocusTimerLengthHours().toString() + " hours",
+                    binding.dropdownFocusHoursTxt
+                )
             }
         })
         binding.focusPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownFocusMinutesTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownFocusMinutesTxt.visibility = View.VISIBLE
-                    binding.dropdownFocusMinutesTxt.text = newVal + " min"
-                }
+                var newValue = newVal.toLong()
+                prefRepository.setFocusTimerLengthMinutes(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getFocusTimerLengthMinutes().toString() + " min",
+                    binding.dropdownFocusMinutesTxt
+                )
             }
         })
     }
@@ -151,22 +156,24 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun onShortBreakTimeSelected() {
         binding.shortBreakPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownShortBreakHoursTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownShortBreakHoursTxt.visibility = View.VISIBLE
-                    binding.dropdownShortBreakHoursTxt.text = newVal + " hours"
-                }
+                var newValue: Long = newVal.toLong()
+                prefRepository.setShortBreakTimerLengthHours(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getShortBreakTimerLengthHours().toString() + " hours",
+                    binding.dropdownShortBreakHoursTxt
+                )
             }
         })
         binding.shortBreakPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownShortBreakMinutesTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownShortBreakMinutesTxt.visibility = View.VISIBLE
-                    binding.dropdownShortBreakMinutesTxt.text = newVal + " min"
-                }
+                var newValue = newVal.toLong()
+                prefRepository.setShortBreakTimerLengthMinutes(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getShortBreakTimerLengthMinutes().toString() + " min",
+                    binding.dropdownShortBreakMinutesTxt
+                )
             }
         })
     }
@@ -174,55 +181,66 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun onLongBreakTimeSelected() {
         binding.longBreakPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownLongBreakHoursTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownLongBreakHoursTxt.visibility = View.VISIBLE
-                    binding.dropdownLongBreakHoursTxt.text = newVal + " hours"
-                }
+                var newValue = newVal.toLong()
+                prefRepository.setLongBreakTimerLengthHours(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getLongBreakTimerLengthHours().toString() + " hours",
+                    binding.dropdownLongBreakHoursTxt
+                )
             }
         })
         binding.longBreakPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                if (newVal.toInt() == 0) {
-                    binding.dropdownLongBreakMinutesTxt.visibility = View.GONE
-                } else {
-                    binding.dropdownLongBreakMinutesTxt.visibility = View.VISIBLE
-                    binding.dropdownLongBreakMinutesTxt.text = newVal + " min"
-                }
+                var newValue = newVal.toLong()
+                prefRepository.setLongBreakTimerLengthMinutes(newValue)
+                updateOrangeTextsLong(
+                    newValue,
+                    prefRepository.getLongBreakTimerLengthMinutes().toString() + " min",
+                    binding.dropdownLongBreakMinutesTxt
+                )
             }
         })
     }
 
+
     private fun cycleCountSelection() {
+        var numberOfCycles = prefRepository.getNumberOfCycles()
         binding.subtractCycleCountBtn.setOnClickListener {
-            if (initialCycleCount >0) {
-                initialCycleCount -= 1
-                binding.cycleCountInsideTxt.text = initialCycleCount.toString()
-                if (initialCycleCount == 0) {
+            if (numberOfCycles > 0) {
+                prefRepository.setNumberOfCycles(--numberOfCycles)
+                binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
+                if (numberOfCycles == 0) {
                     binding.dropdownCycleCountTxt.visibility = View.GONE
+                    prefRepository.setNumberOfCycles(numberOfCycles)
                 } else {
                     binding.dropdownCycleCountTxt.visibility = View.VISIBLE
-                    binding.dropdownCycleCountTxt.text = initialCycleCount.toString()
+                    prefRepository.setNumberOfCycles(numberOfCycles)
+                    binding.dropdownCycleCountTxt.text =
+                        prefRepository.getNumberOfCycles().toString()
                 }
             }
         }
         binding.addCycleCountBtn.setOnClickListener {
-            if (initialCycleCount >= 0) {
-                initialCycleCount += 1
-                binding.cycleCountInsideTxt.text = initialCycleCount.toString()
-                if (initialCycleCount == 0) {
+            if (numberOfCycles >= 0) {
+                prefRepository.setNumberOfCycles(++numberOfCycles)
+                binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
+                if (numberOfCycles == 0) {
                     binding.dropdownCycleCountTxt.visibility = View.GONE
+                    prefRepository.setNumberOfCycles(numberOfCycles)
                 } else {
                     binding.dropdownCycleCountTxt.visibility = View.VISIBLE
-                    binding.dropdownCycleCountTxt.text = initialCycleCount.toString()
+                    prefRepository.setNumberOfCycles(numberOfCycles)
+                    binding.dropdownCycleCountTxt.text =
+                        prefRepository.getNumberOfCycles().toString()
 
                 }
             }
+            prefRepository.setNumberOfCycles(numberOfCycles)
+
 
         }
     }
-
 
 
     private fun setNumberPickerProperties() {
@@ -243,7 +261,79 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         binding.longBreakPickerHours.setMax(24)
         binding.longBreakPickerMinutes.setMax(59)
         //cycleCount
-        binding.cycleCountInsideTxt.text = initialCycleCount.toString()
     }
+
+    private fun setOrangeText() {
+
+        binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
+
+        var focusHours = prefRepository.getFocusTimerLengthHours()
+        var focusMinutes = prefRepository.getFocusTimerLengthMinutes()
+        var shortBreakHours = prefRepository.getShortBreakTimerLengthHours()
+        var shortBreakMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+        var longBreakHours = prefRepository.getLongBreakTimerLengthHours()
+        var longBreakMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+        var cycleCount = prefRepository.getNumberOfCycles()
+
+
+        updateOrangeTextsLong(
+            focusHours,
+            focusHours.toString() + " hours",
+            binding.dropdownFocusHoursTxt
+        )
+
+        updateOrangeTextsLong(
+            focusMinutes,
+            focusMinutes.toString() + " min",
+            binding.dropdownFocusMinutesTxt
+        )
+
+        updateOrangeTextsLong(
+            shortBreakHours,
+            shortBreakHours.toString() + " hours",
+            binding.dropdownShortBreakHoursTxt
+        )
+
+        updateOrangeTextsLong(
+            shortBreakMinutes,
+            shortBreakMinutes.toString() + " min",
+            binding.dropdownShortBreakMinutesTxt
+        )
+
+        updateOrangeTextsLong(
+            longBreakHours,
+            longBreakHours.toString() + " hours",
+            binding.dropdownLongBreakHoursTxt
+        )
+
+        updateOrangeTextsLong(
+            longBreakMinutes,
+            longBreakMinutes.toString() + " min",
+            binding.dropdownLongBreakMinutesTxt
+        )
+
+        updateOrangeTextsInt(cycleCount, cycleCount.toString(), binding.dropdownCycleCountTxt)
+
+    }
+
+    private fun updateOrangeTextsLong(input: Long, stringInput: String, view: TextView) {
+        if (input == 0L) {
+            view.visibility = View.GONE
+        } else {
+            view.visibility = View.VISIBLE
+            view.text = stringInput
+        }
+    }
+
+
+    private fun updateOrangeTextsInt(input: Int, stringInput: String, view: TextView) {
+        if (input == 0) {
+            view.visibility = View.GONE
+        } else {
+            view.visibility = View.VISIBLE
+            view.text = stringInput
+        }
+    }
+
 
 }

@@ -16,77 +16,77 @@ class PrefRepository(
 
     //Focus Time Setters
 
-    fun setFocusTimerLengthHours(hours:Int){
+    fun setFocusTimerLengthHours(hours:Long){
         FOCUS_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setFocusTimerLengthMinutes(minutes:Int){
+    fun setFocusTimerLengthMinutes(minutes:Long){
         FOCUS_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setFocusTimerLengthSeconds(seconds:Int){
+    fun setFocusTimerLengthSeconds(seconds:Long){
         FOCUS_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setFocusTimerLengthMSeconds(mSeconds:Int){
+    fun setFocusTimerLengthMSeconds(mSeconds:Long){
         FOCUS_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
     //Focus Time Getters
 
-    fun getFocusTimerLengthHours() = FOCUS_TIMER_LENGTH_HOURS.getInt()
+    fun getFocusTimerLengthHours() = FOCUS_TIMER_LENGTH_HOURS.getLong()
 
-    fun getFocusTimerLengthMinutes() = FOCUS_TIMER_LENGTH_MINUTES.getInt()
+    fun getFocusTimerLengthMinutes() = FOCUS_TIMER_LENGTH_MINUTES.getLong()
 
-    fun getFocusTimerLengthSeconds() = FOCUS_TIMER_LENGTH_SECONDS.getInt()
+    fun getFocusTimerLengthSeconds() = FOCUS_TIMER_LENGTH_SECONDS.getLong()
 
-    fun getFocusTimerLengthMSeconds() = FOCUS_TIMER_LENGTH_MILLI_SECONDS.getInt()
+    fun getFocusTimerLengthMSeconds() = FOCUS_TIMER_LENGTH_MILLI_SECONDS.getLong()
 
 
     //Short Break Time Setters
 
-    fun setShortBreakTimerLengthHours(hours:Int){
+    fun setShortBreakTimerLengthHours(hours:Long){
         SHORT_BREAK_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setShortBreakTimerLengthMinutes(minutes:Int){
+    fun setShortBreakTimerLengthMinutes(minutes:Long){
         SHORT_BREAK_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setShortBreakTimerLengthSeconds(seconds:Int){
+    fun setShortBreakTimerLengthSeconds(seconds:Long){
         SHORT_BREAK_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setShortBreakTimerLengthMSeconds(mSeconds:Int){
+    fun setShortBreakTimerLengthMSeconds(mSeconds:Long){
         SHORT_BREAK_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
     //Short Break Time Getters
-    fun getShortBreakTimerLengthHours() = SHORT_BREAK_TIMER_LENGTH_HOURS.getInt()
+    fun getShortBreakTimerLengthHours() = SHORT_BREAK_TIMER_LENGTH_HOURS.getLong()
 
-    fun getShortBreakTimerLengthMinutes() = SHORT_BREAK_TIMER_LENGTH_MINUTES.getInt()
+    fun getShortBreakTimerLengthMinutes() = SHORT_BREAK_TIMER_LENGTH_MINUTES.getLong()
 
-    fun getShortBreakTimerLengthSeconds() = SHORT_BREAK_TIMER_LENGTH_SECONDS.getInt()
+    fun getShortBreakTimerLengthSeconds() = SHORT_BREAK_TIMER_LENGTH_SECONDS.getLong()
 
-    fun getShortBreakTimerLengthMSeconds() = SHORT_BREAK_TIMER_LENGTH_MILLI_SECONDS.getInt()
+    fun getShortBreakTimerLengthMSeconds() = SHORT_BREAK_TIMER_LENGTH_MILLI_SECONDS.getLong()
 
     //Long Break Time Setters
 
-    fun setLongBreakTimerLengthHours(hours:Int){
+    fun setLongBreakTimerLengthHours(hours:Long){
         LONG_BREAK_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setLongBreakTimerLengthMinutes(minutes:Int){
+    fun setLongBreakTimerLengthMinutes(minutes:Long){
         LONG_BREAK_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setLongBreakTimerLengthSeconds(seconds:Int){
+    fun setLongBreakTimerLengthSeconds(seconds:Long){
         LONG_BREAK_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setLongBreakTimerLengthMSeconds(mSeconds:Int){
+    fun setLongBreakTimerLengthMSeconds(mSeconds:Long){
         LONG_BREAK_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
     //Short Break Time Getters
-    fun getLongBreakTimerLengthHours() = LONG_BREAK_TIMER_LENGTH_HOURS.getInt()
+    fun getLongBreakTimerLengthHours() = LONG_BREAK_TIMER_LENGTH_HOURS.getLong()
 
-    fun getLongBreakTimerLengthMinutes() = LONG_BREAK_TIMER_LENGTH_MINUTES.getInt()
+    fun getLongBreakTimerLengthMinutes() = LONG_BREAK_TIMER_LENGTH_MINUTES.getLong()
 
-    fun getLongBreakTimerLengthSeconds() = LONG_BREAK_TIMER_LENGTH_SECONDS.getInt()
+    fun getLongBreakTimerLengthSeconds() = LONG_BREAK_TIMER_LENGTH_SECONDS.getLong()
 
-    fun getLongBreakTimerLengthMSeconds() = LONG_BREAK_TIMER_LENGTH_MILLI_SECONDS.getInt()
+    fun getLongBreakTimerLengthMSeconds() = LONG_BREAK_TIMER_LENGTH_MILLI_SECONDS.getLong()
 
 
     //Number of Cycles Setters
@@ -112,7 +112,10 @@ class PrefRepository(
 
 
 
-
+    fun clearData() {
+        editor.clear()
+        editor.commit()
+    }
 
     //KOTLIN EXTENSION FUNCTIONS
     private fun String.put(long: Long) {
