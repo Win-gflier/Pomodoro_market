@@ -35,7 +35,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private var longBreakLengthSeconds = 0L
     private var longBreakMinutes = 0L
     private var longBreakLengthHours = 0L
-    private var autoStartTimer = true
+    private var autoStartTimer= true
     private var numberOfCycles = 0
 
 
