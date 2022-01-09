@@ -133,7 +133,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue = newVal.toLong()
                 prefRepository.setFocusTimerLengthHours(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getFocusTimerLengthHours().toString() + " hours",
                     binding.dropdownFocusHoursTxt
@@ -144,7 +144,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue = newVal.toLong()
                 prefRepository.setFocusTimerLengthMinutes(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getFocusTimerLengthMinutes().toString() + " min",
                     binding.dropdownFocusMinutesTxt
@@ -158,7 +158,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue: Long = newVal.toLong()
                 prefRepository.setShortBreakTimerLengthHours(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getShortBreakTimerLengthHours().toString() + " hours",
                     binding.dropdownShortBreakHoursTxt
@@ -169,7 +169,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue = newVal.toLong()
                 prefRepository.setShortBreakTimerLengthMinutes(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getShortBreakTimerLengthMinutes().toString() + " min",
                     binding.dropdownShortBreakMinutesTxt
@@ -183,7 +183,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue = newVal.toLong()
                 prefRepository.setLongBreakTimerLengthHours(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getLongBreakTimerLengthHours().toString() + " hours",
                     binding.dropdownLongBreakHoursTxt
@@ -194,7 +194,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 var newValue = newVal.toLong()
                 prefRepository.setLongBreakTimerLengthMinutes(newValue)
-                updateOrangeTextsLong(
+                viewModel.updateOrangeTextsLong(
                     newValue,
                     prefRepository.getLongBreakTimerLengthMinutes().toString() + " min",
                     binding.dropdownLongBreakMinutesTxt
@@ -276,63 +276,48 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         var cycleCount = prefRepository.getNumberOfCycles()
 
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             focusHours,
             focusHours.toString() + " hours",
             binding.dropdownFocusHoursTxt
         )
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             focusMinutes,
             focusMinutes.toString() + " min",
             binding.dropdownFocusMinutesTxt
         )
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             shortBreakHours,
             shortBreakHours.toString() + " hours",
             binding.dropdownShortBreakHoursTxt
         )
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             shortBreakMinutes,
             shortBreakMinutes.toString() + " min",
             binding.dropdownShortBreakMinutesTxt
         )
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             longBreakHours,
             longBreakHours.toString() + " hours",
             binding.dropdownLongBreakHoursTxt
         )
 
-        updateOrangeTextsLong(
+        viewModel.updateOrangeTextsLong(
             longBreakMinutes,
             longBreakMinutes.toString() + " min",
             binding.dropdownLongBreakMinutesTxt
         )
 
-        updateOrangeTextsInt(cycleCount, cycleCount.toString(), binding.dropdownCycleCountTxt)
+        viewModel.updateOrangeTextsInt(
+            cycleCount,
+            cycleCount.toString(),
+            binding.dropdownCycleCountTxt
+        )
 
-    }
-
-    private fun updateOrangeTextsLong(input: Long, stringInput: String, view: TextView) {
-        if (input == 0L) {
-            view.visibility = View.GONE
-        } else {
-            view.visibility = View.VISIBLE
-            view.text = stringInput
-        }
-    }
-
-
-    private fun updateOrangeTextsInt(input: Int, stringInput: String, view: TextView) {
-        if (input == 0) {
-            view.visibility = View.GONE
-        } else {
-            view.visibility = View.VISIBLE
-            view.text = stringInput
-        }
     }
 
 
