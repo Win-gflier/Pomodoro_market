@@ -3,6 +3,7 @@ package com.example.pomodorolike.ui.settings_page
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.WindowManager
@@ -39,12 +40,8 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
         setStatusBar()
-        binding.dropdownEndBreakSoundTxt.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_endSoundPageFragment)
-        }
-        binding.dropdownEndFocusSoundTxt.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_focusSoundPageFragment)
-        }
+        onEndBreakSoundChooseClick()
+        onEndFocusSoundChooseClick()
         setNumberPickerProperties()
         setOrangeText()
         onFocusClick()
@@ -55,6 +52,10 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         onShortBreakTimeSelected()
         onLongBreakTimeSelected()
         cycleCountSelection()
+        onAutoStartBreakTimeSwitch()
+        onAutoStartWorkTimeSwitch()
+        updateBreakSwitchState()
+        updateWorkSwitchState()
 
     }
 
@@ -75,6 +76,17 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
+    private fun onEndFocusSoundChooseClick() {
+        binding.dropdownEndFocusSoundBtn.setOnClickListener {
+            navController.navigate(R.id.action_settingsPageFragment_to_focusSoundPageFragment)
+        }
+    }
+
+    private fun onEndBreakSoundChooseClick() {
+        binding.dropdownEndBreakSoundBtn.setOnClickListener {
+            navController.navigate(R.id.action_settingsPageFragment_to_endSoundPageFragment)
+        }
+    }
 
     private fun onFocusClick() {
         binding.relativeLayoutDropdownFocus.setOnClickListener {
@@ -203,7 +215,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         })
     }
 
-
     private fun cycleCountSelection() {
         var numberOfCycles = prefRepository.getNumberOfCycles()
         binding.subtractCycleCountBtn.setOnClickListener {
@@ -241,7 +252,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
         }
     }
-
 
     private fun setNumberPickerProperties() {
         //focus time
@@ -318,6 +328,26 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             binding.dropdownCycleCountTxt
         )
 
+    }
+
+    private fun onAutoStartBreakTimeSwitch(){
+        binding.autoBreakSwitch.setOnClickListener {
+            prefRepository.setAutoStartBreaks(binding.autoBreakSwitch.isChecked)
+        }
+    }
+
+    private fun onAutoStartWorkTimeSwitch(){
+        binding.autoWorkSwitch.setOnClickListener{
+            prefRepository.setAutoStartWorkTime(binding.autoWorkSwitch.isChecked)
+        }
+    }
+
+    private fun updateBreakSwitchState(){
+        binding.autoBreakSwitch.isChecked = prefRepository.getAutoStartBreaks()
+    }
+
+    private fun updateWorkSwitchState(){
+        binding.autoWorkSwitch.isChecked = prefRepository.getAutoStartWorkTime()
     }
 
 

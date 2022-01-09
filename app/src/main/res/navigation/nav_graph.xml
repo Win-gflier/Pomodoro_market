@@ -2,15 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainPageFragment2">
+    app:startDestination="@id/mainPageFragment">
 
     <fragment
-        android:id="@+id/mainPageFragment2"
+        android:id="@+id/mainPageFragment"
         android:name="com.example.pomodorolike.ui.main_page.MainPageFragment"
         android:label="MainPageFragment">
         <action
-            android:id="@+id/action_mainPageFragment2_to_restPageFragment2"
-            app:destination="@id/restPageFragment2"
+            android:id="@+id/action_mainPageFragment_to_restPageFragment"
+            app:destination="@id/restPageFragment"
             app:enterAnim="@anim/to_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_right"
@@ -21,16 +21,16 @@
             android:name="cycle_count"
             android:defaultValue="0"/>
         <action
-            android:id="@+id/action_mainPageFragment2_to_settingsPageFragment"
+            android:id="@+id/action_mainPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/restPageFragment2"
+        android:id="@+id/restPageFragment"
         android:name="com.example.pomodorolike.ui.rest_page.RestPageFragment"
         android:label="RestPageFragment">
         <action
-            android:id="@+id/action_restPageFragment2_to_mainPageFragment2"
-            app:destination="@id/mainPageFragment2"
+            android:id="@+id/action_restPageFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_left"
@@ -40,7 +40,7 @@
             android:name="cycle_count"
             android:defaultValue="0"/>
         <action
-            android:id="@+id/action_restPageFragment2_to_settingsPageFragment"
+            android:id="@+id/action_restPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
     </fragment>
     <fragment
@@ -54,11 +54,11 @@
             android:id="@+id/action_settingsPageFragment_to_focusSoundPageFragment"
             app:destination="@id/focusSoundPageFragment" />
         <action
-            android:id="@+id/action_settingsPageFragment_to_restPageFragment2"
-            app:destination="@id/restPageFragment2" />
+            android:id="@+id/action_settingsPageFragment_to_restPageFragment"
+            app:destination="@id/restPageFragment" />
         <action
-            android:id="@+id/action_settingsPageFragment_to_mainPageFragment2"
-            app:destination="@id/mainPageFragment2" />
+            android:id="@+id/action_settingsPageFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/EndSoundPageFragment"

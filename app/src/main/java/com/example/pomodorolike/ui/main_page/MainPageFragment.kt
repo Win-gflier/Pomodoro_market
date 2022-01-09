@@ -78,6 +78,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         binding.timerTxt.text = "$timerLengthMinutes:00"
         Log.e("MainOnCreate" , prefRepository.getNumberOfCycles().toString() + "cycleCount")
         Log.e("MainOnCreate" , prefRepository.getFocusTimerLengthMinutes().toString() + "minutes")
+        if(prefRepository.getAutoStartWorkTime()){
+            updateButtonActiveState()
+            viewModel.startTimer(timerLengthMSeconds)
+            updateCountdownUI()
+            binding.pauseBtn.visibility = View.VISIBLE
+            binding.playBtn.visibility = View.GONE
+        }
         binding.playBtn.setOnClickListener {
             viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
@@ -165,20 +172,21 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isVisible = true
                 }
                 else -> {
-                    navController.navigate(R.id.action_mainPageFragment2_to_restPageFragment2,
+                    navController.navigate(R.id.action_mainPageFragment_to_restPageFragment,
                         bundleOf("cycle_count" to numberOfCompleteCycles))
                 }
             }
         }
 
     }
+
     private fun openSettings(){
         binding.toolBarSettingsBtn.setOnClickListener {
             if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized){
-                navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
+                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
 
             }else{
-                navController.navigate(R.id.action_mainPageFragment2_to_settingsPageFragment)
+                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
             }
         }
     }

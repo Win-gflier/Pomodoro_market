@@ -18,17 +18,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
+import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.RestPageFragmentBinding
 
 class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private lateinit var binding: RestPageFragmentBinding
     private lateinit var viewModel: RestPageViewModel
     lateinit var navController: NavController
+    private val prefRepository by lazy { PrefRepository(requireContext()) }
 
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 1//5
-    private var numberOfCycles = 4
+    private var timerLengthMinutes = 0L
+    private var timerLengthHours = 0L
+    private var longBreakLengthMSeconds = 0L
+    private var longBreakLengthSeconds = 0L
+    private var longBreakMinutes = 0L
+    private var longBreakLengthHours = 0L
+    private var autoStartTimer = true
+    private var numberOfCycles = 0
 
 
     companion object {
@@ -40,8 +48,8 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.rest_page_fragment)
         navController = Navigation.findNavController(view)
-
-        getView()?.setBackgroundColor(resources.getColor(R.color.orange))
+        setPageBackgroundColor()
+        initializeVariables()
 
     }
 
@@ -49,17 +57,44 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
         setStatusBar()
-        setBreakText(timerLengthMinutes)
-
-        binding.timerTxt.text = "05:00"
+        binding.timerTxt.text = "$timerLengthMinutes:00"
         openSettings()
-
         getPrevCycleCount()
         addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
 
-        timerLengthSeconds = timerLengthMinutes * 60L
-        timerLengthMSeconds = timerLengthMinutes * 60000L
-        viewModel.startTimer(timerLengthMSeconds)
+
+        if (viewModel.initialNumber == numberOfCycles - 1) {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
+            binding.progressCountdown.max = longBreakLengthSeconds.toInt()
+            longBreakMinutes += (longBreakLengthHours * 60L)
+            longBreakLengthSeconds = longBreakMinutes * 60L
+            longBreakLengthMSeconds = longBreakMinutes * 60000L
+            if (prefRepository.getAutoStartBreaks()) {
+                updateButtonActiveState()
+                viewModel.startTimer(longBreakLengthMSeconds)
+
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(longBreakLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        } else {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
+            timerLengthMinutes += (timerLengthHours * 60L)
+            timerLengthSeconds = timerLengthMinutes * 60L
+            timerLengthMSeconds = timerLengthMinutes * 60000L
+            if (prefRepository.getAutoStartBreaks()) {
+                viewModel.startTimer(timerLengthMSeconds)
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(timerLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        }
         updateCountdownUI()
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
@@ -68,6 +103,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             }
             updateButtonActiveState()
         }
+
         binding.playBtn.setOnClickListener {
             viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
@@ -130,7 +166,12 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 else "0" + secondsStr
             }"
             Log.e("TAG", (it / 1000).toInt().toString())
-            binding.progressCountdown.max = timerLengthSeconds.toInt()
+            if (viewModel.initialNumber == numberOfCycles - 1) {
+                binding.progressCountdown.max = longBreakLengthSeconds.toInt()
+            } else {
+                binding.progressCountdown.max = timerLengthSeconds.toInt()
+
+            }
             binding.progressCountdown.progress = (it / 1000).toInt()
         }
     }
@@ -153,7 +194,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     viewModel._completeCycleCount.value = ++viewModel.initialNumber
                     viewModel._completeCycleCount.observe(viewLifecycleOwner) {
                         navController.navigate(
-                            R.id.action_restPageFragment2_to_mainPageFragment2,
+                            R.id.action_restPageFragment_to_mainPageFragment,
                             bundleOf("cycle_count" to it)
                         )
 
@@ -164,11 +205,10 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     }
 
-    private fun setBreakText(length: Int) {
-        if (length == 5) {
-            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
+    private fun setBreakText() {
+        if (viewModel.initialNumber == numberOfCycles - 1) {
+
         } else {
-            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
 
         }
     }
@@ -177,7 +217,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         binding.toolBarSettingsBtn.setOnClickListener {
             viewModel.pauseTimer()
             navController.navigate(
-                R.id.action_restPageFragment2_to_settingsPageFragment,
+                R.id.action_restPageFragment_to_settingsPageFragment,
                 bundleOf()
             )
 
@@ -193,5 +233,22 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.orange)
         }
+    }
+
+    private fun setPageBackgroundColor() {
+        view?.setBackgroundColor(resources.getColor(R.color.orange))
+    }
+
+    private fun initializeVariables() {
+        timerLengthMSeconds = prefRepository.getShortBreakTimerLengthMSeconds()
+        timerLengthSeconds = prefRepository.getShortBreakTimerLengthSeconds()
+        timerLengthMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+        timerLengthHours = prefRepository.getShortBreakTimerLengthHours()
+        numberOfCycles = prefRepository.getNumberOfCycles()
+        longBreakLengthSeconds = prefRepository.getLongBreakTimerLengthSeconds()
+        longBreakLengthHours = prefRepository.getLongBreakTimerLengthHours()
+        longBreakLengthMSeconds = prefRepository.getLongBreakTimerLengthMSeconds()
+        longBreakMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+        autoStartTimer = prefRepository.getAutoStartBreaks()
     }
 }

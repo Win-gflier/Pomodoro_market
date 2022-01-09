@@ -545,7 +545,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="15dp"
                         android:height="30dp"
-                        android:checked="true"
+                        android:checked="false"
                         android:thumb="@drawable/settings_page_switch_thumb"
                         app:track="@drawable/settings_page_switch_track" />
 
@@ -597,16 +597,14 @@
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/dropdown_end_focus_sound_txt"
+                    <ImageButton
+                        android:id="@+id/dropdown_end_focus_sound_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/poppins"
-                        android:text="@string/settings_choose"
-                        android:textColor="@color/orange"
-                        android:textSize="16sp" />
+                        android:background="@drawable/ic_choose_btn_"
+                        />
 
                     <!--            <ImageButton
                                     android:id="@+id/dropdown_end_focus_sound_btn"
@@ -640,16 +638,14 @@
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/dropdown_end_break_sound_txt"
+                    <ImageButton
+                        android:id="@+id/dropdown_end_break_sound_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/poppins"
-                        android:text="@string/settings_choose"
-                        android:textColor="@color/orange"
-                        android:textSize="16sp" />
+                        android:background="@drawable/ic_choose_btn_"
+                         />
 
                     <!--
                                 <ImageButton
