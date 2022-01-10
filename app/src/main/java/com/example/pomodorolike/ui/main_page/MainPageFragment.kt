@@ -34,24 +34,22 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private var numberOfCycles = 0
     private var numberOfCompleteCycles = 0
 
-    fun testPurposeInitialSetup(){
-        prefRepository.setFocusTimerLengthMSeconds(0L)
-        prefRepository.setFocusTimerLengthMinutes(25L)
-        prefRepository.setFocusTimerLengthSeconds(0L)
-        prefRepository.setFocusTimerLengthHours(0L)
-        prefRepository.setNumberOfCycles(4)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(view)
-        timerLengthMSeconds = prefRepository.getFocusTimerLengthMSeconds()
-        timerLengthSeconds = prefRepository.getFocusTimerLengthSeconds()
-        timerLengthMinutes = prefRepository.getFocusTimerLengthMinutes()
-        timerLengthHours = prefRepository.getFocusTimerLengthHours()
-        numberOfCycles = prefRepository.getNumberOfCycles()
+        if(prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L ){
+            timerLengthMinutes = 25L
+            numberOfCycles = 4
+        }else{
+            timerLengthMSeconds = prefRepository.getFocusTimerLengthMSeconds()
+            timerLengthSeconds = prefRepository.getFocusTimerLengthSeconds()
+            timerLengthMinutes = prefRepository.getFocusTimerLengthMinutes()
+            timerLengthHours = prefRepository.getFocusTimerLengthHours()
+            numberOfCycles = prefRepository.getNumberOfCycles()
 
+        }
 
     }
 

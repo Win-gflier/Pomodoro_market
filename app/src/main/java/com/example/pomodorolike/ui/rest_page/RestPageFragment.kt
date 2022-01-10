@@ -49,7 +49,13 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.rest_page_fragment)
         navController = Navigation.findNavController(view)
         setPageBackgroundColor()
-        initializeVariables()
+        if(prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L){
+            timerLengthMinutes = 5L
+            numberOfCycles = 4
+            longBreakMinutes = 15L
+        }else{
+            initializeVariables()
+        }
 
     }
 
