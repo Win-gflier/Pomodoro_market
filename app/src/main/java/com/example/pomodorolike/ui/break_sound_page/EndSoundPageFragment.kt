@@ -35,7 +35,7 @@ class EndSoundPageFragment : Fragment(R.layout.end_sound_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setStatusBar()
-
+        onToolbarExitBtnClick()
         // TODO: Use the ViewModel
     }
     private fun setStatusBar(){
@@ -46,6 +46,11 @@ class EndSoundPageFragment : Fragment(R.layout.end_sound_page_fragment) {
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
+        }
+    }
+    private fun onToolbarExitBtnClick(){
+        binding.toolBarExitBtn.setOnClickListener {
+            navController.navigate(R.id.action_EndSoundPageFragment_to_settingsPageFragment)
         }
     }
 

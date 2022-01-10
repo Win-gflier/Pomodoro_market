@@ -133,7 +133,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/focus_picker_hours"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
                         app:textColor="@color/grey_dark"
@@ -155,7 +155,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/focus_picker_minutes"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/focus_picker_hours"
@@ -247,7 +247,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/short_break_picker_hours"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
                         app:textColor="@color/grey_dark"
@@ -269,7 +269,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/short_break_picker_minutes"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/short_break_picker_hours"
@@ -361,7 +361,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/long_break_picker_hours"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginTop="22dp"
                         app:selectedTextColor="@color/orange"
                         app:textColor="@color/grey_dark"
@@ -383,7 +383,7 @@
                     <com.super_rabbit.wheel_picker.WheelPicker
                         android:id="@+id/long_break_picker_minutes"
                         android:layout_width="60dp"
-                        android:layout_height="145dp"
+                        android:layout_height="170dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@id/long_break_picker_hours"

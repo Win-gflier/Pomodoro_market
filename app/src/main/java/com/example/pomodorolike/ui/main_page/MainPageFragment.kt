@@ -161,13 +161,14 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.pauseBtn.isEnabled = true
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
-
+                    binding.toolBarSettingsBtn.isEnabled = false
                 }
                 MainPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = false
                 }
                 else -> {
                     navController.navigate(R.id.action_mainPageFragment_to_restPageFragment,

@@ -189,12 +189,14 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isEnabled = true
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.isEnabled = false
                 }
                 RestPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = false
                 }
                 else -> {
                     viewModel._completeCycleCount.value = ++viewModel.initialNumber
@@ -211,13 +213,6 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     }
 
-    private fun setBreakText() {
-        if (viewModel.initialNumber == numberOfCycles - 1) {
-
-        } else {
-
-        }
-    }
 
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {

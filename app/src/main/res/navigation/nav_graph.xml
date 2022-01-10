@@ -63,9 +63,17 @@
     <fragment
         android:id="@+id/EndSoundPageFragment"
         android:name="com.example.pomodorolike.ui.break_sound_page.EndSoundPageFragment"
-        android:label="EndSoundPageFragment" />
+        android:label="EndSoundPageFragment" >
+        <action
+            android:id="@+id/action_EndSoundPageFragment_to_settingsPageFragment"
+            app:destination="@id/settingsPageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/focusSoundPageFragment"
         android:name="com.example.pomodorolike.ui.break_sound_page.FocusSoundPageFragment"
-        android:label="FocusSoundPageFragment" />
+        android:label="FocusSoundPageFragment" >
+        <action
+            android:id="@+id/action_focusSoundPageFragment_to_settingsPageFragment"
+            app:destination="@id/settingsPageFragment" />
+    </fragment>
 </navigation>

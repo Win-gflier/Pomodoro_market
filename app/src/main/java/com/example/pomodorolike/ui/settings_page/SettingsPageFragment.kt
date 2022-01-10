@@ -38,6 +38,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
         setStatusBar()
         onEndBreakSoundChooseClick()
@@ -56,6 +57,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         onAutoStartWorkTimeSwitch()
         updateBreakSwitchState()
         updateWorkSwitchState()
+        onToolbarBackBtnClick()
 
     }
 
@@ -67,12 +69,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
-        }
-    }
-
-
-    private fun onToolBarBackBtnClick() {
-        binding.toolBarBackBtn.setOnClickListener {
         }
     }
 
@@ -350,5 +346,10 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         binding.autoWorkSwitch.isChecked = prefRepository.getAutoStartWorkTime()
     }
 
+    private fun onToolbarBackBtnClick(){
+        binding.toolBarBackBtn.setOnClickListener {
+            navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+        }
+    }
 
 }
