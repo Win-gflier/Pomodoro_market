@@ -1,8 +1,12 @@
 package com.example.pomodorolike.ui
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.pomodorolike.R
 import com.example.pomodorolike.ui.main_page.MainPageFragment

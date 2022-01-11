@@ -175,8 +175,11 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private fun setDefaultOrInitialValues(){
         if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
             timerLengthMinutes = 5L
+            prefRepository.setShortBreakTimerLengthMinutes(timerLengthMinutes)
             numberOfCycles = 4
+            prefRepository.setNumberOfCycles(numberOfCycles)
             longBreakMinutes = 15L
+            prefRepository.setLongBreakTimerLengthMinutes(longBreakMinutes)
         } else {
             initializeVariables()
         }

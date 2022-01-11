@@ -96,12 +96,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
-            if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized) {
-                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
-
-            } else {
-                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
-            }
+//            if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized) {
+//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+//
+//            } else {
+//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+//            }
+            navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
         }
     }
 
@@ -199,7 +200,12 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private fun setDefaultOrInitialValues(){
         if (prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L) {
             timerLengthMinutes = 25L
+            prefRepository.setFocusTimerLengthMinutes(timerLengthMinutes)
             numberOfCycles = 4
+            prefRepository.setNumberOfCycles(numberOfCycles)
+            prefRepository.setLongBreakTimerLengthMinutes(15L)
+            prefRepository.setShortBreakTimerLengthMinutes(5L)
+
         } else {
             initializeVariables()
 
