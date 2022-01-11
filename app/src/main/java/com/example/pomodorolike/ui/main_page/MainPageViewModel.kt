@@ -15,7 +15,7 @@ class MainPageViewModel : ViewModel() {
 
 
     enum class TimerState {
-        Stopped, Paused, Running, Uninitialized
+        Stopped, Paused, Running, Uninitialized,Finished
     }
 
 
@@ -37,6 +37,11 @@ class MainPageViewModel : ViewModel() {
 
     fun stopTimer() {
         _timerState.value = TimerState.Stopped
+        timer.cancel()
+    }
+
+    fun finishTimer(){
+        _timerState.value = TimerState.Finished
         timer.cancel()
     }
 

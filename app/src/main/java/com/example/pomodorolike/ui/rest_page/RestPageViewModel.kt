@@ -32,13 +32,15 @@ class RestPageViewModel : ViewModel() {
         }.start()
     }
 
-    fun stopTimer() {
-        _timerState.value = TimerState.Stopped
-        timer.cancel()
-    }
     fun pauseTimer() {
         _timerState.value = TimerState.Paused
         timer.cancel()
     }
+
+    fun stopTimer() {
+        _timerState.value = TimerState.Stopped
+        timer.cancel()
+    }
+
 
 }

@@ -17,5 +17,6 @@
     <color name="grey_very_light">#FBFBFB</color>
     <color name="rest_page_pb_background">#eaeaea</color>
     <color name="rest_page_pb_foreground">#fbfbfb</color>
+    <color name="transparent">#0000ffff</color>
 
 </resources>

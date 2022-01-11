@@ -35,27 +35,15 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private var longBreakLengthSeconds = 0L
     private var longBreakMinutes = 0L
     private var longBreakLengthHours = 0L
-    private var autoStartTimer= true
+    private var autoStartTimer = true
     private var numberOfCycles = 0
-
-
-    companion object {
-        fun newInstance() = RestPageFragment()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.rest_page_fragment)
         navController = Navigation.findNavController(view)
         setPageBackgroundColor()
-        if(prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L){
-            timerLengthMinutes = 5L
-            numberOfCycles = 4
-            longBreakMinutes = 15L
-        }else{
-            initializeVariables()
-        }
+        setDefaultOrInitialValues()
 
     }
 
@@ -63,63 +51,42 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
         setStatusBar()
-        binding.timerTxt.text = "$timerLengthMinutes:00"
         openSettings()
         getPrevCycleCount()
         addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
+        shortOrLongBreakTimeHandler()
+        playPauseHandler()
 
 
-        if (viewModel.initialNumber == numberOfCycles - 1) {
-            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
-            binding.progressCountdown.max = longBreakLengthSeconds.toInt()
-            longBreakMinutes += (longBreakLengthHours * 60L)
-            longBreakLengthSeconds = longBreakMinutes * 60L
-            longBreakLengthMSeconds = longBreakMinutes * 60000L
-            if (prefRepository.getAutoStartBreaks()) {
-                updateButtonActiveState()
-                viewModel.startTimer(longBreakLengthMSeconds)
-
-            } else {
-                binding.playBtn.setOnClickListener {
-                    viewModel.startTimer(longBreakLengthMSeconds)
-                    updateCountdownUI()
-                    updateButtonActiveState()
-                }
-            }
-        } else {
-            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
-            timerLengthMinutes += (timerLengthHours * 60L)
-            timerLengthSeconds = timerLengthMinutes * 60L
-            timerLengthMSeconds = timerLengthMinutes * 60000L
-            if (prefRepository.getAutoStartBreaks()) {
-                viewModel.startTimer(timerLengthMSeconds)
-            } else {
-                binding.playBtn.setOnClickListener {
-                    viewModel.startTimer(timerLengthMSeconds)
-                    updateCountdownUI()
-                    updateButtonActiveState()
-                }
-            }
-        }
-        updateCountdownUI()
-        binding.pauseBtn.setOnClickListener {
-            viewModel.pauseTimer()
-            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                timerLengthMSeconds = it
-            }
-            updateButtonActiveState()
-        }
-
-        binding.playBtn.setOnClickListener {
-            viewModel.startTimer(timerLengthMSeconds)
-            updateCountdownUI()
-            updateButtonActiveState()
-        }
-        updateButtonActiveState()
     }
+
 
     fun getPrevCycleCount() {
         viewModel.initialNumber = arguments?.getInt("cycle_count")!!
+    }
+
+    private fun openSettings() {
+        binding.toolBarSettingsBtn.setOnClickListener {
+            navController.navigate(
+                R.id.action_restPageFragment_to_settingsPageFragment,
+            )
+
+        }
+    }
+
+    private fun setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.orange)
+        }
+    }
+
+    private fun setPageBackgroundColor() {
+        view?.setBackgroundColor(resources.getColor(R.color.orange))
     }
 
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
@@ -148,19 +115,42 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    fun View.setMargins(
-        left: Int = this.marginLeft,
-        top: Int = this.marginTop,
-        right: Int = this.marginRight,
-        bottom: Int = this.marginBottom,
-    ) {
-        layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
-            setMargins(left, top, right, bottom)
+    private fun updateButtonActiveState() {
+        viewModel._timerState.observe(viewLifecycleOwner) {
+            when (it) {
+                RestPageViewModel.TimerState.Running -> {
+                    binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = true
+                    binding.playBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
+                }
+                RestPageViewModel.TimerState.Paused -> {
+                    binding.pauseBtn.isEnabled = false
+                    binding.playBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = false
+                    binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
+                }
+                else -> {
+                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
+                    navController.navigate(
+                        R.id.action_restPageFragment_to_mainPageFragment,
+                        bundleOf("cycle_count" to viewModel._completeCycleCount.value)
+                    )
+//                    viewModel._completeCycleCount.observe(viewLifecycleOwner) { i ->
+//                        navController.navigate(
+//                            R.id.action_restPageFragment_to_mainPageFragment,
+//                            bundleOf("cycle_count" to i)
+//                        )
+//
+//                    }
+                }
+            }
         }
-    }
 
-    val Int.px: Int
-        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+    }
 
     fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
@@ -182,62 +172,14 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    private fun updateButtonActiveState() {
-        viewModel._timerState.observe(viewLifecycleOwner) {
-            when (it) {
-                RestPageViewModel.TimerState.Running -> {
-                    binding.pauseBtn.isEnabled = true
-                    binding.pauseBtn.isVisible = true
-                    binding.playBtn.isEnabled = false
-                    binding.toolBarSettingsBtn.isEnabled = false
-                }
-                RestPageViewModel.TimerState.Paused -> {
-                    binding.pauseBtn.isEnabled = false
-                    binding.playBtn.isEnabled = true
-                    binding.pauseBtn.isVisible = false
-                    binding.playBtn.isVisible = true
-                    binding.toolBarSettingsBtn.isEnabled = false
-                }
-                else -> {
-                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
-                    viewModel._completeCycleCount.observe(viewLifecycleOwner) {
-                        navController.navigate(
-                            R.id.action_restPageFragment_to_mainPageFragment,
-                            bundleOf("cycle_count" to it)
-                        )
-
-                    }
-                }
-            }
+    private fun setDefaultOrInitialValues(){
+        if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
+            timerLengthMinutes = 5L
+            numberOfCycles = 4
+            longBreakMinutes = 15L
+        } else {
+            initializeVariables()
         }
-
-    }
-
-
-    private fun openSettings() {
-        binding.toolBarSettingsBtn.setOnClickListener {
-            viewModel.pauseTimer()
-            navController.navigate(
-                R.id.action_restPageFragment_to_settingsPageFragment,
-                bundleOf()
-            )
-
-        }
-    }
-
-    private fun setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requireActivity().window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.orange)
-        }
-    }
-
-    private fun setPageBackgroundColor() {
-        view?.setBackgroundColor(resources.getColor(R.color.orange))
     }
 
     private fun initializeVariables() {
@@ -252,4 +194,85 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         longBreakMinutes = prefRepository.getLongBreakTimerLengthMinutes()
         autoStartTimer = prefRepository.getAutoStartBreaks()
     }
+
+    private fun shortOrLongBreakTimeHandler(){
+        if (viewModel.initialNumber == numberOfCycles - 1) {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
+            longBreakMinutes += (longBreakLengthHours * 60L)
+            longBreakLengthSeconds = longBreakMinutes * 60L
+            longBreakLengthMSeconds = longBreakMinutes * 60000L
+            binding.timerTxt.text = "$longBreakMinutes:00"
+            if (prefRepository.getAutoStartBreaks()) {
+                viewModel.startTimer(longBreakLengthMSeconds)
+                updateCountdownUI()
+                updateButtonActiveState()
+
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(longBreakLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        } else {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
+            timerLengthMinutes += (timerLengthHours * 60L)
+            timerLengthSeconds = timerLengthMinutes * 60L
+            timerLengthMSeconds = timerLengthMinutes * 60000L
+            binding.timerTxt.text = "$timerLengthMinutes:00"
+            if (prefRepository.getAutoStartBreaks()) {
+                viewModel.startTimer(timerLengthMSeconds)
+                updateCountdownUI()
+                updateButtonActiveState()
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(timerLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        }
+        updateCountdownUI()
+    }
+
+    private fun playPauseHandler(){
+        binding.pauseBtn.setOnClickListener {
+            viewModel.pauseTimer()
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+                if (viewModel.initialNumber == numberOfCycles - 1) {
+                    longBreakLengthMSeconds = it
+
+                } else {
+                    timerLengthMSeconds = it
+                }
+                updateButtonActiveState()
+            }
+        }
+
+        binding.playBtn.setOnClickListener {
+            if (viewModel.initialNumber == numberOfCycles - 1) {
+                viewModel.startTimer(longBreakLengthMSeconds)
+                updateCountdownUI()
+            } else {
+                viewModel.startTimer(timerLengthMSeconds)
+                updateCountdownUI()
+            }
+            updateButtonActiveState()
+        }
+    }
+
+    fun View.setMargins(
+        left: Int = this.marginLeft,
+        top: Int = this.marginTop,
+        right: Int = this.marginRight,
+        bottom: Int = this.marginBottom,
+    ) {
+        layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+            setMargins(left, top, right, bottom)
+        }
+    }
+
+    val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
 }

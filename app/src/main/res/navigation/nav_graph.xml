@@ -7,19 +7,14 @@
     <fragment
         android:id="@+id/mainPageFragment"
         android:name="com.example.pomodorolike.ui.main_page.MainPageFragment"
-        android:label="MainPageFragment">
-        <action
-            android:id="@+id/action_mainPageFragment_to_restPageFragment"
-            app:destination="@id/restPageFragment"
-            app:enterAnim="@anim/to_right"
-            app:exitAnim="@anim/to_left"
-            app:popEnterAnim="@anim/from_right"
-            app:popExitAnim="@anim/to_left" />
-
+        android:label="MainPageFragment" >
 
         <argument
             android:name="cycle_count"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_mainPageFragment_to_restPageFragment"
+            app:destination="@id/restPageFragment" />
         <action
             android:id="@+id/action_mainPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
@@ -27,18 +22,13 @@
     <fragment
         android:id="@+id/restPageFragment"
         android:name="com.example.pomodorolike.ui.rest_page.RestPageFragment"
-        android:label="RestPageFragment">
-        <action
-            android:id="@+id/action_restPageFragment_to_mainPageFragment"
-            app:destination="@id/mainPageFragment"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_left"/>
-
+        android:label="RestPageFragment" >
         <argument
             android:name="cycle_count"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_restPageFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
         <action
             android:id="@+id/action_restPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
@@ -48,24 +38,24 @@
         android:name="com.example.pomodorolike.ui.settings_page.SettingsPageFragment"
         android:label="SettingsPageFragment" >
         <action
-            android:id="@+id/action_settingsPageFragment_to_endSoundPageFragment"
-            app:destination="@id/EndSoundPageFragment" />
-        <action
-            android:id="@+id/action_settingsPageFragment_to_focusSoundPageFragment"
-            app:destination="@id/focusSoundPageFragment" />
-        <action
             android:id="@+id/action_settingsPageFragment_to_restPageFragment"
             app:destination="@id/restPageFragment" />
         <action
             android:id="@+id/action_settingsPageFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/action_settingsPageFragment_to_focusSoundPageFragment"
+            app:destination="@id/focusSoundPageFragment" />
+        <action
+            android:id="@+id/action_settingsPageFragment_to_endSoundPageFragment"
+            app:destination="@id/endSoundPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/EndSoundPageFragment"
+        android:id="@+id/endSoundPageFragment"
         android:name="com.example.pomodorolike.ui.break_sound_page.EndSoundPageFragment"
         android:label="EndSoundPageFragment" >
         <action
-            android:id="@+id/action_EndSoundPageFragment_to_settingsPageFragment"
+            android:id="@+id/action_endSoundPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
     </fragment>
     <fragment

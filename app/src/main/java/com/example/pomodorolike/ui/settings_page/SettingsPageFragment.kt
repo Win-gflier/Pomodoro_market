@@ -1,9 +1,13 @@
 package com.example.pomodorolike.ui.settings_page
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.WindowManager
@@ -17,6 +21,12 @@ import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
 import com.super_rabbit.wheel_picker.OnValueChangeListener
 import com.super_rabbit.wheel_picker.WheelPicker
+import android.widget.EditText
+
+import android.widget.NumberPicker
+import java.lang.IllegalArgumentException
+import java.lang.reflect.Field
+
 
 class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private lateinit var viewModel: SettingsPageViewModel
@@ -34,6 +44,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.settings_page_fragment)
         navController = Navigation.findNavController(view)
+       // setPageBackgroundColor()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,7 +54,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         setStatusBar()
         onEndBreakSoundChooseClick()
         onEndFocusSoundChooseClick()
-        setNumberPickerProperties()
+//        setNumberPickerProperties()
         setOrangeText()
         onFocusClick()
         onShortBreakClick()
@@ -68,7 +79,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
+                ContextCompat.getColor(requireActivity(), R.color.orange_light)
         }
     }
 
@@ -137,78 +148,69 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     }
 
     private fun onFocusTimeSelected() {
-        binding.focusPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue = newVal.toLong()
-                prefRepository.setFocusTimerLengthHours(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getFocusTimerLengthHours().toString() + " hours",
-                    binding.dropdownFocusHoursTxt
-                )
-            }
-        })
-        binding.focusPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue = newVal.toLong()
-                prefRepository.setFocusTimerLengthMinutes(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getFocusTimerLengthMinutes().toString() + " min",
-                    binding.dropdownFocusMinutesTxt
-                )
-            }
-        })
+        binding.focusPickerHours.setOnValueChangedListener { _, _, newVal ->
+            val newValue = newVal.toLong()
+            prefRepository.setFocusTimerLengthHours(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getFocusTimerLengthHours().toString() + " hours",
+                binding.dropdownFocusHoursTxt
+            )
+
+        }
+
+
+        binding.focusPickerMinutes.setOnValueChangedListener { _, _, newVal ->
+            val newValue = newVal.toLong()
+            prefRepository.setFocusTimerLengthMinutes(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getFocusTimerLengthMinutes().toString() + " min",
+                binding.dropdownFocusMinutesTxt
+            )
+        }
     }
 
     private fun onShortBreakTimeSelected() {
-        binding.shortBreakPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue: Long = newVal.toLong()
-                prefRepository.setShortBreakTimerLengthHours(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getShortBreakTimerLengthHours().toString() + " hours",
-                    binding.dropdownShortBreakHoursTxt
-                )
-            }
-        })
-        binding.shortBreakPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue = newVal.toLong()
-                prefRepository.setShortBreakTimerLengthMinutes(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getShortBreakTimerLengthMinutes().toString() + " min",
-                    binding.dropdownShortBreakMinutesTxt
-                )
-            }
-        })
+        binding.shortBreakPickerHours.setOnValueChangedListener { _, _, newVal ->
+            val newValue: Long = newVal.toLong()
+            prefRepository.setShortBreakTimerLengthHours(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getShortBreakTimerLengthHours().toString() + " hours",
+                binding.dropdownShortBreakHoursTxt
+            )
+        }
+        binding.shortBreakPickerMinutes.setOnValueChangedListener { _, _, newVal ->
+            val newValue = newVal.toLong()
+            prefRepository.setShortBreakTimerLengthMinutes(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getShortBreakTimerLengthMinutes().toString() + " min",
+                binding.dropdownShortBreakMinutesTxt
+            )
+        }
     }
 
     private fun onLongBreakTimeSelected() {
-        binding.longBreakPickerHours.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue = newVal.toLong()
-                prefRepository.setLongBreakTimerLengthHours(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getLongBreakTimerLengthHours().toString() + " hours",
-                    binding.dropdownLongBreakHoursTxt
-                )
-            }
-        })
-        binding.longBreakPickerMinutes.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                var newValue = newVal.toLong()
-                prefRepository.setLongBreakTimerLengthMinutes(newValue)
-                viewModel.updateOrangeTextsLong(
-                    newValue,
-                    prefRepository.getLongBreakTimerLengthMinutes().toString() + " min",
-                    binding.dropdownLongBreakMinutesTxt
-                )
-            }
-        })
+        binding.longBreakPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->
+            val newValue = newVal.toLong()
+            prefRepository.setLongBreakTimerLengthHours(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getLongBreakTimerLengthHours().toString() + " hours",
+                binding.dropdownLongBreakHoursTxt
+            )
+        }
+        binding.longBreakPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
+            val newValue = newVal.toLong()
+            prefRepository.setLongBreakTimerLengthMinutes(newValue)
+            viewModel.updateOrangeTextsLong(
+                newValue,
+                prefRepository.getLongBreakTimerLengthMinutes().toString() + " min",
+                binding.dropdownLongBreakMinutesTxt
+            )
+        }
     }
 
     private fun cycleCountSelection() {
@@ -249,25 +251,25 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-    private fun setNumberPickerProperties() {
+/*    private fun setNumberPickerProperties() {
         //focus time
-        binding.focusPickerHours.setMin(0)
-        binding.focusPickerMinutes.setMin(0)
-        binding.focusPickerHours.setMax(24)
-        binding.focusPickerMinutes.setMax(59)
+//        binding.focusPickerHours.minValue = 0
+//        binding.focusPickerMinutes.minValue = 0
+//        binding.focusPickerHours.maxValue = 24
+//        binding.focusPickerMinutes.maxValue = 59
 
         //short break
-        binding.shortBreakPickerHours.setMin(0)
-        binding.shortBreakPickerMinutes.setMin(0)
-        binding.shortBreakPickerHours.setMax(24)
-        binding.shortBreakPickerMinutes.setMax(59)
+        binding.shortBreakPickerHours.minValue = 0
+        binding.shortBreakPickerMinutes.minValue = 0
+        binding.shortBreakPickerHours.maxValue = 24
+        binding.shortBreakPickerMinutes.maxValue = 59
         //long break
-        binding.longBreakPickerHours.setMin(0)
-        binding.longBreakPickerMinutes.setMin(0)
-        binding.longBreakPickerHours.setMax(24)
-        binding.longBreakPickerMinutes.setMax(59)
+        binding.longBreakPickerHours.minValue = 0
+        binding.longBreakPickerMinutes.minValue = 0
+        binding.longBreakPickerHours.maxValue = 24
+        binding.longBreakPickerMinutes.maxValue = 59
         //cycleCount
-    }
+    }*/
 
     private fun setOrangeText() {
 
@@ -326,30 +328,87 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
     }
 
-    private fun onAutoStartBreakTimeSwitch(){
+    private fun onAutoStartBreakTimeSwitch() {
         binding.autoBreakSwitch.setOnClickListener {
             prefRepository.setAutoStartBreaks(binding.autoBreakSwitch.isChecked)
         }
     }
 
-    private fun onAutoStartWorkTimeSwitch(){
-        binding.autoWorkSwitch.setOnClickListener{
+    private fun onAutoStartWorkTimeSwitch() {
+        binding.autoWorkSwitch.setOnClickListener {
             prefRepository.setAutoStartWorkTime(binding.autoWorkSwitch.isChecked)
         }
     }
 
-    private fun updateBreakSwitchState(){
+    private fun updateBreakSwitchState() {
         binding.autoBreakSwitch.isChecked = prefRepository.getAutoStartBreaks()
     }
 
-    private fun updateWorkSwitchState(){
+    private fun updateWorkSwitchState() {
         binding.autoWorkSwitch.isChecked = prefRepository.getAutoStartWorkTime()
     }
 
-    private fun onToolbarBackBtnClick(){
+    private fun onToolbarBackBtnClick() {
         binding.toolBarBackBtn.setOnClickListener {
             navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
         }
     }
 
+/*    private fun setPageBackgroundColor() {
+        binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.orange_light))
+        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.orange_light))
+        binding.relativeLayoutDropdownNumberOfCycles.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownLongBreak.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownFocus.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.white))
+        binding.relativeLayoutDropdownShortBreak.setBackgroundColor(resources.getColor(R.color.white))
+    }*/
+
+    /*    @SuppressLint("SoonBlockedPrivateApi")
+    fun setSelectedTextColor(np: NumberPicker, colorRes: Int) {
+        val count = np.childCount
+        for (i in 0 until count) {
+            val child = np.getChildAt(i)
+            if (child is EditText) {
+                try {
+                    val selectorWheelPaintField =
+                        np.javaClass.getDeclaredField("mSelectorWheelPaint")
+                    selectorWheelPaintField.isAccessible = true
+                    child.setTextColor(requireContext().getResources().getColor(colorRes))
+                    np.performClick()
+                } catch (e: NoSuchFieldException) {
+                } catch (e: IllegalArgumentException) {
+                }
+            }
+        }
+    }*/
+
+/*
+    fun setNumberPickerTextColor(numberPicker: NumberPicker) {
+        val color: Int = resources.getColor(R.color.orange)
+        val count = numberPicker.childCount
+        for (i in 0 until count) {
+            val child = numberPicker.getChildAt(i)
+            if (child is EditText) {
+                try {
+                    val selectorWheelPaintField =
+                        numberPicker.javaClass.getField("mSelectorWheelPaint")
+                    selectorWheelPaintField.isAccessible = true
+                    (selectorWheelPaintField[numberPicker] as Paint).color = color
+                    child.setTextColor(color)
+                    numberPicker.invalidate()
+                } catch (e: NoSuchFieldException) {
+                    Log.e("setNumberPickerColor1", "" + e)
+                } catch (e: IllegalAccessException) {
+                    Log.e("setNumberPickerColor2", "" + e)
+                } catch (e: IllegalArgumentException) {
+                    Log.e("setNumberPickerColor3", "" + e)
+                }
+            }
+        }
+    }*/
 }

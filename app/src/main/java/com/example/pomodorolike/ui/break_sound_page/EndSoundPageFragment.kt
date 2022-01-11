@@ -50,7 +50,7 @@ class EndSoundPageFragment : Fragment(R.layout.end_sound_page_fragment) {
     }
     private fun onToolbarExitBtnClick(){
         binding.toolBarExitBtn.setOnClickListener {
-            navController.navigate(R.id.action_EndSoundPageFragment_to_settingsPageFragment)
+            navController.navigate(R.id.action_endSoundPageFragment_to_settingsPageFragment)
         }
     }
 
