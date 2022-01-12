@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_mainPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
+        <action
+            android:id="@+id/action_mainPageFragment_to_startPageFragment"
+            app:destination="@id/startPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/restPageFragment"
@@ -65,5 +68,13 @@
         <action
             android:id="@+id/action_focusSoundPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startPageFragment"
+        android:name="com.example.pomodorolike.ui.start_page.StartPageFragment"
+        android:label="StartPageFragment" >
+        <action
+            android:id="@+id/action_startPageFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
     </fragment>
 </navigation>

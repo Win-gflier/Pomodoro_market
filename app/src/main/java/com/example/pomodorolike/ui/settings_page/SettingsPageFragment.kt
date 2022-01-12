@@ -44,7 +44,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.settings_page_fragment)
         navController = Navigation.findNavController(view)
-       // setPageBackgroundColor()
+        setPageBackgroundColor()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -354,9 +354,9 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-/*    private fun setPageBackgroundColor() {
-        binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.orange_light))
-        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.orange_light))
+    private fun setPageBackgroundColor() {
+        binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.relativeLayoutDropdownNumberOfCycles.setBackgroundColor(resources.getColor(R.color.white))
         binding.relativeLayoutDropdownLongBreak.setBackgroundColor(resources.getColor(R.color.white))
         binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.white))
@@ -366,7 +366,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         binding.relativeLayoutDropdownFocus.setBackgroundColor(resources.getColor(R.color.white))
         binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.white))
         binding.relativeLayoutDropdownShortBreak.setBackgroundColor(resources.getColor(R.color.white))
-    }*/
+    }
 
     /*    @SuppressLint("SoonBlockedPrivateApi")
     fun setSelectedTextColor(np: NumberPicker, colorRes: Int) {

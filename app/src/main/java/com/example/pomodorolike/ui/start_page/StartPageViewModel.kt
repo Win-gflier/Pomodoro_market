@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui
+package com.example.pomodorolike.ui.start_page
 
 import androidx.lifecycle.ViewModel
 

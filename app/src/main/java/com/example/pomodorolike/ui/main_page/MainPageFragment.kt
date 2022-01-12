@@ -40,6 +40,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(view)
         setDefaultOrInitialValues()
+        openStartPage()
 
     }
 
@@ -114,6 +115,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
+        }
+    }
+
+    private fun openStartPage(){
+        Log.e("Boolean", prefRepository.getOpenWithStartPage().toString())
+        if(!prefRepository.getOpenWithStartPage()){
+            navController.navigate(R.id.action_mainPageFragment_to_startPageFragment)
         }
     }
 
