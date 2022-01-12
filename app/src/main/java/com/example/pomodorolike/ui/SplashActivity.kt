@@ -1,29 +1,48 @@
 package com.example.pomodorolike.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.pomodorolike.R
+import com.example.pomodorolike.databinding.EndSoundPageFragmentBinding
+import com.bumptech.glide.load.engine.GlideException
+
+import android.R.attr.resource
+import android.graphics.drawable.Drawable
+import androidx.annotation.Nullable
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+
 
 class SplashActivity : AppCompatActivity() {
+    lateinit var imageView1: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        imageView1 = findViewById(R.id.iv_gif)
         setStatusBar()
-        goToMain()
+        loadImageGif()
 
     }
     private fun goToMain() {
-        Handler().postDelayed({
-            val mIntent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(mIntent)
+        Handler(Looper.getMainLooper()).postDelayed({
             finish()
-        },3000)
+            startActivity(Intent(this, MainActivity::class.java))
+        }, 1000)
     }
     private fun setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -34,5 +53,44 @@ class SplashActivity : AppCompatActivity() {
             this.window.statusBarColor =
                 ContextCompat.getColor(this, R.color.white)
         }
+    }
+    private fun loadImageGif(){
+        Glide
+            .with(this)
+            .asGif()
+            .load(R.drawable.pomodoro_splash_screen)
+            .apply(RequestOptions.diskCacheStrategyOf(
+                DiskCacheStrategy.NONE))
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: GifDrawable?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource?.setLoopCount(1)
+                    resource?.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationEnd(drawable: Drawable?) {
+                            super.onAnimationEnd(drawable)
+                            goToMain()
+                        }
+                    })
+                    return false
+                }
+
+            })
+            .into(imageView1)
     }
 }
