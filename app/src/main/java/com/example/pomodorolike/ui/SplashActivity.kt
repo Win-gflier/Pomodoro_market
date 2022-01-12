@@ -55,6 +55,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
     private fun loadImageGif(){
+
         Glide
             .with(this)
             .asGif()
