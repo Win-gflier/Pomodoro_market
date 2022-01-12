@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.44074074074074077" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb_rest.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/custom_rl_shape.xml" value="0.3625" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_frame_17__1_.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_full_cycle_rest.xml" value="0.1" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_full_cycle_work.xml" value="0.5074074074074074" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_launcher_background.xml" value="0.44074074074074077" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_light.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_rest.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_work.xml" value="0.42685185185185187" />
