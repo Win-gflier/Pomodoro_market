@@ -129,6 +129,20 @@ class PrefRepository(
     //Start With First Page Getters
     fun getOpenWithStartPage() = OPEN_START_PAGE.getBoolean()
 
+    //Is Only One Realtive Layout Open setters
+    fun setIsOneRLOpen(bool: Boolean){
+        IS_ONE_RL_OPEN.put(bool)
+    }
+    //Is Only One Realtive Layout Open getters
+    fun getIsOneRlOpen() = IS_ONE_RL_OPEN.getBoolean()
+
+    //Is Current Relative Layout Open setters
+    fun setIsCurrenRlOpen(bool: Boolean){
+        IS_CURRENT_RL_OPEN.put(bool)
+    }
+
+    //Is Current Relative Layout Open getters
+    fun getIsCurrentRLOpen() = IS_CURRENT_RL_OPEN.getBoolean()
 
     fun clearData() {
         editor.clear()

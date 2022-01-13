@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -61,65 +62,161 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
     }
 
-    private fun onStartButtonClick(){
+    private fun onStartButtonClick() {
         binding.startBtn.setOnClickListener {
-            prefRepository.setOpenWithStartPage(true)
-            navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)
+            when {
+                prefRepository.getFocusTimerLengthMinutes() == 0L
+                        && prefRepository.getFocusTimerLengthHours() == 0L -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "You have not chosen Time for Focus",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                prefRepository.getShortBreakTimerLengthMinutes() == 0L
+                        && prefRepository.getShortBreakTimerLengthHours() == 0L -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "You have not chosen Time for Short Break",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                prefRepository.getLongBreakTimerLengthMinutes() == 0L
+                        && prefRepository.getLongBreakTimerLengthHours() == 0L -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "You have not chosen Time for Long Break",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                prefRepository.getNumberOfCycles() == 0 -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "You have not chosen number of Cycles",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                prefRepository.getNumberOfCycles() == 0
+                        && prefRepository.getLongBreakTimerLengthMinutes() == 0L
+                        && prefRepository.getShortBreakTimerLengthMinutes() == 0L
+                        && prefRepository.getFocusTimerLengthMinutes() == 0L -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Fill in all the required fields",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
+                    prefRepository.setOpenWithStartPage(true)
+                    navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)
+                }
+            }
         }
     }
 
     private fun onFocusClick() {
-        binding.relativeLayoutDropdownFocus.setOnClickListener {
-            if (binding.focusTimePicker.visibility == View.GONE) {
-                binding.focusTimePicker.visibility = View.VISIBLE
-                binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
-            } else {
-                binding.focusTimePicker.visibility = View.GONE
-                binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
 
-            }
+        binding.relativeLayoutDropdownFocus.setOnClickListener {
+
+            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+                if (binding.focusTimePicker.visibility == View.GONE) {
+                    binding.focusTimePicker.visibility = View.VISIBLE
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setIsCurrenRlOpen(true)
+                    prefRepository.setIsOneRLOpen(true)
+                } else {
+                    binding.focusTimePicker.visibility = View.GONE
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setIsCurrenRlOpen(false)
+                    prefRepository.setIsOneRLOpen(false)
+                }
+            } else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 
     private fun onShortBreakClick() {
         binding.relativeLayoutDropdownLongBreak.setOnClickListener {
-            if (binding.longBreakPicker.visibility == View.GONE) {
-                binding.longBreakPicker.visibility = View.VISIBLE
-                binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
-            } else {
-                binding.longBreakPicker.visibility = View.GONE
-                binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+                if (binding.longBreakPicker.visibility == View.GONE) {
+                    binding.longBreakPicker.visibility = View.VISIBLE
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setIsCurrenRlOpen(true)
+                    prefRepository.setIsOneRLOpen(true)
+                } else {
+                    binding.longBreakPicker.visibility = View.GONE
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setIsCurrenRlOpen(false)
+                    prefRepository.setIsOneRLOpen(false)
 
-            }
+
+                }
+            } else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 
     private fun onLongBreakClick() {
         binding.relativeLayoutDropdownShortBreak.setOnClickListener {
-            if (binding.shortBreakPicker.visibility == View.GONE) {
-                binding.shortBreakPicker.visibility = View.VISIBLE
-                binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
-            } else {
-                binding.shortBreakPicker.visibility = View.GONE
-                binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+                if (binding.shortBreakPicker.visibility == View.GONE) {
+                    binding.shortBreakPicker.visibility = View.VISIBLE
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setIsCurrenRlOpen(true)
+                    prefRepository.setIsOneRLOpen(true)
 
-            }
+                } else {
+                    binding.shortBreakPicker.visibility = View.GONE
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setIsCurrenRlOpen(false)
+                    prefRepository.setIsOneRLOpen(false)
+                }
+            } else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+
         }
     }
 
     private fun onCycleCountClick() {
         binding.relativeLayoutDropdownNumberOfCycles.setOnClickListener {
-            if (binding.cycleCountPicker.visibility == View.GONE) {
-                binding.cycleCountPicker.visibility = View.VISIBLE
-                binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_up_arrow)
-            } else {
-                binding.cycleCountPicker.visibility = View.GONE
-                binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+                if (binding.cycleCountPicker.visibility == View.GONE) {
+                    binding.cycleCountPicker.visibility = View.VISIBLE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setIsCurrenRlOpen(true)
+                    prefRepository.setIsOneRLOpen(true)
+                } else {
+                    binding.cycleCountPicker.visibility = View.GONE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setIsCurrenRlOpen(false)
+                    prefRepository.setIsOneRLOpen(false)
+                }
+            } else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            }
         }
     }
-
 
     private fun onFocusTimeSelected() {
         binding.focusPickerHours.setOnValueChangedListener { _, _, newVal ->
