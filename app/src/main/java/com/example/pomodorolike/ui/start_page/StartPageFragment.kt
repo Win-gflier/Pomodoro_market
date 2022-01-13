@@ -31,6 +31,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setStatusBar()
+        setRelLayoutCorners()
         setPageBackgroundColor()
         onStartButtonClick()
     }
@@ -60,5 +61,11 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             prefRepository.setOpenWithStartPage(true)
             navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)
         }
+    }
+    private fun setRelLayoutCorners(){
+        binding.relativeLayoutDropdownFocus.setClipToOutline(true)
+        binding.relativeLayoutDropdownLongBreak.clipToOutline = true
+        binding.relativeLayoutDropdownNumberOfCycles.clipToOutline = true
+        binding.relativeLayoutDropdownShortBreak.clipToOutline = true
     }
 }
