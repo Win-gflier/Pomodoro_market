@@ -70,10 +70,10 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             updateCountdownUI()
         }
         binding.pauseBtn.setOnClickListener {
-            viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                timerLengthMSeconds = it - 1
+                timerLengthMSeconds = it-1000
             }
+            viewModel.pauseTimer()
             updateButtonActiveState()
         }
 

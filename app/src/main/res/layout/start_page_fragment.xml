@@ -117,10 +117,12 @@
 
             <RelativeLayout
                 android:id="@+id/focus_time_picker"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="fill_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -250,10 +252,12 @@
 
             <RelativeLayout
                 android:id="@+id/short_break_picker"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="fill_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -386,10 +390,12 @@
 
             <RelativeLayout
                 android:id="@+id/long_break_picker"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="fill_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -509,27 +515,31 @@
 
             <RelativeLayout
                 android:id="@+id/cycle_count_picker"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_cycle_dropdown_background"
+                android:gravity="center"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_number_of_cycles">
-
 
                 <ImageButton
                     android:id="@+id/subtract_cycle_count_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_subtract_btn" />
+                    android:background="@drawable/ic_subtract_btn"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
 
                 <TextView
                     android:id="@+id/cycle_count_inside_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_marginStart="36dp"
+                    android:layout_toEndOf="@id/subtract_cycle_count_btn"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/black"
                     android:textSize="30sp"
@@ -541,7 +551,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
                     android:layout_toEndOf="@id/subtract_cycle_count_btn"
-                    android:background="@drawable/ic_add_btn" />
+                    android:background="@drawable/ic_add_btn"/>
 
 
             </RelativeLayout>
@@ -552,9 +562,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="40dp"
                 android:background="@drawable/ic_start_page_start_btn"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cycle_count_picker"
+                app:layout_constraintVertical_bias="0.732"
+                tools:layout_editor_absoluteX="0dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

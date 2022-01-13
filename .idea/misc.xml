@@ -11,6 +11,8 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_circular_pb_corners.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_curved_background.xml" value="0.44074074074074077" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_curved_rl.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_cycle_dropdown_background.xml" value="0.4888888888888889" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_dropdown_background_corners.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle_rest.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle_work.xml" value="0.21614583333333334" />
@@ -34,6 +36,7 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/play_btn_rest.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/settings_page_switch_thumb.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/settings_page_switch_track.xml" value="0.4675925925925926" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/test_dropdown_background.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout-v23/settings_page_fragment.xml" value="0.5703125" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/activity_splash.xml" value="0.2" />
