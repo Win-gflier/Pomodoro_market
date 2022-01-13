@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainPageFragment_to_startPageFragment"
             app:destination="@id/startPageFragment" />
+        <action
+            android:id="@+id/action_mainPageFragment_self"
+            app:destination="@id/mainPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/restPageFragment"
