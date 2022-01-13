@@ -18,35 +18,63 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
+import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.RestPageFragmentBinding
 
 class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private lateinit var binding: RestPageFragmentBinding
     private lateinit var viewModel: RestPageViewModel
     lateinit var navController: NavController
+    private val prefRepository by lazy { PrefRepository(requireContext()) }
 
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 1//5
-    private var numberOfCycles = 4
-
-
-    companion object {
-        fun newInstance() = RestPageFragment()
-    }
+    private var timerLengthMinutes = 0L
+    private var timerLengthHours = 0L
+    private var longBreakLengthMSeconds = 0L
+    private var longBreakLengthSeconds = 0L
+    private var longBreakMinutes = 0L
+    private var longBreakLengthHours = 0L
+    private var autoStartTimer = true
+    private var numberOfCycles = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAg", "test")
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.rest_page_fragment)
         navController = Navigation.findNavController(view)
-
-        getView()?.setBackgroundColor(resources.getColor(R.color.orange))
+        setPageBackgroundColor()
+        setDefaultOrInitialValues()
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
+        setStatusBar()
+        openSettings()
+        getPrevCycleCount()
+        addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
+        shortOrLongBreakTimeHandler()
+        playPauseHandler()
+
+
+    }
+
+
+    fun getPrevCycleCount() {
+        viewModel.initialNumber = arguments?.getInt("cycle_count")!!
+    }
+
+    private fun openSettings() {
+        binding.toolBarSettingsBtn.setOnClickListener {
+            navController.navigate(
+                R.id.action_restPageFragment_to_settingsPageFragment,
+            )
+
+        }
+    }
+
+    private fun setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -55,36 +83,10 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.orange)
         }
-        setBreakText(timerLengthMinutes)
-
-        binding.timerTxt.text = "05:00"
-
-        viewModel = ViewModelProvider(this).get(RestPageViewModel::class.java)
-
-        getPrevCycleCount()
-        addIVCycleWorkPage(numberOfCycles,viewModel.initialNumber)
-
-        timerLengthSeconds = timerLengthMinutes * 60L
-        timerLengthMSeconds = timerLengthMinutes * 60000L
-        viewModel.startTimer(timerLengthMSeconds)
-        updateCountdownUI()
-        binding.pauseBtn.setOnClickListener {
-            viewModel.pauseTimer()
-            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                timerLengthMSeconds = it
-            }
-            updateButtonActiveState()
-        }
-        binding.playBtn.setOnClickListener {
-            viewModel.startTimer(timerLengthMSeconds)
-            updateCountdownUI()
-            updateButtonActiveState()
-        }
-        updateButtonActiveState()
     }
 
-    fun getPrevCycleCount() {
-        viewModel.initialNumber = arguments?.getInt("cycle_count")!!
+    private fun setPageBackgroundColor() {
+        view?.setBackgroundColor(resources.getColor(R.color.orange))
     }
 
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
@@ -113,6 +115,155 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
+    private fun updateButtonActiveState() {
+        viewModel._timerState.observe(viewLifecycleOwner) {
+            when (it) {
+                RestPageViewModel.TimerState.Running -> {
+                    binding.pauseBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = true
+                    binding.playBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
+                }
+                RestPageViewModel.TimerState.Paused -> {
+                    binding.pauseBtn.isEnabled = false
+                    binding.playBtn.isEnabled = true
+                    binding.pauseBtn.isVisible = false
+                    binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
+                }
+                else -> {
+                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
+                    navController.navigate(
+                        R.id.action_restPageFragment_to_mainPageFragment,
+                        bundleOf("cycle_count" to viewModel._completeCycleCount.value)
+                    )
+//                    viewModel._completeCycleCount.observe(viewLifecycleOwner) { i ->
+//                        navController.navigate(
+//                            R.id.action_restPageFragment_to_mainPageFragment,
+//                            bundleOf("cycle_count" to i)
+//                        )
+//
+//                    }
+                }
+            }
+        }
+
+    }
+
+    fun updateCountdownUI() {
+        viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+            var minutesUntilFinished = it / 60000
+            var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
+            var secondsStr = secondInMinuteUntilFinished.toString()
+            binding.timerTxt.text = "$minutesUntilFinished:${
+                if (secondsStr.length == 2) secondsStr
+                else "0" + secondsStr
+            }"
+            Log.e("TAG", (it / 1000).toInt().toString())
+            if (viewModel.initialNumber == numberOfCycles - 1) {
+                binding.progressCountdown.max = longBreakLengthSeconds.toInt()
+            } else {
+                binding.progressCountdown.max = timerLengthSeconds.toInt()
+
+            }
+            binding.progressCountdown.progress = (it / 1000).toInt()
+        }
+    }
+
+    private fun setDefaultOrInitialValues(){
+        if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
+            timerLengthMinutes = 5L
+            prefRepository.setShortBreakTimerLengthMinutes(timerLengthMinutes)
+            numberOfCycles = 4
+            prefRepository.setNumberOfCycles(numberOfCycles)
+            longBreakMinutes = 15L
+            prefRepository.setLongBreakTimerLengthMinutes(longBreakMinutes)
+        } else {
+            initializeVariables()
+        }
+    }
+
+    private fun initializeVariables() {
+        timerLengthMSeconds = prefRepository.getShortBreakTimerLengthMSeconds()
+        timerLengthSeconds = prefRepository.getShortBreakTimerLengthSeconds()
+        timerLengthMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+        timerLengthHours = prefRepository.getShortBreakTimerLengthHours()
+        numberOfCycles = prefRepository.getNumberOfCycles()
+        longBreakLengthSeconds = prefRepository.getLongBreakTimerLengthSeconds()
+        longBreakLengthHours = prefRepository.getLongBreakTimerLengthHours()
+        longBreakLengthMSeconds = prefRepository.getLongBreakTimerLengthMSeconds()
+        longBreakMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+        autoStartTimer = prefRepository.getAutoStartBreaks()
+    }
+
+    private fun shortOrLongBreakTimeHandler(){
+        if (viewModel.initialNumber == numberOfCycles - 1) {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
+            longBreakMinutes += (longBreakLengthHours * 60L)
+            longBreakLengthSeconds = longBreakMinutes * 60L
+            longBreakLengthMSeconds = longBreakMinutes * 60000L
+            binding.timerTxt.text = "$longBreakMinutes:00"
+            if (prefRepository.getAutoStartBreaks()) {
+                viewModel.startTimer(longBreakLengthMSeconds)
+                updateCountdownUI()
+                updateButtonActiveState()
+
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(longBreakLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        } else {
+            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
+            timerLengthMinutes += (timerLengthHours * 60L)
+            timerLengthSeconds = timerLengthMinutes * 60L
+            timerLengthMSeconds = timerLengthMinutes * 60000L
+            binding.timerTxt.text = "$timerLengthMinutes:00"
+            if (prefRepository.getAutoStartBreaks()) {
+                viewModel.startTimer(timerLengthMSeconds)
+                updateCountdownUI()
+                updateButtonActiveState()
+            } else {
+                binding.playBtn.setOnClickListener {
+                    viewModel.startTimer(timerLengthMSeconds)
+                    updateCountdownUI()
+                    updateButtonActiveState()
+                }
+            }
+        }
+        updateCountdownUI()
+    }
+
+    private fun playPauseHandler(){
+        binding.pauseBtn.setOnClickListener {
+            viewModel.pauseTimer()
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+                if (viewModel.initialNumber == numberOfCycles - 1) {
+                    longBreakLengthMSeconds = it
+
+                } else {
+                    timerLengthMSeconds = it
+                }
+                updateButtonActiveState()
+            }
+        }
+
+        binding.playBtn.setOnClickListener {
+            if (viewModel.initialNumber == numberOfCycles - 1) {
+                viewModel.startTimer(longBreakLengthMSeconds)
+                updateCountdownUI()
+            } else {
+                viewModel.startTimer(timerLengthMSeconds)
+                updateCountdownUI()
+            }
+            updateButtonActiveState()
+        }
+    }
+
     fun View.setMargins(
         left: Int = this.marginLeft,
         top: Int = this.marginTop,
@@ -127,56 +278,4 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     val Int.px: Int
         get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
-    fun updateCountdownUI() {
-        viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-            var minutesUntilFinished = it / 60000
-            var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
-            var secondsStr = secondInMinuteUntilFinished.toString()
-            binding.timerTxt.text = "$minutesUntilFinished:${
-                if (secondsStr.length == 2) secondsStr
-                else "0" + secondsStr
-            }"
-            Log.e("TAG", (it / 1000).toInt().toString())
-            binding.progressCountdown.max = timerLengthSeconds.toInt()
-            binding.progressCountdown.progress = (it / 1000).toInt()
-        }
-    }
-
-    fun updateButtonActiveState() {
-        viewModel._timerState.observe(viewLifecycleOwner) {
-            when (it) {
-                RestPageViewModel.TimerState.Running -> {
-                    binding.pauseBtn.isEnabled = true
-                    binding.pauseBtn.isVisible = true
-                    binding.playBtn.isEnabled = false
-
-                }
-                RestPageViewModel.TimerState.Paused -> {
-                    binding.pauseBtn.isEnabled = false
-                    binding.playBtn.isEnabled = true
-                    binding.pauseBtn.isVisible = false
-                    binding.playBtn.isVisible = true
-                }
-                else -> {
-                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
-                    viewModel._completeCycleCount.observe(viewLifecycleOwner) {
-                        navController.navigate(
-                            R.id.action_restPageFragment2_to_mainPageFragment2,
-                            bundleOf("cycle_count" to it)
-                        )
-
-                    }
-                }
-            }
-        }
-
-    }
-    fun setBreakText(length: Int){
-        if(length == 5){
-            binding.workStateTxt.text = resources.getText(R.string.break_state_short)
-        }else{
-            binding.workStateTxt.text = resources.getText(R.string.break_state_long)
-
-        }
-    }
 }

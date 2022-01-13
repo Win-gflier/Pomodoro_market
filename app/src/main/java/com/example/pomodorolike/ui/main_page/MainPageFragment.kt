@@ -18,75 +18,54 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.pomodorolike.data.preferences.PrefRepository
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     private lateinit var viewModel: MainPageViewModel
     private lateinit var binding: MainPageFragmentBinding
     lateinit var navController: NavController
+    private val prefRepository by lazy { PrefRepository(requireContext()) }
+
     private var timerLengthMSeconds = 0L
     private var timerLengthSeconds = 0L
-    private var timerLengthMinutes = 25
-    private var numberOfCycles = 4
+    private var timerLengthMinutes = 0L
+    private var timerLengthHours = 0L
+    private var numberOfCycles = 0
     private var numberOfCompleteCycles = 0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
-        navController = Navigation.findNavController(requireView())
+        navController = Navigation.findNavController(view)
+        setDefaultOrInitialValues()
+
     }
-//
-//    companion object {
-//        fun newInstance() = MainPageFragment()
-//    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requireActivity().window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
-        }
+        setStatusBar()
+        openSettings()
+        trackCompleteCyclesOrResetTimer()
 
-        binding.timerTxt.text = "25:00"
-
-        arguments?.getInt("cycle_count")?.let {
-            addIVCycleWorkPage(numberOfCycles, it)
-            numberOfCompleteCycles = it
-        }
-
-//        binding.fiveMinBtn.setOnClickListener {
-//            binding.timerTxt.text = "05:00"
-//            timerLengthMinutes = 5
-//
-//        }
-//        binding.tenMinBtn.setOnClickListener {
-//            Log.e("TAG", "10")
-//            binding.timerTxt.text = "10:00"
-//            timerLengthMinutes = 10
-//        }
-//        binding.fifteenMinBtn.setOnClickListener {
-//            Log.e("TAG", "15")
-//            binding.timerTxt.text = "15:00"
-//            timerLengthMinutes = 15
-//
-//        }
-//        binding.twentyMinBtn.setOnClickListener {
-//            Log.e("TAG", "twenty")
-//            binding.timerTxt.text = "20:00"
-//            timerLengthMinutes = 20
-//
-//        }
+        timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
+        binding.timerTxt.text = "$timerLengthMinutes:00"
+        Log.e("MainOnCreate", prefRepository.getNumberOfCycles().toString() + "cycleCount")
+        Log.e("MainOnCreate", prefRepository.getFocusTimerLengthMinutes().toString() + "minutes")
+        if (prefRepository.getAutoStartWorkTime()) {
+            updateButtonActiveState()
+            viewModel.startTimer(timerLengthMSeconds)
+            updateCountdownUI()
+            binding.pauseBtn.visibility = View.VISIBLE
+            binding.playBtn.visibility = View.GONE
+        }
         binding.playBtn.setOnClickListener {
-            viewModel.startTimer(1000/*timerLengthMSeconds*/)
+            viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
             updateButtonActiveState()
         }
@@ -100,6 +79,44 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
 
     }
+
+    private fun trackCompleteCyclesOrResetTimer(){
+        arguments?.getInt("cycle_count")?.let {
+            if (numberOfCycles == it && it != 0) {
+                if (prefRepository.getAutoStartWorkTime()) {
+                    viewModel.finishTimer()
+                }
+                addIVCycleWorkPage(numberOfCycles, 0)
+            } else {
+                numberOfCompleteCycles = it
+                addIVCycleWorkPage(numberOfCycles, it)
+            }
+        }
+    }
+
+    private fun openSettings() {
+        binding.toolBarSettingsBtn.setOnClickListener {
+//            if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized) {
+//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+//
+//            } else {
+//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+//            }
+            navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+        }
+    }
+
+    private fun setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.white)
+        }
+    }
+
 
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
@@ -127,21 +144,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
-    fun View.setMargins(
-        left: Int = this.marginLeft,
-        top: Int = this.marginTop,
-        right: Int = this.marginRight,
-        bottom: Int = this.marginBottom,
-    ) {
-        layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
-            setMargins(left, top, right, bottom)
-        }
-    }
-
-    val Int.px: Int
-        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
-    fun updateCountdownUI() {
+    private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
@@ -156,27 +159,79 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
-    fun updateButtonActiveState() {
+    private fun updateButtonActiveState() {
         viewModel._timerState.observe(viewLifecycleOwner) {
             when (it) {
                 MainPageViewModel.TimerState.Running -> {
                     binding.pauseBtn.isEnabled = true
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
-
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_rest)
                 }
                 MainPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
                     binding.playBtn.isEnabled = true
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = false
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_rest)
+
+                }
+                MainPageViewModel.TimerState.Finished -> {
+                    binding.pauseBtn.isEnabled = false
+                    binding.pauseBtn.isVisible = false
+                    binding.playBtn.isEnabled = true
+                    binding.playBtn.isVisible = true
+                    binding.toolBarSettingsBtn.isEnabled = true
+                    binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 else -> {
-                    navController.navigate(R.id.action_mainPageFragment2_to_restPageFragment2,
-                        bundleOf("cycle_count" to numberOfCompleteCycles))
+                    navController.navigate(
+                        R.id.action_mainPageFragment_to_restPageFragment,
+                        bundleOf("cycle_count" to numberOfCompleteCycles)
+                    )
                 }
             }
         }
 
     }
+
+    private fun setDefaultOrInitialValues(){
+        if (prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L) {
+            timerLengthMinutes = 25L
+            prefRepository.setFocusTimerLengthMinutes(timerLengthMinutes)
+            numberOfCycles = 4
+            prefRepository.setNumberOfCycles(numberOfCycles)
+            prefRepository.setLongBreakTimerLengthMinutes(15L)
+            prefRepository.setShortBreakTimerLengthMinutes(5L)
+
+        } else {
+            initializeVariables()
+
+        }
+    }
+
+    private fun initializeVariables() {
+        timerLengthMSeconds = prefRepository.getFocusTimerLengthMSeconds()
+        timerLengthSeconds = prefRepository.getFocusTimerLengthSeconds()
+        timerLengthMinutes = prefRepository.getFocusTimerLengthMinutes()
+        timerLengthHours = prefRepository.getFocusTimerLengthHours()
+        numberOfCycles = prefRepository.getNumberOfCycles()
+    }
+
+    fun View.setMargins(
+        left: Int = this.marginLeft,
+        top: Int = this.marginTop,
+        right: Int = this.marginRight,
+        bottom: Int = this.marginBottom,
+    ) {
+        layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+            setMargins(left, top, right, bottom)
+        }
+    }
+
+    val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
 }
