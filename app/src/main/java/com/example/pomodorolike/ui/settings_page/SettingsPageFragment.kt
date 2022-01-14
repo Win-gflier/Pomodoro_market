@@ -336,10 +336,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun setPageBackgroundColor() {
         binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownNumberOfCycles.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownLongBreak.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownShortBreak.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownFocus.setBackgroundColor(resources.getColor(R.color.white))
         binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))

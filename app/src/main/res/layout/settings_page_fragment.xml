@@ -57,7 +57,9 @@
                     android:id="@+id/relative_layout_dropdown_focus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_curved_background"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +70,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="27dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_focus"
@@ -80,6 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_focus_minutes_txt"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="65dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
@@ -91,6 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_focus_btn"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="35dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
@@ -102,7 +108,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="27dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/ic_down_arrow" />
 
 
@@ -110,10 +117,12 @@
 
                 <RelativeLayout
                     android:id="@+id/focus_time_picker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="fill_vertical"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_dropdown_background_corners"
+                    android:gravity="center_horizontal"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +190,10 @@
                     android:id="@+id/relative_layout_dropdown_short_break"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_curved_background"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +204,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="27dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_short_break"
@@ -204,6 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_short_break_minutes_txt"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="65dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
@@ -215,6 +230,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_short_break_btn"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="35dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
@@ -226,7 +242,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="27dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/ic_down_arrow" />
 
 
@@ -234,10 +251,12 @@
 
                 <RelativeLayout
                     android:id="@+id/short_break_picker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="fill_vertical"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_dropdown_background_corners"
+                    android:gravity="center_horizontal"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -305,7 +324,10 @@
                     android:id="@+id/relative_layout_dropdown_long_break"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_curved_background"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -316,8 +338,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="27dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
+
                         android:gravity="start"
                         android:text="@string/settings_long_break"
                         android:textColor="@color/black"
@@ -328,8 +353,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_long_break_minutes_txt"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="65dp"
                         android:fontFamily="@font/poppins"
+
                         android:textColor="@color/orange"
                         android:textSize="16sp"
                         tools:text="1 hour" />
@@ -339,7 +366,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_long_break_btn"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="35dp"
+
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
                         android:textSize="16sp"
@@ -350,7 +379,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="27dp"
+
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/ic_down_arrow" />
 
 
@@ -358,10 +389,12 @@
 
                 <RelativeLayout
                     android:id="@+id/long_break_picker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="fill_vertical"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_dropdown_background_corners"
+                    android:gravity="center_horizontal"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -430,7 +463,10 @@
                     android:id="@+id/relative_layout_dropdown_number_of_cycles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_curved_background"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -441,7 +477,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="27dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_cycle_count"
@@ -453,8 +491,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_cycle_count_btn"
+                        android:layout_centerInParent="true"
                         android:layout_marginEnd="35dp"
                         android:fontFamily="@font/poppins"
+
                         android:textColor="@color/orange"
                         android:textSize="16sp"
                         tools:text="4" />
@@ -464,7 +504,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="27dp"
+
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/ic_down_arrow" />
 
 
@@ -472,39 +514,74 @@
 
                 <RelativeLayout
                     android:id="@+id/cycle_count_picker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:visibility="visible"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_cycle_dropdown_background"
+                    android:gravity="center"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_number_of_cycles">
 
-
-                    <ImageButton
-                        android:id="@+id/subtract_cycle_count_btn"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_subtract_btn" />
+                        >
 
 
-                    <TextView
-                        android:id="@+id/cycle_count_inside_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:fontFamily="@font/poppins_medium"
-                        android:textColor="@color/black"
-                        android:textSize="30sp"
-                        tools:text="4 " />
+                        <ImageButton
+                            android:id="@+id/subtract_cycle_count_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_subtract_btn" />
 
-                    <ImageButton
-                        android:id="@+id/add_cycle_count_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="100dp"
-                        android:layout_toEndOf="@id/subtract_cycle_count_btn"
-                        android:background="@drawable/ic_add_btn" />
+                        <TextView
+                            android:id="@+id/cycle_count_inside_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="@color/black"
+                            android:textSize="30sp"
+                            tools:text="4 " />
+
+                        <ImageButton
+                            android:id="@+id/add_cycle_count_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="100dp"
+                            android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                            android:background="@drawable/ic_add_btn" />
+                    </RelativeLayout>
+
+                    <!-- <ImageButton
+                         android:id="@+id/subtract_cycle_count_btn"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@drawable/ic_subtract_btn"
+                         tools:ignore="SpeakableTextPresentCheck" />
+
+
+                     <TextView
+                         android:id="@+id/cycle_count_inside_txt"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="36dp"
+                         android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                         android:fontFamily="@font/poppins_medium"
+                         android:textColor="@color/black"
+                         android:textSize="30sp"
+                         tools:text="4 " />
+
+                     <ImageButton
+                         android:id="@+id/add_cycle_count_btn"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="100dp"
+                         android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                         android:background="@drawable/ic_add_btn"/>-->
 
 
                 </RelativeLayout>
@@ -513,7 +590,7 @@
                     android:id="@+id/relative_layout_dropdown_auto_break"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="30dp"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -612,7 +689,7 @@
                     android:id="@+id/relative_layout_dropdown_end_focus_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_notifications">
@@ -652,7 +729,7 @@
                     android:id="@+id/relative_layout_dropdown_end_break_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_end_focus_sound">
