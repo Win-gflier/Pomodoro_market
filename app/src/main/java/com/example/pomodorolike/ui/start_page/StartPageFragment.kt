@@ -123,7 +123,26 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
         binding.relativeLayoutDropdownFocus.setOnClickListener {
 
-            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+            if(!prefRepository.getShortBreakDropdownIsOpen()
+                && !prefRepository.getLongBreakDropdownIsOpen()
+                && !prefRepository.getCycleCountDropdownIsOpen()){
+                if (binding.focusTimePicker.visibility == View.GONE) {
+                    binding.focusTimePicker.visibility = View.VISIBLE
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setFocusDropdownIsOpen(true)
+                } else {
+                    binding.focusTimePicker.visibility = View.GONE
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setFocusDropdownIsOpen(false)
+                }
+            }else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+/*            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
                 if (binding.focusTimePicker.visibility == View.GONE) {
                     binding.focusTimePicker.visibility = View.VISIBLE
                     binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
@@ -140,13 +159,32 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     requireContext(),
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
         }
     }
 
-    private fun onShortBreakClick() {
+    private fun onLongBreakClick() {
         binding.relativeLayoutDropdownLongBreak.setOnClickListener {
-            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+            if(!prefRepository.getShortBreakDropdownIsOpen()
+                && !prefRepository.getFocusDropdownIsOpen()
+                && !prefRepository.getCycleCountDropdownIsOpen()){
+                if (binding.longBreakPicker.visibility == View.GONE) {
+                    binding.longBreakPicker.visibility = View.VISIBLE
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setLongBreakDropdownIsOpen(true)
+                } else {
+                    binding.longBreakPicker.visibility = View.GONE
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setLongBreakDropdownIsOpen(false)
+
+                }
+            }else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+            /*if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
                 if (binding.longBreakPicker.visibility == View.GONE) {
                     binding.longBreakPicker.visibility = View.VISIBLE
                     binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
@@ -165,13 +203,32 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     requireContext(),
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
         }
     }
 
-    private fun onLongBreakClick() {
+    private fun onShortBreakClick() {
         binding.relativeLayoutDropdownShortBreak.setOnClickListener {
-            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+            if(!prefRepository.getLongBreakDropdownIsOpen()
+                && !prefRepository.getFocusDropdownIsOpen()
+                && !prefRepository.getCycleCountDropdownIsOpen()){
+                if (binding.shortBreakPicker.visibility == View.GONE) {
+                    binding.shortBreakPicker.visibility = View.VISIBLE
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setShortBreakDropdownIsOpen(true)
+
+                } else {
+                    binding.shortBreakPicker.visibility = View.GONE
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setShortBreakDropdownIsOpen(false)
+                }
+            }else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+            /*if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
                 if (binding.shortBreakPicker.visibility == View.GONE) {
                     binding.shortBreakPicker.visibility = View.VISIBLE
                     binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
@@ -190,13 +247,31 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
                 ).show()
-
+*/
         }
     }
 
     private fun onCycleCountClick() {
         binding.relativeLayoutDropdownNumberOfCycles.setOnClickListener {
-            if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
+            if(!prefRepository.getShortBreakDropdownIsOpen()
+                && !prefRepository.getFocusDropdownIsOpen()
+                && !prefRepository.getLongBreakDropdownIsOpen()){
+                if (binding.cycleCountPicker.visibility == View.GONE) {
+                    binding.cycleCountPicker.visibility = View.VISIBLE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setCycleCountDropdownIsOpen(true)
+                } else {
+                    binding.cycleCountPicker.visibility = View.GONE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setCycleCountDropdownIsOpen(false)
+                }
+            }else
+                Toast.makeText(
+                    requireContext(),
+                    "Close the current dropdown and then try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+            /*if (!prefRepository.getIsOneRlOpen() || prefRepository.getIsCurrentRLOpen()) {
                 if (binding.cycleCountPicker.visibility == View.GONE) {
                     binding.cycleCountPicker.visibility = View.VISIBLE
                     binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_up_arrow)
@@ -214,7 +289,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
                 ).show()
-
+*/
         }
     }
 

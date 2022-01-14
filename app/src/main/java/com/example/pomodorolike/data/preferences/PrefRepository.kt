@@ -129,20 +129,29 @@ class PrefRepository(
     //Start With First Page Getters
     fun getOpenWithStartPage() = OPEN_START_PAGE.getBoolean()
 
-    //Is Only One Realtive Layout Open setters
-    fun setIsOneRLOpen(bool: Boolean){
-        IS_ONE_RL_OPEN.put(bool)
+    //Start Page Setters
+    fun setFocusDropdownIsOpen(bool: Boolean){
+        FOCUS_DROPDOWN_IS_OPEN.put(bool)
     }
-    //Is Only One Realtive Layout Open getters
-    fun getIsOneRlOpen() = IS_ONE_RL_OPEN.getBoolean()
-
-    //Is Current Relative Layout Open setters
-    fun setIsCurrenRlOpen(bool: Boolean){
-        IS_CURRENT_RL_OPEN.put(bool)
+    fun setShortBreakDropdownIsOpen(bool: Boolean){
+        SHORT_BREAK_DROPDOWN_IS_OPEN.put(bool)
+    }
+    fun setLongBreakDropdownIsOpen(bool: Boolean){
+        LONG_BREAK_DROPDOWN_IS_OPEN.put(bool)
+    }
+    fun setCycleCountDropdownIsOpen(bool: Boolean){
+        CYCLE_COUNT_DROPDOWN_IS_OPEN.put(bool)
     }
 
-    //Is Current Relative Layout Open getters
-    fun getIsCurrentRLOpen() = IS_CURRENT_RL_OPEN.getBoolean()
+
+    //Start Page Getters
+    fun getFocusDropdownIsOpen() = FOCUS_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getShortBreakDropdownIsOpen() = SHORT_BREAK_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getLongBreakDropdownIsOpen() = LONG_BREAK_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getCycleCountDropdownIsOpen() = CYCLE_COUNT_DROPDOWN_IS_OPEN.getBoolean()
 
     fun clearData() {
         editor.clear()
