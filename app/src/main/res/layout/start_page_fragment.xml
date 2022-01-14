@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/main_background"
+        tools:context=".ui.main_page.StartPageFragment">
+
+
+        <android.widget.Toolbar
+            android:id="@+id/tool_bar_settings_page"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/black" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nested_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:animateLayoutChanges="true">
+
+            <TextView
+                android:id="@+id/set_your_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="@string/set_your"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pomodoro_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/app_name"
+                android:textColor="@color/orange"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/set_your_txt" />
+
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_dropdown_focus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_curved_background"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pomodoro_txt">
+
+                <TextView
+                    android:id="@+id/focus_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="start"
+                    android:text="@string/settings_focus"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/dropdown_focus_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_focus_minutes_txt"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="65dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="1 hour" />
+
+                <TextView
+                    android:id="@+id/dropdown_focus_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_focus_btn"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="25 min" />
+
+                <ImageView
+                    android:id="@+id/dropdown_focus_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_down_arrow" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/focus_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_focus">
+
+
+                <TextView
+                    android:id="@+id/focus_picker_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_hours"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/focus_picker_hours"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="22dp"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="24"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+
+                <TextView
+                    android:id="@+id/focus_picker_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="66dp"
+                    android:layout_toEndOf="@id/focus_picker_hours"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_minutes"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/focus_picker_minutes"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_toEndOf="@id/focus_picker_hours"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="59"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_dropdown_short_break"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_curved_background"
+                android:visibility="visible"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/focus_time_picker">
+
+                <TextView
+                    android:id="@+id/short_break_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="start"
+                    android:text="@string/settings_short_break"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/dropdown_short_break_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_short_break_minutes_txt"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="65dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="1 hour" />
+
+                <TextView
+                    android:id="@+id/dropdown_short_break_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_short_break_btn"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="5 min" />
+
+                <ImageView
+                    android:id="@+id/dropdown_short_break_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_down_arrow" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/short_break_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_short_break">
+
+
+                <TextView
+                    android:id="@+id/short_break_picker_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_hours"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/short_break_picker_hours"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="22dp"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="24"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+
+                <TextView
+                    android:id="@+id/short_break_picker_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="66dp"
+                    android:layout_toEndOf="@id/short_break_picker_hours"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_minutes"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/short_break_picker_minutes"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_toEndOf="@id/short_break_picker_hours"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="59"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_dropdown_long_break"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_curved_background"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/short_break_picker">
+
+                <TextView
+                    android:id="@+id/long_break_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+
+                    android:gravity="start"
+                    android:text="@string/settings_long_break"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/dropdown_long_break_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_long_break_minutes_txt"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="65dp"
+                    android:fontFamily="@font/poppins"
+
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="1 hour" />
+
+                <TextView
+                    android:id="@+id/dropdown_long_break_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_long_break_btn"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="35dp"
+
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="15 min" />
+
+                <ImageView
+                    android:id="@+id/dropdown_long_break_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_down_arrow" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/long_break_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_background_corners"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_long_break">
+
+
+                <TextView
+                    android:id="@+id/long_break_picker_hours_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_hours"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/long_break_picker_hours"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="22dp"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="24"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+
+                <TextView
+                    android:id="@+id/long_break_picker_minutes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="66dp"
+                    android:layout_toEndOf="@id/long_break_picker_hours"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/settings_minutes"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/long_break_picker_minutes"
+                    android:layout_width="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_toEndOf="@id/long_break_picker_hours"
+                    android:focusable="true"
+                    app:np_dividerColor="@color/transparent"
+                    app:np_itemSpacing="-10dp"
+                    app:np_max="59"
+                    app:np_min="0"
+                    app:np_selectedTextColor="@color/orange"
+                    app:np_selectedTextSize="40dp"
+                    app:np_textColor="@color/grey_dark"
+                    app:np_textSize="25dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_dropdown_number_of_cycles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_curved_background"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/long_break_picker">
+
+                <TextView
+                    android:id="@+id/cycle_count_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="start"
+                    android:text="@string/settings_cycle_count"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/dropdown_cycle_count_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/dropdown_cycle_count_btn"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/poppins"
+
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    tools:text="4" />
+
+                <ImageView
+                    android:id="@+id/dropdown_cycle_count_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/ic_down_arrow" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cycle_count_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_cycle_dropdown_background"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_number_of_cycles">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+
+                    <ImageButton
+                        android:id="@+id/subtract_cycle_count_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_subtract_btn" />
+
+                    <TextView
+                        android:id="@+id/cycle_count_inside_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        tools:text="4 " />
+
+                    <ImageButton
+                        android:id="@+id/add_cycle_count_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="100dp"
+                        android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                        android:background="@drawable/ic_add_btn" />
+                </RelativeLayout>
+
+               <!-- <ImageButton
+                    android:id="@+id/subtract_cycle_count_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_subtract_btn"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+                <TextView
+                    android:id="@+id/cycle_count_inside_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    tools:text="4 " />
+
+                <ImageButton
+                    android:id="@+id/add_cycle_count_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_toEndOf="@id/subtract_cycle_count_btn"
+                    android:background="@drawable/ic_add_btn"/>-->
+
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/start_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_start_page_start_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cycle_count_picker"
+                app:layout_constraintVertical_bias="0.732"
+                tools:layout_editor_absoluteX="0dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</layout>

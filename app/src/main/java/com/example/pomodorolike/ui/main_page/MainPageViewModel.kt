@@ -10,12 +10,12 @@ class MainPageViewModel : ViewModel() {
         MutableLiveData<Long>()
     }
     val _timerState: MutableLiveData<TimerState> by lazy{
-        MutableLiveData<TimerState>(TimerState.Uninitialized)
+        MutableLiveData<TimerState>()
     }
 
 
     enum class TimerState {
-        Stopped, Paused, Running, Uninitialized,Finished
+        Stopped, Paused, Running, Finished
     }
 
 
@@ -26,6 +26,7 @@ class MainPageViewModel : ViewModel() {
                 _mSecondsRemaining.value = p0
             }
             override fun onFinish() = stopTimer()
+
         }.start()
     }
 

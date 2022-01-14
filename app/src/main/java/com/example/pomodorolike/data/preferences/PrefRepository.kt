@@ -10,22 +10,26 @@ class PrefRepository(
 ) {
 
 
-    private val preference: SharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+    private val preference: SharedPreferences =
+        context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
     private val editor = preference.edit()
 
 
     //Focus Time Setters
 
-    fun setFocusTimerLengthHours(hours:Long){
+    fun setFocusTimerLengthHours(hours: Long) {
         FOCUS_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setFocusTimerLengthMinutes(minutes:Long){
+
+    fun setFocusTimerLengthMinutes(minutes: Long) {
         FOCUS_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setFocusTimerLengthSeconds(seconds:Long){
+
+    fun setFocusTimerLengthSeconds(seconds: Long) {
         FOCUS_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setFocusTimerLengthMSeconds(mSeconds:Long){
+
+    fun setFocusTimerLengthMSeconds(mSeconds: Long) {
         FOCUS_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
@@ -42,16 +46,19 @@ class PrefRepository(
 
     //Short Break Time Setters
 
-    fun setShortBreakTimerLengthHours(hours:Long){
+    fun setShortBreakTimerLengthHours(hours: Long) {
         SHORT_BREAK_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setShortBreakTimerLengthMinutes(minutes:Long){
+
+    fun setShortBreakTimerLengthMinutes(minutes: Long) {
         SHORT_BREAK_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setShortBreakTimerLengthSeconds(seconds:Long){
+
+    fun setShortBreakTimerLengthSeconds(seconds: Long) {
         SHORT_BREAK_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setShortBreakTimerLengthMSeconds(mSeconds:Long){
+
+    fun setShortBreakTimerLengthMSeconds(mSeconds: Long) {
         SHORT_BREAK_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
@@ -66,16 +73,19 @@ class PrefRepository(
 
     //Long Break Time Setters
 
-    fun setLongBreakTimerLengthHours(hours:Long){
+    fun setLongBreakTimerLengthHours(hours: Long) {
         LONG_BREAK_TIMER_LENGTH_HOURS.put(hours)
     }
-    fun setLongBreakTimerLengthMinutes(minutes:Long){
+
+    fun setLongBreakTimerLengthMinutes(minutes: Long) {
         LONG_BREAK_TIMER_LENGTH_MINUTES.put(minutes)
     }
-    fun setLongBreakTimerLengthSeconds(seconds:Long){
+
+    fun setLongBreakTimerLengthSeconds(seconds: Long) {
         LONG_BREAK_TIMER_LENGTH_SECONDS.put(seconds)
     }
-    fun setLongBreakTimerLengthMSeconds(mSeconds:Long){
+
+    fun setLongBreakTimerLengthMSeconds(mSeconds: Long) {
         LONG_BREAK_TIMER_LENGTH_MILLI_SECONDS.put(mSeconds)
     }
 
@@ -90,7 +100,7 @@ class PrefRepository(
 
 
     //Number of Cycles Setters
-    fun setNumberOfCycles(cycleCount:Int){
+    fun setNumberOfCycles(cycleCount: Int) {
         NUMBER_OF_CYCLES.put(cycleCount)
     }
 
@@ -98,19 +108,50 @@ class PrefRepository(
     fun getNumberOfCycles() = NUMBER_OF_CYCLES.getInt()
 
     //Auto Start Setters
-    fun setAutoStartBreaks(bool:Boolean){
+    fun setAutoStartBreaks(bool: Boolean) {
         AUTO_START_BREAKS.put(bool)
     }
-    fun setAutoStartWorkTime(bool:Boolean){
+
+    fun setAutoStartWorkTime(bool: Boolean) {
         AUTO_START_WORK_TIME.put(bool)
     }
 
     //Auto Start Getters
     fun getAutoStartBreaks() = AUTO_START_BREAKS.getBoolean()
+
     fun getAutoStartWorkTime() = AUTO_START_WORK_TIME.getBoolean()
 
+    //Start With First Page Setters
+    fun setOpenWithStartPage(bool: Boolean) {
+        OPEN_START_PAGE.put(bool)
+    }
+
+    //Start With First Page Getters
+    fun getOpenWithStartPage() = OPEN_START_PAGE.getBoolean()
+
+    //Start Page Setters
+    fun setFocusDropdownIsOpen(bool: Boolean){
+        FOCUS_DROPDOWN_IS_OPEN.put(bool)
+    }
+    fun setShortBreakDropdownIsOpen(bool: Boolean){
+        SHORT_BREAK_DROPDOWN_IS_OPEN.put(bool)
+    }
+    fun setLongBreakDropdownIsOpen(bool: Boolean){
+        LONG_BREAK_DROPDOWN_IS_OPEN.put(bool)
+    }
+    fun setCycleCountDropdownIsOpen(bool: Boolean){
+        CYCLE_COUNT_DROPDOWN_IS_OPEN.put(bool)
+    }
 
 
+    //Start Page Getters
+    fun getFocusDropdownIsOpen() = FOCUS_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getShortBreakDropdownIsOpen() = SHORT_BREAK_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getLongBreakDropdownIsOpen() = LONG_BREAK_DROPDOWN_IS_OPEN.getBoolean()
+
+    fun getCycleCountDropdownIsOpen() = CYCLE_COUNT_DROPDOWN_IS_OPEN.getBoolean()
 
     fun clearData() {
         editor.clear()
