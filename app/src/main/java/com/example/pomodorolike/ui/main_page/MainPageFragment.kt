@@ -41,7 +41,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         navController = Navigation.findNavController(view)
         setDefaultOrInitialValues()
         openStartPage()
-
     }
 
 
