@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setStatusBar()
+
     }
     private fun setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -26,5 +27,8 @@ class MainActivity : AppCompatActivity() {
             this.window.statusBarColor =
                 ContextCompat.getColor(this, R.color.white)
         }
+    }
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 }

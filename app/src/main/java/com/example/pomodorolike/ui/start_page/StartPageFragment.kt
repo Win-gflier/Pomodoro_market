@@ -385,4 +385,5 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
     }
 
 
+
 }
