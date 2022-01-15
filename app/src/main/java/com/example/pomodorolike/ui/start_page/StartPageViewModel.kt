@@ -8,20 +8,21 @@ import androidx.lifecycle.ViewModel
 class StartPageViewModel : ViewModel() {
 
     val focusWantsToOpen: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MutableLiveData<Boolean>(false)
     }
 
     val shortBreakWantsToOpen: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MutableLiveData<Boolean>(false)
     }
 
     val longBreakWantsToOpen: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MutableLiveData<Boolean>(false)
     }
 
     val cyclePickerWantsToOpen: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MutableLiveData<Boolean>(false)
     }
+
 
 
 

@@ -43,6 +43,8 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
         onShortBreakTimeSelected()
         onLongBreakTimeSelected()
         cycleCountSelection()
+        handleDropdownsOpenCloseCase()
+
     }
 
     private fun setStatusBar() {
@@ -128,8 +130,10 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             ) {
                 if (binding.focusTimePicker.visibility == View.GONE) {
                     binding.focusTimePicker.visibility = View.VISIBLE
-                    binding.focusPickerHours.value = prefRepository.getFocusTimerLengthHours().toInt()
-                    binding.focusPickerMinutes.value = prefRepository.getFocusTimerLengthMinutes().toInt()
+                    binding.focusPickerHours.value =
+                        prefRepository.getFocusTimerLengthHours().toInt()
+                    binding.focusPickerMinutes.value =
+                        prefRepository.getFocusTimerLengthMinutes().toInt()
                     binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
                     prefRepository.setFocusDropdownIsOpen(true)
                 } else {
@@ -137,13 +141,168 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setFocusDropdownIsOpen(false)
                 }
-            } else
-                Toast.makeText(
+            } else {
+                viewModel.focusWantsToOpen.value = true
+            }
+/*                Toast.makeText(
                     requireContext(),
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
 
+        }
+    }
+
+    private fun handleDropdownsOpenCloseCase() {
+        viewModel.focusWantsToOpen.observe(viewLifecycleOwner) {
+            if (it) {
+                if (binding.focusTimePicker.visibility == View.GONE) {
+                    when {
+                        prefRepository.getShortBreakDropdownIsOpen() -> {
+                            binding.shortBreakPicker.visibility = View.GONE
+                            binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setShortBreakDropdownIsOpen(false)
+                            viewModel.focusWantsToOpen.value = false
+                        }
+                        prefRepository.getLongBreakDropdownIsOpen() -> {
+                            binding.longBreakPicker.visibility = View.GONE
+                            binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setLongBreakDropdownIsOpen(false)
+                            viewModel.focusWantsToOpen.value = false
+                        }
+                        prefRepository.getCycleCountDropdownIsOpen() -> {
+                            binding.cycleCountPicker.visibility = View.GONE
+                            binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setCycleCountDropdownIsOpen(false)
+                            viewModel.focusWantsToOpen.value = false
+                        }
+                    }
+                    binding.focusTimePicker.visibility = View.VISIBLE
+                    binding.focusPickerHours.value =
+                        prefRepository.getFocusTimerLengthHours().toInt()
+                    binding.focusPickerMinutes.value =
+                        prefRepository.getFocusTimerLengthMinutes().toInt()
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setFocusDropdownIsOpen(true)
+                } else {
+                    binding.focusTimePicker.visibility = View.GONE
+                    binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setFocusDropdownIsOpen(false)
+//                    viewModel.focusWantsToOpen.value = false
+                }
+            }
+        }
+        viewModel.cyclePickerWantsToOpen.observe(viewLifecycleOwner) {
+            if (it) {
+                if (binding.cycleCountPicker.visibility == View.GONE) {
+                    when {
+                        prefRepository.getShortBreakDropdownIsOpen() -> {
+                            binding.shortBreakPicker.visibility = View.GONE
+                            binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setShortBreakDropdownIsOpen(false)
+                            viewModel.cyclePickerWantsToOpen.value = false
+                        }
+                        prefRepository.getLongBreakDropdownIsOpen() -> {
+                            binding.longBreakPicker.visibility = View.GONE
+                            binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setLongBreakDropdownIsOpen(false)
+                            viewModel.cyclePickerWantsToOpen.value = false
+                        }
+                        prefRepository.getFocusDropdownIsOpen() -> {
+                            binding.focusTimePicker.visibility = View.GONE
+                            binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setFocusDropdownIsOpen(false)
+                            viewModel.cyclePickerWantsToOpen.value = false
+                        }
+                    }
+                    binding.cycleCountPicker.visibility = View.VISIBLE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setCycleCountDropdownIsOpen(true)
+                } else {
+                    binding.cycleCountPicker.visibility = View.GONE
+                    binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setCycleCountDropdownIsOpen(false)
+//                    viewModel.focusWantsToOpen.value = false
+                }
+            }
+
+        }
+        viewModel.longBreakWantsToOpen.observe(viewLifecycleOwner) {
+            if (it) {
+                if (binding.longBreakPicker.visibility == View.GONE) {
+                    when {
+                        prefRepository.getShortBreakDropdownIsOpen() -> {
+                            binding.shortBreakPicker.visibility = View.GONE
+                            binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setShortBreakDropdownIsOpen(false)
+                            viewModel.longBreakWantsToOpen.value = false
+                        }
+                        prefRepository.getCycleCountDropdownIsOpen() -> {
+                            binding.cycleCountPicker.visibility = View.GONE
+                            binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setCycleCountDropdownIsOpen(false)
+                            viewModel.longBreakWantsToOpen.value = false
+                        }
+                        prefRepository.getFocusDropdownIsOpen() -> {
+                            binding.focusTimePicker.visibility = View.GONE
+                            binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setFocusDropdownIsOpen(false)
+                            viewModel.longBreakWantsToOpen.value = false
+                        }
+                    }
+                    binding.longBreakPicker.visibility = View.VISIBLE
+                    binding.longBreakPickerHours.value =
+                        prefRepository.getLongBreakTimerLengthHours().toInt()
+                    binding.longBreakPickerMinutes.value =
+                        prefRepository.getLongBreakTimerLengthMinutes().toInt()
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setLongBreakDropdownIsOpen(true)
+                } else {
+                    binding.longBreakPicker.visibility = View.GONE
+                    binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setLongBreakDropdownIsOpen(false)
+//                    viewModel.longBreakWantsToOpen.value = false
+                }
+            }
+        }
+        viewModel.shortBreakWantsToOpen.observe(viewLifecycleOwner) {
+            if (it) {
+                if (binding.shortBreakPicker.visibility == View.GONE) {
+                    when {
+                        prefRepository.getCycleCountDropdownIsOpen() -> {
+                            binding.cycleCountPicker.visibility = View.GONE
+                            binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setCycleCountDropdownIsOpen(false)
+                            viewModel.cyclePickerWantsToOpen.value = false
+                        }
+                        prefRepository.getLongBreakDropdownIsOpen() -> {
+                            binding.longBreakPicker.visibility = View.GONE
+                            binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setLongBreakDropdownIsOpen(false)
+                            viewModel.longBreakWantsToOpen.value = false
+                        }
+                        prefRepository.getFocusDropdownIsOpen() -> {
+                            binding.focusTimePicker.visibility = View.GONE
+                            binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                            prefRepository.setFocusDropdownIsOpen(false)
+                            viewModel.focusWantsToOpen.value = false
+                        }
+                    }
+                    binding.shortBreakPicker.visibility = View.VISIBLE
+                    binding.shortBreakPickerHours.value =
+                        prefRepository.getShortBreakTimerLengthHours().toInt()
+                    binding.shortBreakPickerMinutes.value =
+                        prefRepository.getShortBreakTimerLengthMinutes().toInt()
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
+                    prefRepository.setShortBreakDropdownIsOpen(true)
+
+                } else {
+                    binding.shortBreakPicker.visibility = View.GONE
+                    binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
+                    prefRepository.setShortBreakDropdownIsOpen(false)
+//                    viewModel.shortBreakWantsToOpen.value = false
+                }
+            }
         }
     }
 
@@ -155,8 +314,10 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             ) {
                 if (binding.longBreakPicker.visibility == View.GONE) {
                     binding.longBreakPicker.visibility = View.VISIBLE
-                    binding.longBreakPickerHours.value = prefRepository.getLongBreakTimerLengthHours().toInt()
-                    binding.longBreakPickerMinutes.value = prefRepository.getLongBreakTimerLengthMinutes().toInt()
+                    binding.longBreakPickerHours.value =
+                        prefRepository.getLongBreakTimerLengthHours().toInt()
+                    binding.longBreakPickerMinutes.value =
+                        prefRepository.getLongBreakTimerLengthMinutes().toInt()
                     binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
                     prefRepository.setLongBreakDropdownIsOpen(true)
                 } else {
@@ -165,12 +326,15 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     prefRepository.setLongBreakDropdownIsOpen(false)
 
                 }
-            } else
-                Toast.makeText(
-                    requireContext(),
-                    "Close the current dropdown and then try again",
-                    Toast.LENGTH_SHORT
-                ).show()
+            } else {
+                viewModel.longBreakWantsToOpen.value = true
+            }
+
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Close the current dropdown and then try again",
+//                    Toast.LENGTH_SHORT
+//                ).show()
         }
     }
 
@@ -182,8 +346,10 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             ) {
                 if (binding.shortBreakPicker.visibility == View.GONE) {
                     binding.shortBreakPicker.visibility = View.VISIBLE
-                    binding.shortBreakPickerHours.value = prefRepository.getShortBreakTimerLengthHours().toInt()
-                    binding.shortBreakPickerMinutes.value = prefRepository.getShortBreakTimerLengthMinutes().toInt()
+                    binding.shortBreakPickerHours.value =
+                        prefRepository.getShortBreakTimerLengthHours().toInt()
+                    binding.shortBreakPickerMinutes.value =
+                        prefRepository.getShortBreakTimerLengthMinutes().toInt()
                     binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
                     prefRepository.setShortBreakDropdownIsOpen(true)
 
@@ -192,14 +358,18 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setShortBreakDropdownIsOpen(false)
                 }
-            } else
-                Toast.makeText(
+            } else {
+                viewModel.shortBreakWantsToOpen.value = true
+            }
+
+/*                Toast.makeText(
                     requireContext(),
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
         }
     }
+
 
     private fun onCycleCountClick() {
         binding.relativeLayoutDropdownNumberOfCycles.setOnClickListener {
@@ -216,12 +386,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                     binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setCycleCountDropdownIsOpen(false)
                 }
-            } else
-                Toast.makeText(
+            } else {
+                viewModel.cyclePickerWantsToOpen.value = true
+            }
+/*                Toast.makeText(
                     requireContext(),
                     "Close the current dropdown and then try again",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
         }
     }
 
@@ -327,6 +499,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
         }
     }
 
+
     private fun setOrangeText() {
 
         binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
@@ -383,7 +556,6 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
         )
 
     }
-
 
 
 }
