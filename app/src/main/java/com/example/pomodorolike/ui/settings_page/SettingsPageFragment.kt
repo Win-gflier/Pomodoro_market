@@ -221,7 +221,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun cycleCountSelection() {
         var numberOfCycles = prefRepository.getNumberOfCycles()
         binding.subtractCycleCountBtn.setOnClickListener {
-            if (numberOfCycles > 0) {
+            if (numberOfCycles > 1) {
                 prefRepository.setNumberOfCycles(--numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
                 if (numberOfCycles == 0) {
@@ -236,7 +236,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             }
         }
         binding.addCycleCountBtn.setOnClickListener {
-            if (numberOfCycles in 0..7) {
+            if (numberOfCycles in 1..7) {
                 prefRepository.setNumberOfCycles(++numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
                 if (numberOfCycles == 0) {
