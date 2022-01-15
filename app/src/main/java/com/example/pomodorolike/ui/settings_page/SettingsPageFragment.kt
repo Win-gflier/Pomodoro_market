@@ -230,7 +230,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             }
         }
         binding.addCycleCountBtn.setOnClickListener {
-            if (numberOfCycles >= 0) {
+            if (numberOfCycles in 0..7) {
                 prefRepository.setNumberOfCycles(++numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
                 if (numberOfCycles == 0) {
