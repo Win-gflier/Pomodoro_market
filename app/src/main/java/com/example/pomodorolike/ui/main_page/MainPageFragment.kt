@@ -145,7 +145,10 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     }
 
     private fun onResetButtonClick() {
+
         binding.resetBtn.setOnClickListener {
+            prefRepository.setAutoStartWorkTime(false)
+            prefRepository.setAutoStartBreaks(false)
             navController.navigate(R.id.action_mainPageFragment_self)
         }
 
