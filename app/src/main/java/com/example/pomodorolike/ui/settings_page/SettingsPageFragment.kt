@@ -98,6 +98,8 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         binding.relativeLayoutDropdownFocus.setOnClickListener {
             if (binding.focusTimePicker.visibility == View.GONE) {
                 binding.focusTimePicker.visibility = View.VISIBLE
+                binding.focusPickerHours.value = prefRepository.getFocusTimerLengthHours().toInt()
+                binding.focusPickerMinutes.value = prefRepository.getFocusTimerLengthMinutes().toInt()
                 binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_up_arrow)
             } else {
                 binding.focusTimePicker.visibility = View.GONE
@@ -107,10 +109,12 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-    private fun onShortBreakClick() {
+    private fun onLongBreakClick() {
         binding.relativeLayoutDropdownLongBreak.setOnClickListener {
             if (binding.longBreakPicker.visibility == View.GONE) {
                 binding.longBreakPicker.visibility = View.VISIBLE
+                binding.longBreakPickerHours.value = prefRepository.getLongBreakTimerLengthHours().toInt()
+                binding.longBreakPickerMinutes.value = prefRepository.getLongBreakTimerLengthMinutes().toInt()
                 binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
             } else {
                 binding.longBreakPicker.visibility = View.GONE
@@ -120,10 +124,12 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-    private fun onLongBreakClick() {
+    private fun onShortBreakClick() {
         binding.relativeLayoutDropdownShortBreak.setOnClickListener {
             if (binding.shortBreakPicker.visibility == View.GONE) {
                 binding.shortBreakPicker.visibility = View.VISIBLE
+                binding.shortBreakPickerHours.value = prefRepository.getShortBreakTimerLengthHours().toInt()
+                binding.shortBreakPickerMinutes.value = prefRepository.getShortBreakTimerLengthMinutes().toInt()
                 binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_up_arrow)
             } else {
                 binding.shortBreakPicker.visibility = View.GONE
