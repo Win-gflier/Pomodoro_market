@@ -7,8 +7,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 
 import com.example.pomodorolike.R
+import com.example.pomodorolike.ui.settings_page.SettingsPageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +32,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        val settingsPageFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
+            NavHostFragment.findNavController(
+                it
+            ).currentDestination?.id
+        }
+
+        if(settingsPageFragment == R.id.settingsPageFragment){
+            super.onBackPressed()
+        }else{
+            moveTaskToBack(true)
+        }
     }
 }
