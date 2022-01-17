@@ -56,6 +56,8 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
         shortOrLongBreakTimeHandler()
         playPauseHandler()
+        updateButtonActiveState()
+
 
 
     }
@@ -208,13 +210,11 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(longBreakLengthMSeconds)
                 updateCountdownUI()
-                updateButtonActiveState()
 
             } else {
                 binding.playBtn.setOnClickListener {
                     viewModel.startTimer(longBreakLengthMSeconds)
                     updateCountdownUI()
-                    updateButtonActiveState()
                 }
             }
         } else {
@@ -226,12 +226,10 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(timerLengthMSeconds)
                 updateCountdownUI()
-                updateButtonActiveState()
             } else {
                 binding.playBtn.setOnClickListener {
                     viewModel.startTimer(timerLengthMSeconds)
                     updateCountdownUI()
-                    updateButtonActiveState()
                 }
             }
         }
@@ -243,12 +241,11 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
                 if (viewModel.initialNumber == numberOfCycles - 1) {
-                    longBreakLengthMSeconds = it
+                    longBreakLengthMSeconds = it - 1000
 
                 } else {
-                    timerLengthMSeconds = it
+                    timerLengthMSeconds = it -1000
                 }
-                updateButtonActiveState()
             }
         }
 
@@ -260,7 +257,6 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 viewModel.startTimer(timerLengthMSeconds)
                 updateCountdownUI()
             }
-            updateButtonActiveState()
         }
     }
 

@@ -51,13 +51,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         openSettings()
         trackCompleteCyclesOrResetTimer()
         onResetButtonClick()
+        updateButtonActiveState()
 
         timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.timerTxt.text = "$timerLengthMinutes:00"
         if (prefRepository.getAutoStartWorkTime()) {
-            updateButtonActiveState()
             viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
             binding.pauseBtn.visibility = View.VISIBLE
@@ -65,7 +65,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
         binding.playBtn.setOnClickListener {
             viewModel.startTimer(timerLengthMSeconds)
-            updateButtonActiveState()
             updateCountdownUI()
         }
         binding.pauseBtn.setOnClickListener {
@@ -73,9 +72,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                 timerLengthMSeconds = it-1000
             }
             viewModel.pauseTimer()
-            updateButtonActiveState()
         }
-
 
     }
 
