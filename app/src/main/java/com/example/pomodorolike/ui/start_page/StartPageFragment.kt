@@ -399,7 +399,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
     private fun onFocusTimeSelected() {
         binding.focusPickerHours.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialFocusTimeHours = prefRepository.getFocusTimerLengthHours()
+            var initialFocusTimeMinutes = prefRepository.getFocusTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialFocusTimeMinutes == 0L){
+                newValue = initialFocusTimeHours
+                binding.focusPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setFocusTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -411,7 +418,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
 
         binding.focusPickerMinutes.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialFocusTimeHours = prefRepository.getFocusTimerLengthHours()
+            var initialFocusTimeMinutes = prefRepository.getFocusTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialFocusTimeHours == 0L){
+                newValue = initialFocusTimeMinutes
+                binding.focusPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setFocusTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -423,7 +437,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
     private fun onShortBreakTimeSelected() {
         binding.shortBreakPickerHours.setOnValueChangedListener { _, _, newVal ->
-            val newValue: Long = newVal.toLong()
+            var initialShortBreakTimeHours = prefRepository.getShortBreakTimerLengthHours()
+            var initialShortBreakTimeMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+            var newValue: Long = newVal.toLong()
+            if(newValue == 0L && initialShortBreakTimeMinutes == 0L){
+                newValue = initialShortBreakTimeHours
+                binding.shortBreakPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setShortBreakTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -432,7 +453,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             )
         }
         binding.shortBreakPickerMinutes.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialShortBreakTimeHours = prefRepository.getShortBreakTimerLengthHours()
+            var initialShortBreakTimerMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialShortBreakTimeHours ==0L){
+                newValue = initialShortBreakTimerMinutes
+                binding.shortBreakPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setShortBreakTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -444,7 +472,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
     private fun onLongBreakTimeSelected() {
         binding.longBreakPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->
-            val newValue = newVal.toLong()
+            var initialLongBreakTimeHours = prefRepository.getLongBreakTimerLengthHours()
+            var initialLongBreakTimeMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialLongBreakTimeMinutes == 0L){
+                newValue = initialLongBreakTimeHours
+                binding.longBreakPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Long Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setLongBreakTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -453,7 +488,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             )
         }
         binding.longBreakPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
-            val newValue = newVal.toLong()
+            var initialLongBreakTimeHours = prefRepository.getLongBreakTimerLengthHours()
+            var initialLongBreakTimeMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialLongBreakTimeHours == 0L){
+                newValue = initialLongBreakTimeMinutes
+                binding.longBreakPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Long Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setLongBreakTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -466,6 +508,9 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
     private fun cycleCountSelection() {
         var numberOfCycles = prefRepository.getNumberOfCycles()
         binding.subtractCycleCountBtn.setOnClickListener {
+            if(numberOfCycles == 1){
+                Toast.makeText(requireContext(),"Minimum Cycle Count Is 1", Toast.LENGTH_SHORT).show()
+            }
             if (numberOfCycles > 1) {
                 prefRepository.setNumberOfCycles(--numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
@@ -481,6 +526,9 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
             }
         }
         binding.addCycleCountBtn.setOnClickListener {
+            if (numberOfCycles == 8){
+                Toast.makeText(requireContext(),"Maximum Cycle Count Is 8", Toast.LENGTH_SHORT).show()
+            }
             if (numberOfCycles in 1..7) {
                 prefRepository.setNumberOfCycles(++numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()

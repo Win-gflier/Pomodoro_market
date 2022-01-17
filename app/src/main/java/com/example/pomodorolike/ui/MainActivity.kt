@@ -1,17 +1,14 @@
 package com.example.pomodorolike.ui
 
-import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 
 import com.example.pomodorolike.R
-import com.example.pomodorolike.ui.settings_page.SettingsPageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         setStatusBar()
 
     }
+
     private fun setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.window.decorView.systemUiVisibility =
@@ -31,16 +29,32 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.getColor(this, R.color.white)
         }
     }
-    override fun onBackPressed() {
-        val settingsPageFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
-            NavHostFragment.findNavController(
-                it
-            ).currentDestination?.id
-        }
 
-        if(settingsPageFragment == R.id.settingsPageFragment){
+    override fun onBackPressed() {
+        val settingsPageFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
+                NavHostFragment.findNavController(
+                    it
+                ).currentDestination?.id
+            }
+        val focusSoundPageFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
+                NavHostFragment.findNavController(
+                    it
+                ).currentDestination?.id
+            }
+        val endSoundPageFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
+                NavHostFragment.findNavController(
+                    it
+                ).currentDestination?.id
+            }
+
+        if (settingsPageFragment == R.id.settingsPageFragment
+            || focusSoundPageFragment == R.id.focusSoundPageFragment
+            || endSoundPageFragment == R.id.endSoundPageFragment) {
             super.onBackPressed()
-        }else{
+        } else {
             moveTaskToBack(true)
         }
     }

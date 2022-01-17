@@ -24,6 +24,7 @@ import com.super_rabbit.wheel_picker.WheelPicker
 import android.widget.EditText
 
 import android.widget.NumberPicker
+import android.widget.Toast
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Field
 
@@ -33,11 +34,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private lateinit var binding: SettingsPageFragmentBinding
     lateinit var navController: NavController
     private val prefRepository by lazy { PrefRepository(requireContext()) }
-
-
-    companion object {
-        fun newInstance() = SettingsPageFragment()
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,7 +74,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.orange_light)
+                ContextCompat.getColor(requireActivity(), R.color.grey_very_light)
         }
     }
 
@@ -95,7 +91,14 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     }
 
     private fun onFocusClick() {
+
         binding.relativeLayoutDropdownFocus.setOnClickListener {
+/*            var initialFocusTimeHours = prefRepository.getFocusTimerLengthHours()
+            var initialFocusTimeMinutes = prefRepository.getFocusTimerLengthMinutes()
+            if(binding.focusPickerHours.value == 0 && binding.focusPickerMinutes.value == 0 ){
+                binding.focusPickerHours.value = initialFocusTimeHours.toInt()
+                binding.focusPickerMinutes.value = initialFocusTimeMinutes.toInt()
+            }*/
             if (binding.focusTimePicker.visibility == View.GONE) {
                 binding.focusTimePicker.visibility = View.VISIBLE
                 binding.focusPickerHours.value = prefRepository.getFocusTimerLengthHours().toInt()
@@ -153,8 +156,30 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     }
 
     private fun onFocusTimeSelected() {
+
         binding.focusPickerHours.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialFocusTimeHours = prefRepository.getFocusTimerLengthHours()
+            var initialFocusTimeMinutes = prefRepository.getFocusTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialFocusTimeMinutes == 0L){
+                newValue = initialFocusTimeHours
+                binding.focusPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
+/*            hoursNewValue = newValue
+            if(minutesNewValue == 0L && hoursNewValue == 0L){
+                Log.e("TAG", initialFocusTimeMinutes.toString() + " minutes" + initialFocusTimeHours + " hours")
+                newValue = initialFocusTimeHours
+                prefRepository.setFocusTimerLengthHours(newValue)
+                if(minutesNewValue == 0L){
+                    prefRepository.setFocusTimerLengthMinutes(minutesNewValue)
+                    viewModel.updateOrangeTextsLong(
+                        minutesNewValue,
+                        "$minutesNewValue min",
+                        binding.dropdownFocusMinutesTxt
+                    )
+                }
+            }*/
             prefRepository.setFocusTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -163,10 +188,29 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             )
 
         }
-
-
         binding.focusPickerMinutes.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialFocusTimeHours = prefRepository.getFocusTimerLengthHours()
+            var initialFocusTimeMinutes = prefRepository.getFocusTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialFocusTimeHours == 0L){
+                newValue = initialFocusTimeMinutes
+                binding.focusPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
+/*            minutesNewValue = newValue
+            if(minutesNewValue == 0L && hoursNewValue == 0L){
+                Log.e("TAG", initialFocusTimeMinutes.toString() + " minutes" + initialFocusTimeHours + " hours")
+                newValue = initialFocusTimeMinutes
+                prefRepository.setFocusTimerLengthMinutes(newValue)
+                if(hoursNewValue == 0L){
+                    prefRepository.setFocusTimerLengthHours(hoursNewValue)
+                    viewModel.updateOrangeTextsLong(
+                        hoursNewValue,
+                        "$hoursNewValue hours",
+                        binding.dropdownFocusHoursTxt
+                    )
+                }
+            }*/
             prefRepository.setFocusTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -178,7 +222,14 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
     private fun onShortBreakTimeSelected() {
         binding.shortBreakPickerHours.setOnValueChangedListener { _, _, newVal ->
-            val newValue: Long = newVal.toLong()
+            var initialShortBreakTimeHours = prefRepository.getShortBreakTimerLengthHours()
+            var initialShortBreakTimeMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+            var newValue: Long = newVal.toLong()
+            if(newValue == 0L && initialShortBreakTimeMinutes == 0L){
+                newValue = initialShortBreakTimeHours
+                binding.shortBreakPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setShortBreakTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -187,7 +238,14 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             )
         }
         binding.shortBreakPickerMinutes.setOnValueChangedListener { _, _, newVal ->
-            val newValue = newVal.toLong()
+            var initialShortBreakTimeHours = prefRepository.getShortBreakTimerLengthHours()
+            var initialShortBreakTimerMinutes = prefRepository.getShortBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialShortBreakTimeHours ==0L){
+                newValue = initialShortBreakTimerMinutes
+                binding.shortBreakPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setShortBreakTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -198,8 +256,15 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     }
 
     private fun onLongBreakTimeSelected() {
-        binding.longBreakPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->
-            val newValue = newVal.toLong()
+        binding.longBreakPickerHours.setOnValueChangedListener { _, _, newVal ->
+            var initialLongBreakTimeHours = prefRepository.getLongBreakTimerLengthHours()
+            var initialLongBreakTimeMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialLongBreakTimeMinutes == 0L){
+                newValue = initialLongBreakTimeHours
+                binding.longBreakPickerHours.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Long Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setLongBreakTimerLengthHours(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -207,8 +272,15 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                 binding.dropdownLongBreakHoursTxt
             )
         }
-        binding.longBreakPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
-            val newValue = newVal.toLong()
+        binding.longBreakPickerMinutes.setOnValueChangedListener { _, _, newVal ->
+            var initialLongBreakTimeHours = prefRepository.getLongBreakTimerLengthHours()
+            var initialLongBreakTimeMinutes = prefRepository.getLongBreakTimerLengthMinutes()
+            var newValue = newVal.toLong()
+            if(newValue == 0L && initialLongBreakTimeHours == 0L){
+                newValue = initialLongBreakTimeMinutes
+                binding.longBreakPickerMinutes.value = newValue.toInt()
+                Toast.makeText(requireContext(),"Long Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
+            }
             prefRepository.setLongBreakTimerLengthMinutes(newValue)
             viewModel.updateOrangeTextsLong(
                 newValue,
@@ -221,6 +293,9 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     private fun cycleCountSelection() {
         var numberOfCycles = prefRepository.getNumberOfCycles()
         binding.subtractCycleCountBtn.setOnClickListener {
+            if(numberOfCycles == 1){
+                Toast.makeText(requireContext(),"Minimum Cycle Count Is 1", Toast.LENGTH_SHORT).show()
+            }
             if (numberOfCycles > 1) {
                 prefRepository.setNumberOfCycles(--numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
@@ -236,6 +311,9 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             }
         }
         binding.addCycleCountBtn.setOnClickListener {
+            if (numberOfCycles == 8){
+                Toast.makeText(requireContext(),"Maximum Cycle Count Is 8", Toast.LENGTH_SHORT).show()
+            }
             if (numberOfCycles in 1..7) {
                 prefRepository.setNumberOfCycles(++numberOfCycles)
                 binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
@@ -247,7 +325,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     prefRepository.setNumberOfCycles(numberOfCycles)
                     binding.dropdownCycleCountTxt.text =
                         prefRepository.getNumberOfCycles().toString()
-
                 }
             }
             prefRepository.setNumberOfCycles(numberOfCycles)
@@ -271,37 +348,37 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
         viewModel.updateOrangeTextsLong(
             focusHours,
-            focusHours.toString() + " hours",
+            "$focusHours hours",
             binding.dropdownFocusHoursTxt
         )
 
         viewModel.updateOrangeTextsLong(
             focusMinutes,
-            focusMinutes.toString() + " min",
+            "$focusMinutes min",
             binding.dropdownFocusMinutesTxt
         )
 
         viewModel.updateOrangeTextsLong(
             shortBreakHours,
-            shortBreakHours.toString() + " hours",
+            "$shortBreakHours hours",
             binding.dropdownShortBreakHoursTxt
         )
 
         viewModel.updateOrangeTextsLong(
             shortBreakMinutes,
-            shortBreakMinutes.toString() + " min",
+            "$shortBreakMinutes min",
             binding.dropdownShortBreakMinutesTxt
         )
 
         viewModel.updateOrangeTextsLong(
             longBreakHours,
-            longBreakHours.toString() + " hours",
+            "$longBreakHours hours",
             binding.dropdownLongBreakHoursTxt
         )
 
         viewModel.updateOrangeTextsLong(
             longBreakMinutes,
-            longBreakMinutes.toString() + " min",
+            "$longBreakMinutes min",
             binding.dropdownLongBreakMinutesTxt
         )
 

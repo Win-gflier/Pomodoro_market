@@ -41,6 +41,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         navController = Navigation.findNavController(view)
         setDefaultOrInitialValues()
         openStartPage()
+        setPageBackgroundColor()
     }
 
 
@@ -103,7 +104,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
+                ContextCompat.getColor(requireActivity(), R.color.grey_very_light)
         }
     }
 
@@ -145,7 +146,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
         binding.resetBtn.setOnClickListener {
             prefRepository.setAutoStartWorkTime(false)
-            prefRepository.setAutoStartBreaks(false)
             navController.navigate(R.id.action_mainPageFragment_self)
         }
 
@@ -166,6 +166,16 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
+    private fun setPageBackgroundColor() {
+        binding.parentLayout.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+/*        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.grey_very_light))*/
+    }
+
     private fun updateButtonActiveState() {
         viewModel._timerState.observe(viewLifecycleOwner) {
             when (it) {
@@ -173,6 +183,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.pauseBtn.isEnabled = true
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
+                    binding.playBtn.isVisible = false
                     binding.toolBarSettingsBtn.isEnabled = false
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_rest)
                     binding.resetBtn.visibility = View.VISIBLE
