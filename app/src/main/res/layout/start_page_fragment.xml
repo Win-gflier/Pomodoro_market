@@ -589,11 +589,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/ic_start_page_start_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cycle_count_picker"
-                app:layout_constraintVertical_bias="0.732"
-                tools:layout_editor_absoluteX="0dp" />
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

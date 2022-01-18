@@ -162,7 +162,14 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             var minutesInHoursUntilFinished = (it / 60000) - hoursUntilFinished * 60
             var minutesSt = minutesInHoursUntilFinished.toString()
             if (hoursUntilFinished >= 1.0) {
-                binding.timerTxt.text = "$hoursUntilFinished:${
+                binding.timerTxt.textSize = 64F
+                binding.timerTxt.text = "${
+                    if (hoursUntilFinished.toString().length == 2) {
+                        hoursUntilFinished
+                    } else {
+                        "0" + hoursUntilFinished
+                    }
+                }:${
                     if (minutesSt.length == 2) minutesSt
                     else "0" + minutesSt
                 }:${
@@ -170,6 +177,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     else "0" + secondsStr
                 }"
             } else {
+                binding.timerTxt.textSize = 70F
                 binding.timerTxt.text = "${
                     if (minutesUntilFinished.toString().length == 2) {
                         minutesUntilFinished
@@ -230,11 +238,19 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             longBreakLengthMSeconds = longBreakMinutes * 60000L
             var longBreakMinutesInHours = longBreakMinutes - longBreakLengthHours * 60
             if (longBreakLengthHours >= 1) {
-                binding.timerTxt.text = "$longBreakLengthHours:${
+                binding.timerTxt.textSize = 64F
+                binding.timerTxt.text = "${
+                    if (longBreakLengthHours.toString().length == 2) {
+                        longBreakLengthHours
+                    } else {
+                        "0" + longBreakLengthHours
+                    }
+                }:${
                     if (longBreakMinutesInHours.toString().length == 2) longBreakMinutesInHours
                     else "0" + longBreakMinutesInHours
                 }:00"
             } else {
+                binding.timerTxt.textSize = 70F
                 binding.timerTxt.text = "${
                     if (longBreakMinutes.toString().length == 2) {
                         longBreakMinutes
@@ -261,7 +277,13 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             timerLengthMSeconds = timerLengthMinutes * 60000L
             var shortBreakMinutesInHours = timerLengthMinutes - timerLengthHours * 60
             if (timerLengthHours >= 1) {
-                binding.timerTxt.text = "$timerLengthHours:${
+                binding.timerTxt.text = "${
+                    if (timerLengthHours.toString().length == 2) {
+                        timerLengthHours
+                    } else {
+                        "0" + timerLengthHours
+                    }
+                }:${
                     if (shortBreakMinutesInHours.toString().length == 2) shortBreakMinutesInHours
                     else "0" + shortBreakMinutesInHours
                 }:00"

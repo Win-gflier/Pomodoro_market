@@ -77,12 +77,10 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="70sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.396"
+            app:layout_constraintBottom_toBottomOf="@id/progressCountdown"
+            app:layout_constraintEnd_toEndOf="@id/progressCountdown"
+            app:layout_constraintStart_toStartOf="@id/progressCountdown"
+            app:layout_constraintTop_toTopOf="@id/progressCountdown"
             tools:text="05:00" />
 
         <RelativeLayout

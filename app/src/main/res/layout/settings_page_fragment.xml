@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_focus_minutes_txt"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="65dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"

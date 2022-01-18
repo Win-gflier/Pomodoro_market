@@ -57,16 +57,24 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         var timerLengthMinutesWithHours = timerLengthMinutes - timerLengthHours * 60
-        if (timerLengthHours >=1){
-            binding.timerTxt.text = "$timerLengthHours:${
-                if(timerLengthMinutesWithHours.toString().length == 2) timerLengthMinutesWithHours
+        if (timerLengthHours >= 1) {
+            binding.timerTxt.textSize = 64F
+            binding.timerTxt.text = "${
+                if (timerLengthHours.toString().length == 2) {
+                    timerLengthHours
+                } else {
+                    "0" + timerLengthHours
+                }
+            }:${
+                if (timerLengthMinutesWithHours.toString().length == 2) timerLengthMinutesWithHours
                 else "0" + timerLengthMinutesWithHours
             }:00"
-        }else{
+        } else {
+            binding.timerTxt.textSize = 70F
             binding.timerTxt.text = "${
-                if(timerLengthMinutes.toString().length == 2){
+                if (timerLengthMinutes.toString().length == 2) {
                     timerLengthMinutes
-                }else{
+                } else {
                     "0" + timerLengthMinutes
                 }
             }:00"
@@ -83,7 +91,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
         binding.pauseBtn.setOnClickListener {
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                timerLengthMSeconds = it-1000
+                timerLengthMSeconds = it - 1000
             }
             viewModel.pauseTimer()
         }
@@ -166,27 +174,35 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-            var hoursUntilFinished:Long = it / 3600000
+            var hoursUntilFinished: Long = it / 3600000
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
             var secondsStr = secondInMinuteUntilFinished.toString()
             var minutesInHoursUntilFinished = (it / 60000) - hoursUntilFinished * 60
             var minutesSt = minutesInHoursUntilFinished.toString()
             Log.e("TAG", "$hoursUntilFinished")
-            if (hoursUntilFinished >=1.0){
-                binding.timerTxt.text = "$hoursUntilFinished:${
-                    if(minutesSt.length == 2) minutesSt
+            if (hoursUntilFinished >= 1.0) {
+                binding.timerTxt.textSize = 64F
+                binding.timerTxt.text = "${
+                    if (hoursUntilFinished.toString().length == 2) {
+                        hoursUntilFinished
+                    } else {
+                        "0" + hoursUntilFinished
+                    }
+                }:${
+                    if (minutesSt.length == 2) minutesSt
                     else "0" + minutesSt
                 }:${
                     if (secondsStr.length == 2) secondsStr
                     else "0" + secondsStr
                 }"
-            }else{
+            } else {
+                binding.timerTxt.textSize = 70F
                 binding.timerTxt.text = "${
-                    if(minutesUntilFinished.toString().length == 2){
+                    if (minutesUntilFinished.toString().length == 2) {
                         minutesUntilFinished
-                    }else{
-                        "0"+ minutesUntilFinished
+                    } else {
+                        "0" + minutesUntilFinished
                     }
                 }:${
                     if (secondsStr.length == 2) secondsStr
