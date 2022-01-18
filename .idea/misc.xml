@@ -20,7 +20,9 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_frame_17__1_.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_full_cycle_rest.xml" value="0.1" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_full_cycle_work.xml" value="0.5074074074074074" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_icon_background.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_launcher_background.xml" value="0.44074074074074077" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.22" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_light.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_rest.xml" value="0.42685185185185187" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_pause_btn_work.xml" value="0.42685185185185187" />
@@ -50,6 +52,8 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/sound_page_fragment.xml" value="0.5703125" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/start_page_fragment.xml" value="0.33" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/menu/menu.xml" value="0.2" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22" />
       </map>
     </option>
   </component>

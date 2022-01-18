@@ -53,11 +53,24 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         trackCompleteCyclesOrResetTimer()
         onResetButtonClick()
         updateButtonActiveState()
-
         timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
-        binding.timerTxt.text = "$timerLengthMinutes:00"
+        var timerLengthMinutesWithHours = timerLengthMinutes - timerLengthHours * 60
+        if (timerLengthHours >=1){
+            binding.timerTxt.text = "$timerLengthHours:${
+                if(timerLengthMinutesWithHours.toString().length == 2) timerLengthMinutesWithHours
+                else "0" + timerLengthMinutesWithHours
+            }:00"
+        }else{
+            binding.timerTxt.text = "${
+                if(timerLengthMinutes.toString().length == 2){
+                    timerLengthMinutes
+                }else{
+                    "0" + timerLengthMinutes
+                }
+            }:00"
+        }
         if (prefRepository.getAutoStartWorkTime()) {
             viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
@@ -153,13 +166,33 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+            var hoursUntilFinished:Long = it / 3600000
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
             var secondsStr = secondInMinuteUntilFinished.toString()
-            binding.timerTxt.text = "$minutesUntilFinished:${
-                if (secondsStr.length == 2) secondsStr
-                else "0" + secondsStr
-            }"
+            var minutesInHoursUntilFinished = (it / 60000) - hoursUntilFinished * 60
+            var minutesSt = minutesInHoursUntilFinished.toString()
+            Log.e("TAG", "$hoursUntilFinished")
+            if (hoursUntilFinished >=1.0){
+                binding.timerTxt.text = "$hoursUntilFinished:${
+                    if(minutesSt.length == 2) minutesSt
+                    else "0" + minutesSt
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            }else{
+                binding.timerTxt.text = "${
+                    if(minutesUntilFinished.toString().length == 2){
+                        minutesUntilFinished
+                    }else{
+                        "0"+ minutesUntilFinished
+                    }
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            }
             Log.e("TAG", (it / 1000).toInt().toString())
             binding.progressCountdown.max = timerLengthSeconds.toInt()
             binding.progressCountdown.progress = (it / 1000).toInt()
@@ -168,12 +201,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun setPageBackgroundColor() {
         binding.parentLayout.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-/*        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.grey_very_light))*/
     }
 
     private fun updateButtonActiveState() {

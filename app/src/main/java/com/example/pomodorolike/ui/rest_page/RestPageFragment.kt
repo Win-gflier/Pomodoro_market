@@ -59,7 +59,6 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         updateButtonActiveState()
 
 
-
     }
 
 
@@ -156,13 +155,36 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+            var hoursUntilFinished: Long = it / 3600000
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
             var secondsStr = secondInMinuteUntilFinished.toString()
-            binding.timerTxt.text = "$minutesUntilFinished:${
+            var minutesInHoursUntilFinished = (it / 60000) - hoursUntilFinished * 60
+            var minutesSt = minutesInHoursUntilFinished.toString()
+            if (hoursUntilFinished >= 1.0) {
+                binding.timerTxt.text = "$hoursUntilFinished:${
+                    if (minutesSt.length == 2) minutesSt
+                    else "0" + minutesSt
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            } else {
+                binding.timerTxt.text = "${
+                    if (minutesUntilFinished.toString().length == 2) {
+                        minutesUntilFinished
+                    } else {
+                        "0" + minutesUntilFinished
+                    }
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            }
+            /*binding.timerTxt.text = "$minutesUntilFinished:${
                 if (secondsStr.length == 2) secondsStr
                 else "0" + secondsStr
-            }"
+            }"*/
             Log.e("TAG", (it / 1000).toInt().toString())
             if (viewModel.initialNumber == numberOfCycles - 1) {
                 binding.progressCountdown.max = longBreakLengthSeconds.toInt()
@@ -174,7 +196,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    private fun setDefaultOrInitialValues(){
+    private fun setDefaultOrInitialValues() {
         if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
             timerLengthMinutes = 5L
             prefRepository.setShortBreakTimerLengthMinutes(timerLengthMinutes)
@@ -200,13 +222,28 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         autoStartTimer = prefRepository.getAutoStartBreaks()
     }
 
-    private fun shortOrLongBreakTimeHandler(){
+    private fun shortOrLongBreakTimeHandler() {
         if (viewModel.initialNumber == numberOfCycles - 1) {
             binding.workStateTxt.text = resources.getText(R.string.break_state_long)
             longBreakMinutes += (longBreakLengthHours * 60L)
             longBreakLengthSeconds = longBreakMinutes * 60L
             longBreakLengthMSeconds = longBreakMinutes * 60000L
-            binding.timerTxt.text = "$longBreakMinutes:00"
+            var longBreakMinutesInHours = longBreakMinutes - longBreakLengthHours * 60
+            if (longBreakLengthHours >= 1) {
+                binding.timerTxt.text = "$longBreakLengthHours:${
+                    if (longBreakMinutesInHours.toString().length == 2) longBreakMinutesInHours
+                    else "0" + longBreakMinutesInHours
+                }:00"
+            } else {
+                binding.timerTxt.text = "${
+                    if (longBreakMinutes.toString().length == 2) {
+                        longBreakMinutes
+                    } else {
+                        "0" + longBreakMinutes
+                    }
+                }:00"
+            }
+
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(longBreakLengthMSeconds)
                 updateCountdownUI()
@@ -222,7 +259,21 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             timerLengthMinutes += (timerLengthHours * 60L)
             timerLengthSeconds = timerLengthMinutes * 60L
             timerLengthMSeconds = timerLengthMinutes * 60000L
-            binding.timerTxt.text = "$timerLengthMinutes:00"
+            var shortBreakMinutesInHours = timerLengthMinutes - timerLengthHours * 60
+            if (timerLengthHours >= 1) {
+                binding.timerTxt.text = "$timerLengthHours:${
+                    if (shortBreakMinutesInHours.toString().length == 2) shortBreakMinutesInHours
+                    else "0" + shortBreakMinutesInHours
+                }:00"
+            } else {
+                binding.timerTxt.text = "${
+                    if (timerLengthMinutes.toString().length == 2) {
+                        timerLengthMinutes
+                    } else {
+                        "0" + timerLengthMinutes
+                    }
+                }:00"
+            }
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(timerLengthMSeconds)
                 updateCountdownUI()
@@ -236,7 +287,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         updateCountdownUI()
     }
 
-    private fun playPauseHandler(){
+    private fun playPauseHandler() {
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
@@ -244,7 +295,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     longBreakLengthMSeconds = it - 1000
 
                 } else {
-                    timerLengthMSeconds = it -1000
+                    timerLengthMSeconds = it - 1000
                 }
             }
         }

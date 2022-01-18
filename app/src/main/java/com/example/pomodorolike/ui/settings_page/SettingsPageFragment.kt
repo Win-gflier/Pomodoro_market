@@ -1,17 +1,11 @@
 package com.example.pomodorolike.ui.settings_page
 
-import android.annotation.SuppressLint
-import android.graphics.Paint
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -19,14 +13,8 @@ import androidx.navigation.Navigation
 import com.example.pomodorolike.R
 import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
-import com.super_rabbit.wheel_picker.OnValueChangeListener
-import com.super_rabbit.wheel_picker.WheelPicker
-import android.widget.EditText
-
-import android.widget.NumberPicker
 import android.widget.Toast
-import java.lang.IllegalArgumentException
-import java.lang.reflect.Field
+
 
 
 class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
@@ -45,7 +33,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
         setStatusBar()
         onEndBreakSoundChooseClick()
@@ -64,7 +51,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         updateBreakSwitchState()
         updateWorkSwitchState()
         onToolbarBackBtnClick()
-
     }
 
     private fun setStatusBar() {
