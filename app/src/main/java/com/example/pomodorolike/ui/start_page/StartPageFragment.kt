@@ -115,6 +115,14 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                 }
                 else -> {
                     prefRepository.setOpenWithStartPage(true)
+                    prefRepository.setFocusDropdownIsOpen(false)
+                    prefRepository.setShortBreakDropdownIsOpen(false)
+                    prefRepository.setLongBreakDropdownIsOpen(false)
+                    prefRepository.setCycleCountDropdownIsOpen(false)
+                    viewModel.focusWantsToOpen.value = false
+                    viewModel.shortBreakWantsToOpen.value = false
+                    viewModel.longBreakWantsToOpen.value = false
+                    viewModel.cyclePickerWantsToOpen.value = false
                     navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)
                 }
             }
@@ -485,6 +493,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                 newValue,
                 prefRepository.getLongBreakTimerLengthHours().toString() + " hours",
                 binding.dropdownLongBreakHoursTxt
+
             )
         }
         binding.longBreakPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
