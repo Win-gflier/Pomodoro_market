@@ -576,7 +576,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                 } else {
                     binding.cycleCountPicker.visibility = View.GONE
                     binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
-                    prefRepository.setCycleCountDropdownIsOpen(true)
+                    prefRepository.setCycleCountDropdownIsOpen(false)
                 }
             }else{
                 viewModel.cyclePickerWantsToOpen.value = true
