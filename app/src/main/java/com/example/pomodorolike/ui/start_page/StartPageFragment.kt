@@ -718,7 +718,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
                                 prefRepository.setFocusTimerLengthMinutes(initialFocusTimeMinutes)
                             }
                         }
-                        Toast.makeText(requireContext(), "Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Focus Time Can't Be 0", Toast.LENGTH_SHORT).show()
                     }
                     if (prefRepository.getLongBreakTimerLengthHours() == 0L && prefRepository.getLongBreakTimerLengthMinutes() == 0L) {
                         when {
@@ -735,8 +735,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
                             }
                         }
-                        Toast.makeText(requireContext(), "Long Break Time Can't Be 0", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(requireContext(), "Long Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
                     }
                     if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
                         when {
@@ -753,8 +752,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 
                             }
                         }
-                        Toast.makeText(requireContext(), "Short Break Time Can't Be 0", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(requireContext(), "Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
 
                     }
                     navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)

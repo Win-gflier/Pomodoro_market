@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
         Glide
             .with(this)
             .asGif()
-            .load(R.drawable.pomodoro_splash_gif)
+            .load(R.drawable.pomodoro_splash_screen)
             .apply(RequestOptions.diskCacheStrategyOf(
                 DiskCacheStrategy.NONE))
             .listener(object : RequestListener<GifDrawable> {
