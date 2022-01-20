@@ -68,8 +68,9 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
+            prefRepository.setPreviousPageIsRest(true)
             navController.navigate(
-                R.id.action_restPageFragment_to_settingsPageFragment,
+                R.id.action_restPageFragment_to_settingsPageFragment
             )
 
         }
@@ -135,6 +136,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 else -> {
+                    prefRepository.setPreviousPageIsRest(false)
                     viewModel._completeCycleCount.value = ++viewModel.initialNumber
                     navController.navigate(
                         R.id.action_restPageFragment_to_mainPageFragment,

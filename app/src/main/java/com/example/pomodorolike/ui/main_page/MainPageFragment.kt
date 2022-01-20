@@ -42,6 +42,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         setDefaultOrInitialValues()
         openStartPage()
         setPageBackgroundColor()
+        prefRepository.setPreviousPageIsRest(false)
     }
 
 

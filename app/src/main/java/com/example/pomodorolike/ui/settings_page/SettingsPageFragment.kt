@@ -125,7 +125,11 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     .show()
 
             }
-            navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+            if(prefRepository.getPreviousPageIsRest()){
+                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment)
+            }else{
+                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+            }
         }
     }
 
@@ -186,8 +190,11 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     .show()
 
             }
-            navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
-        }
+            if(prefRepository.getPreviousPageIsRest()){
+                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment)
+            }else{
+                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+            }        }
     }
 
     private fun setStatusBar() {
@@ -625,7 +632,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                 }
             }
             prefRepository.setNumberOfCycles(numberOfCycles)
-
 
         }
     }
