@@ -62,7 +62,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     }
 
 
-    fun getPrevCycleCount() {
+    private fun getPrevCycleCount() {
         viewModel.initialNumber = arguments?.getInt("cycle_count")!!
     }
 
@@ -70,7 +70,8 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         binding.toolBarSettingsBtn.setOnClickListener {
             prefRepository.setPreviousPageIsRest(true)
             navController.navigate(
-                R.id.action_restPageFragment_to_settingsPageFragment
+                R.id.action_restPageFragment_to_settingsPageFragment,
+                bundleOf("cycle_count" to (viewModel.initialNumber))
             )
 
         }
@@ -94,7 +95,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
         while (i < numberOfCycles + 1) {
-            var id = i
+            val id = i
             val ivWorkCycle = ImageView(requireContext())
             binding.circleGroup.addView(ivWorkCycle)
             ivWorkCycle.id = id
@@ -155,7 +156,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     }
 
-    fun updateCountdownUI() {
+    private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
             var hoursUntilFinished: Long = it / 3600000
             var minutesUntilFinished = it / 60000
@@ -335,7 +336,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    fun View.setMargins(
+    private fun View.setMargins(
         left: Int = this.marginLeft,
         top: Int = this.marginTop,
         right: Int = this.marginRight,

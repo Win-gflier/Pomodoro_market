@@ -45,7 +45,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         prefRepository.setPreviousPageIsRest(false)
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
@@ -57,7 +56,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
-        var timerLengthMinutesWithHours = timerLengthMinutes - timerLengthHours * 60
+        val timerLengthMinutesWithHours = timerLengthMinutes - timerLengthHours * 60
         if (timerLengthHours >= 1) {
             binding.timerTxt.textSize = 64F
             binding.timerTxt.text = "${
@@ -113,9 +112,17 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
+    private fun openStartPage() {
+        Log.e("Boolean", prefRepository.getOpenWithStartPage().toString())
+        if (!prefRepository.getOpenWithStartPage()) {
+            navController.navigate(R.id.action_mainPageFragment_to_startPageFragment)
+        }
+    }
+
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
-            navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
+            navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment,
+                bundleOf("cycle_count" to numberOfCompleteCycles))
         }
     }
 
@@ -130,18 +137,31 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
-    private fun openStartPage() {
-        Log.e("Boolean", prefRepository.getOpenWithStartPage().toString())
-        if (!prefRepository.getOpenWithStartPage()) {
-            navController.navigate(R.id.action_mainPageFragment_to_startPageFragment)
+    private fun setDefaultOrInitialValues() {
+        if (prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L) {
+            timerLengthMinutes = 25L
+            prefRepository.setFocusTimerLengthMinutes(timerLengthMinutes)
+            numberOfCycles = 4
+            prefRepository.setNumberOfCycles(numberOfCycles)
+            prefRepository.setLongBreakTimerLengthMinutes(15L)
+            prefRepository.setShortBreakTimerLengthMinutes(5L)
+
+        } else {
+            initializeVariables()
+
         }
     }
+
+    private fun setPageBackgroundColor() {
+        binding.parentLayout.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+    }
+
 
 
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
         while (i < numberOfCycles + 1) {
-            var id = i
+            val id = i
             val ivWorkCycle = ImageView(requireContext())
             binding.circleGroup.addView(ivWorkCycle)
             ivWorkCycle.id = id
@@ -216,9 +236,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
-    private fun setPageBackgroundColor() {
-        binding.parentLayout.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-    }
 
     private fun updateButtonActiveState() {
         viewModel._timerState.observe(viewLifecycleOwner) {
@@ -263,20 +280,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     }
 
-    private fun setDefaultOrInitialValues() {
-        if (prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L) {
-            timerLengthMinutes = 25L
-            prefRepository.setFocusTimerLengthMinutes(timerLengthMinutes)
-            numberOfCycles = 4
-            prefRepository.setNumberOfCycles(numberOfCycles)
-            prefRepository.setLongBreakTimerLengthMinutes(15L)
-            prefRepository.setShortBreakTimerLengthMinutes(5L)
-
-        } else {
-            initializeVariables()
-
-        }
-    }
 
     private fun initializeVariables() {
         timerLengthMSeconds = prefRepository.getFocusTimerLengthMSeconds()
@@ -286,7 +289,8 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         numberOfCycles = prefRepository.getNumberOfCycles()
     }
 
-    fun View.setMargins(
+
+    private fun View.setMargins(
         left: Int = this.marginLeft,
         top: Int = this.marginTop,
         right: Int = this.marginRight,

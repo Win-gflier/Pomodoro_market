@@ -16,6 +16,7 @@ import com.example.pomodorolike.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 
 
@@ -30,6 +31,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
     var initialShortBreakTimeHours = 0L
     var initialLongBreakTimeMinutes = 0L
     var initialLongBreakTimeHours = 0L
+    var numberofCompleteCyclesFromRestOrMain = 0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         initialShortBreakTimeHours = prefRepository.getShortBreakTimerLengthHours()
         initialLongBreakTimeMinutes = prefRepository.getLongBreakTimerLengthMinutes()
         initialLongBreakTimeHours = prefRepository.getLongBreakTimerLengthHours()
+        numberofCompleteCyclesFromRestOrMain = arguments?.getInt("cycle_count")!!
 
     }
 
@@ -126,9 +129,12 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
             }
             if(prefRepository.getPreviousPageIsRest()){
-                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment)
+                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment,
+                    bundleOf("cycle_count" to numberofCompleteCyclesFromRestOrMain)
+                )
             }else{
-                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment,
+                    bundleOf("cycle_count" to numberofCompleteCyclesFromRestOrMain))
             }
         }
     }

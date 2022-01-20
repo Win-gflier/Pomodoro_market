@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_restPageFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
+        <argument
+            android:name="cycle_count"
+            android:defaultValue="0"/>
         <action
             android:id="@+id/action_restPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
@@ -43,6 +46,9 @@
         android:id="@+id/settingsPageFragment"
         android:name="com.example.pomodorolike.ui.settings_page.SettingsPageFragment"
         android:label="SettingsPageFragment" >
+        <argument
+            android:name="cycle_count"
+            android:defaultValue="0"/>
         <action
             android:id="@+id/action_settingsPageFragment_to_restPageFragment"
             app:destination="@id/restPageFragment" />
