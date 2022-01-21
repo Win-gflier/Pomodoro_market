@@ -71,8 +71,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="12dp"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="12dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_focus"
@@ -204,8 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="12dp"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="12dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_short_break"
@@ -674,11 +674,11 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="17dp"
-                        android:fontFamily="@font/poppins"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="start"
                         android:text="@string/settings_notifications"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                 </RelativeLayout>
 

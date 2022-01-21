@@ -55,7 +55,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         setStatusBar()
         openSettings()
-        trackCompleteCyclesOrResetTimer()
         onResetButtonClick()
         updateButtonActiveState()
         timerLengthMinutes += (timerLengthHours * 60L)
@@ -100,6 +99,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             }
             viewModel.pauseTimer()
         }
+        trackCompleteCyclesOrResetTimer()
 
     }
 
@@ -107,6 +107,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         arguments?.getInt("cycle_count")?.let {
             if (numberOfCycles == it && it != 0) {
                 if (prefRepository.getAutoStartWorkTime()) {
+                    prefRepository.setIsComingFromRest(false)
                     viewModel.finishTimer()
                 }
                 addIVCycleWorkPage(numberOfCycles, 0)

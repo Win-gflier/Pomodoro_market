@@ -121,6 +121,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_rest))
 
             } else {
+
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_rest))
             }
             i++
