@@ -57,6 +57,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         shortOrLongBreakTimeHandler()
         playPauseHandler()
         updateButtonActiveState()
+        onResetButtonClick()
 
 
     }
@@ -86,6 +87,14 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.orange)
         }
+    }
+
+    private fun onResetButtonClick() {
+        binding.resetBtn.setOnClickListener {
+            prefRepository.setIsComingFromRest(false)
+            navController.navigate(R.id.action_restPageFragment_to_mainPageFragment)
+        }
+
     }
 
     private fun setPageBackgroundColor() {
@@ -126,6 +135,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
                     binding.toolBarSettingsBtn.isEnabled = false
+                    binding.resetBtn.visibility = View.VISIBLE
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 RestPageViewModel.TimerState.Paused -> {
@@ -134,9 +144,11 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
                     binding.toolBarSettingsBtn.isEnabled = false
+                    binding.resetBtn.visibility = View.VISIBLE
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 else -> {
+                    prefRepository.setIsComingFromRest(true)
                     prefRepository.setPreviousPageIsRest(false)
                     viewModel._completeCycleCount.value = ++viewModel.initialNumber
                     navController.navigate(

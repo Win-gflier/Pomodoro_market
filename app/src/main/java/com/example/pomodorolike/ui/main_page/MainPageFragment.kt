@@ -45,6 +45,11 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         prefRepository.setPreviousPageIsRest(false)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        prefRepository.setIsComingFromRest(false)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
@@ -79,7 +84,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                 }
             }:00"
         }
-        if (prefRepository.getAutoStartWorkTime()) {
+        if (prefRepository.getAutoStartWorkTime() && prefRepository.getIsComingFromRest()) {
             viewModel.startTimer(timerLengthMSeconds)
             updateCountdownUI()
             binding.pauseBtn.visibility = View.VISIBLE
@@ -185,9 +190,8 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
     }
 
     private fun onResetButtonClick() {
-
         binding.resetBtn.setOnClickListener {
-            prefRepository.setAutoStartWorkTime(false)
+            prefRepository.setIsComingFromRest(false)
             navController.navigate(R.id.action_mainPageFragment_self)
         }
 
@@ -270,6 +274,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.resetBtn.visibility = View.GONE
                 }
                 else -> {
+                    prefRepository.setIsComingFromRest(false)
                     navController.navigate(
                         R.id.action_mainPageFragment_to_restPageFragment,
                         bundleOf("cycle_count" to numberOfCompleteCycles)
