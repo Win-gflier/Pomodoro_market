@@ -53,13 +53,23 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         setStatusBar()
         openSettings()
         getPrevCycleCount()
-        addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
+        viewModel._completeCycleCount.value = ++viewModel.initialNumber
+        addIVCycleWorkPage(numberOfCycles, viewModel._completeCycleCount.value!!)
         shortOrLongBreakTimeHandler()
         playPauseHandler()
         updateButtonActiveState()
         onResetButtonClick()
 
 
+    }
+    override fun onStop() {
+        if(viewModel.timer != null){
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+                timerLengthMSeconds = it
+            }
+            viewModel.pauseTimer()
+        }
+        super.onStop()
     }
 
 
@@ -72,7 +82,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             prefRepository.setPreviousPageIsRest(true)
             navController.navigate(
                 R.id.action_restPageFragment_to_settingsPageFragment,
-                bundleOf("cycle_count" to (viewModel.initialNumber))
+                bundleOf("cycle_count" to (viewModel._completeCycleCount.value?.minus(1)))
             )
 
         }
@@ -151,7 +161,6 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 else -> {
                     prefRepository.setIsComingFromRest(true)
                     prefRepository.setPreviousPageIsRest(false)
-                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
                     navController.navigate(
                         R.id.action_restPageFragment_to_mainPageFragment,
                         bundleOf("cycle_count" to viewModel._completeCycleCount.value)
@@ -210,7 +219,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 else "0" + secondsStr
             }"*/
             Log.e("TAG", (it / 1000).toInt().toString())
-            if (viewModel.initialNumber == numberOfCycles - 1) {
+            if (viewModel.initialNumber == numberOfCycles) {
                 binding.progressCountdown.max = longBreakLengthSeconds.toInt()
             } else {
                 binding.progressCountdown.max = timerLengthSeconds.toInt()
@@ -247,7 +256,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     }
 
     private fun shortOrLongBreakTimeHandler() {
-        if (viewModel.initialNumber == numberOfCycles - 1) {
+        if (viewModel.initialNumber == numberOfCycles) {
             binding.workStateTxt.text = resources.getText(R.string.break_state_long)
             longBreakMinutes += (longBreakLengthHours * 60L)
             longBreakLengthSeconds = longBreakMinutes * 60L
@@ -329,7 +338,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                if (viewModel.initialNumber == numberOfCycles - 1) {
+                if (viewModel.initialNumber == numberOfCycles) {
                     longBreakLengthMSeconds = it - 1000
 
                 } else {
@@ -339,7 +348,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
 
         binding.playBtn.setOnClickListener {
-            if (viewModel.initialNumber == numberOfCycles - 1) {
+            if (viewModel.initialNumber == numberOfCycles) {
                 viewModel.startTimer(longBreakLengthMSeconds)
                 updateCountdownUI()
             } else {

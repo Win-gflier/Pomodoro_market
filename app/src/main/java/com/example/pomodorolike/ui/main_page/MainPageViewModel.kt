@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainPageViewModel : ViewModel() {
-    private lateinit var timer: CountDownTimer
+    var timer: CountDownTimer? = null
     val _mSecondsRemaining: MutableLiveData<Long> by lazy {
         MutableLiveData<Long>()
     }
@@ -33,17 +33,17 @@ class MainPageViewModel : ViewModel() {
 
     fun pauseTimer() {
         _timerState.value = TimerState.Paused
-        timer.cancel()
+        timer?.cancel()
     }
 
     fun stopTimer() {
         _timerState.value = TimerState.Stopped
-        timer.cancel()
+        timer?.cancel()
     }
 
     fun finishTimer(){
         _timerState.value = TimerState.Finished
-        timer.cancel()
+        timer?.cancel()
     }
 
 }

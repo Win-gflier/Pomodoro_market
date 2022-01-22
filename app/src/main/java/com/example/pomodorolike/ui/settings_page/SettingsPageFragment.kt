@@ -198,10 +198,12 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
 
             }
             if(prefRepository.getPreviousPageIsRest()){
-                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment)
+                navController.navigate(R.id.action_settingsPageFragment_to_restPageFragment,
+                    bundleOf("cycle_count" to numberofCompleteCyclesFromRestOrMain))
             }else{
                 prefRepository.setIsComingFromRest(false)
-                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment)
+                navController.navigate(R.id.action_settingsPageFragment_to_mainPageFragment,
+                    bundleOf("cycle_count" to numberofCompleteCyclesFromRestOrMain))
             }        }
     }
 

@@ -7,12 +7,14 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/circular_pb_rest.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/custom_rl_shape.xml" value="0.3625" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_choose_btn.xml" value="0.4675925925925926" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_circular_pb_corners.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_curved_backgroun_settings_page_rl.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_curved_background.xml" value="0.44074074074074077" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_curved_rl.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_cycle_dropdown_background.xml" value="0.4888888888888889" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_down_arrow.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_dropdown_background_corners.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/drawable/ic_empty_cycle_rest.xml" value="0.5074074074074074" />
@@ -51,7 +53,7 @@
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/fragment_scrolling.xml" value="0.49375866851595007" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/main_page_fragment.xml" value="0.22" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/rest_page_fragment.xml" value="0.2" />
-        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/settings_page_fragment.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/sound_page_fragment.xml" value="0.5703125" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/layout/start_page_fragment.xml" value="0.33" />
         <entry key="..\:/Users/ztade/AndroidStudioProjects/pomodoro/app/src/main/res/menu/menu.xml" value="0.2" />

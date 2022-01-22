@@ -50,6 +50,16 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         prefRepository.setIsComingFromRest(false)
     }
 
+    override fun onStop() {
+        if(viewModel.timer != null){
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+                timerLengthMSeconds = it
+            }
+            viewModel.pauseTimer()
+        }
+        super.onStop()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
