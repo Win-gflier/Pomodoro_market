@@ -70,8 +70,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="12dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="12dp"
                     android:fontFamily="@font/poppins"
                     android:gravity="start"
                     android:text="@string/settings_focus"
@@ -204,8 +204,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="12dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="12dp"
                     android:fontFamily="@font/poppins"
                     android:gravity="start"
                     android:text="@string/settings_short_break"
@@ -337,8 +337,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="12dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="12dp"
                     android:fontFamily="@font/poppins"
 
                     android:gravity="start"
@@ -475,8 +475,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="12dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="12dp"
                     android:fontFamily="@font/poppins"
                     android:gravity="start"
                     android:text="@string/settings_cycle_count"
@@ -524,8 +524,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
 
                     <ImageButton
@@ -553,7 +552,7 @@
                         android:background="@drawable/ic_add_btn" />
                 </RelativeLayout>
 
-               <!-- <ImageButton
+                <!-- <ImageButton
                     android:id="@+id/subtract_cycle_count_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -583,16 +582,30 @@
 
             </RelativeLayout>
 
-            <ImageButton
+            <RelativeLayout
                 android:id="@+id/start_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="15dp"
                 android:background="@drawable/ic_start_page_start_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cycle_count_picker"
+                app:layout_constraintVertical_bias="0.875">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/start"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+            </RelativeLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,5 +26,6 @@
 
     <!--Start Page-->
     <string name="set_your">Set Your</string>
+    <string name="start">Start</string>
 
 </resources>
