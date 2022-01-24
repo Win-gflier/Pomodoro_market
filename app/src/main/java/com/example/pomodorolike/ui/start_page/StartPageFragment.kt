@@ -755,6 +755,7 @@ class StartPageFragment : Fragment(R.layout.start_page_fragment) {
 //                        Toast.makeText(requireContext(), "Short Break Time Can't Be 0", Toast.LENGTH_SHORT).show()
 
                     }
+                    prefRepository.setAutoStartBreaks(true)
                     navController.navigate(R.id.action_startPageFragment_to_mainPageFragment)
 /*                }
             }*/

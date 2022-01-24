@@ -53,8 +53,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingsPageViewModel::class.java)
         setStatusBar()
-        onEndBreakSoundChooseClick()
-        onEndFocusSoundChooseClick()
         setOrangeText()
         onFocusClick()
         onShortBreakClick()
@@ -223,9 +221,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.grey_very_light))
         binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
-        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+
     }
 
     private fun setOrangeText() {
@@ -283,18 +279,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
             binding.dropdownCycleCountTxt
         )
 
-    }
-
-    private fun onEndFocusSoundChooseClick() {
-        binding.dropdownEndFocusSoundBtn.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_focusSoundPageFragment)
-        }
-    }
-
-    private fun onEndBreakSoundChooseClick() {
-        binding.dropdownEndBreakSoundBtn.setOnClickListener {
-            navController.navigate(R.id.action_settingsPageFragment_to_endSoundPageFragment)
-        }
     }
 
 
@@ -685,7 +669,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     binding.focusTimePicker.visibility = View.GONE
                     binding.dropdownFocusBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setFocusDropdownIsOpen(false)
-//                    viewModel.focusWantsToOpen.value = false
                 }
             }
         }
@@ -722,7 +705,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     binding.cycleCountPicker.visibility = View.GONE
                     binding.dropdownCycleCountBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setCycleCountDropdownIsOpen(false)
-//                    viewModel.focusWantsToOpen.value = false
                 }
             }
 
@@ -764,7 +746,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     binding.longBreakPicker.visibility = View.GONE
                     binding.dropdownLongBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setLongBreakDropdownIsOpen(false)
-//                    viewModel.longBreakWantsToOpen.value = false
                 }
             }
         }
@@ -806,7 +787,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
                     binding.shortBreakPicker.visibility = View.GONE
                     binding.dropdownShortBreakBtn.setBackgroundResource(R.drawable.ic_down_arrow)
                     prefRepository.setShortBreakDropdownIsOpen(false)
-//                    viewModel.shortBreakWantsToOpen.value = false
                 }
             }
         }

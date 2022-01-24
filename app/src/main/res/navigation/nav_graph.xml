@@ -55,28 +55,6 @@
         <action
             android:id="@+id/action_settingsPageFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
-        <action
-            android:id="@+id/action_settingsPageFragment_to_focusSoundPageFragment"
-            app:destination="@id/focusSoundPageFragment" />
-        <action
-            android:id="@+id/action_settingsPageFragment_to_endSoundPageFragment"
-            app:destination="@id/endSoundPageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/endSoundPageFragment"
-        android:name="com.example.pomodorolike.ui.break_sound_page.EndSoundPageFragment"
-        android:label="EndSoundPageFragment" >
-        <action
-            android:id="@+id/action_endSoundPageFragment_to_settingsPageFragment"
-            app:destination="@id/settingsPageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/focusSoundPageFragment"
-        android:name="com.example.pomodorolike.ui.break_sound_page.FocusSoundPageFragment"
-        android:label="FocusSoundPageFragment" >
-        <action
-            android:id="@+id/action_focusSoundPageFragment_to_settingsPageFragment"
-            app:destination="@id/settingsPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/startPageFragment"

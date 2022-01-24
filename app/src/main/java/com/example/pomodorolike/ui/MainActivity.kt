@@ -37,22 +37,8 @@ class MainActivity : AppCompatActivity() {
                     it
                 ).currentDestination?.id
             }
-        val focusSoundPageFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
-                NavHostFragment.findNavController(
-                    it
-                ).currentDestination?.id
-            }
-        val endSoundPageFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let {
-                NavHostFragment.findNavController(
-                    it
-                ).currentDestination?.id
-            }
 
-        if (settingsPageFragment == R.id.settingsPageFragment
-            || focusSoundPageFragment == R.id.focusSoundPageFragment
-            || endSoundPageFragment == R.id.endSoundPageFragment) {
+        if (settingsPageFragment == R.id.settingsPageFragment) {
             super.onBackPressed()
         } else {
             moveTaskToBack(true)
