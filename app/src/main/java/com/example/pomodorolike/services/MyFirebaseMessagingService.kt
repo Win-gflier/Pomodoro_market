@@ -34,13 +34,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             channelId
         )
             .setSmallIcon(R.drawable.ic_notification_icon)
+            .setColor(resources.getColor(R.color.orange))
             .setAutoCancel(true)
             .setVibrate(longArrayOf(1000,1000,1000,1000))
             .setOnlyAlertOnce(true)
             .setShowWhen(true)
             .setContentIntent(pendingIntent)
+            .setContentTitle(title)
+            .setContentText(message)
 
-        builder = builder.setContent(getRemoteView(title,message))
+//        builder = builder.setContent(getRemoteView(title,message))
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -50,14 +53,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.notify(0,builder.build())
     }
 
-    private fun getRemoteView(title: String, message: String): RemoteViews {
+ /*   private fun getRemoteView(title: String, message: String): RemoteViews {
         val remoteViews = RemoteViews("com.example.pomodorolike", R.layout.push_notification)
 
         remoteViews.setTextViewText(R.id.title_of_notification, title)
         remoteViews.setTextViewText(R.id.message_of_notification, message)
         remoteViews.setImageViewResource(R.id.notification_logo, R.drawable.ic_notification_icon)
         return remoteViews
-    }
+    }*/
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if(remoteMessage.notification != null){
             remoteMessage.notification!!.body?.let {

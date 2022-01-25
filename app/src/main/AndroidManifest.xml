@@ -10,15 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PomodoroLike">
-        <meta-data
+<!--        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_icon"
             />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/grey_light"
-            />
+            android:resource="@color/colorAccent"
+            />-->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
