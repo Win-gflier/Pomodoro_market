@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "772877821783",
+    "project_id": "pomodoro-timer-95b45",
+    "storage_bucket": "pomodoro-timer-95b45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772877821783:android:f19d100922e6bb40fbc012",
+        "android_client_info": {
+          "package_name": "com.example.pomodorolike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772877821783-80l3hb72rgpa1q1kqttcgcvmm6aj1lpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0us8EAnTS1fH-Gh-3FwriDnrFpwiCtaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772877821783-80l3hb72rgpa1q1kqttcgcvmm6aj1lpg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

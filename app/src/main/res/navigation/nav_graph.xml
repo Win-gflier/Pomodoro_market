@@ -14,7 +14,8 @@
             android:defaultValue="0"/>
         <action
             android:id="@+id/action_mainPageFragment_to_restPageFragment"
-            app:destination="@id/restPageFragment" />
+            app:destination="@id/restPageFragment"
+            app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_mainPageFragment_to_settingsPageFragment"
             app:destination="@id/settingsPageFragment" />
@@ -34,7 +35,8 @@
             android:defaultValue="0"/>
         <action
             android:id="@+id/action_restPageFragment_to_mainPageFragment"
-            app:destination="@id/mainPageFragment" />
+            app:destination="@id/mainPageFragment"
+            app:enterAnim="@anim/from_left" />
         <argument
             android:name="cycle_count"
             android:defaultValue="0"/>
