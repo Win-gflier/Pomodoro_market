@@ -40,7 +40,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_page_fragment)
         navController = Navigation.findNavController(view)
         setDefaultOrInitialValues()
-
+        openStartPage()
     }
 
 
@@ -50,13 +50,12 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         setStatusBar()
         openSettings()
         trackCompleteCyclesOrResetTimer()
+        onResetButtonClick()
 
         timerLengthMinutes += (timerLengthHours * 60L)
         timerLengthSeconds = timerLengthMinutes * 60L
         timerLengthMSeconds = timerLengthMinutes * 60000L
         binding.timerTxt.text = "$timerLengthMinutes:00"
-        Log.e("MainOnCreate", prefRepository.getNumberOfCycles().toString() + "cycleCount")
-        Log.e("MainOnCreate", prefRepository.getFocusTimerLengthMinutes().toString() + "minutes")
         if (prefRepository.getAutoStartWorkTime()) {
             updateButtonActiveState()
             viewModel.startTimer(timerLengthMSeconds)
@@ -66,21 +65,21 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
         binding.playBtn.setOnClickListener {
             viewModel.startTimer(timerLengthMSeconds)
-            updateCountdownUI()
             updateButtonActiveState()
+            updateCountdownUI()
         }
         binding.pauseBtn.setOnClickListener {
-            viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                timerLengthMSeconds = it
+                timerLengthMSeconds = it-1000
             }
+            viewModel.pauseTimer()
             updateButtonActiveState()
         }
 
 
     }
 
-    private fun trackCompleteCyclesOrResetTimer(){
+    private fun trackCompleteCyclesOrResetTimer() {
         arguments?.getInt("cycle_count")?.let {
             if (numberOfCycles == it && it != 0) {
                 if (prefRepository.getAutoStartWorkTime()) {
@@ -96,12 +95,6 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
-//            if (viewModel._timerState.value == MainPageViewModel.TimerState.Uninitialized) {
-//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
-//
-//            } else {
-//                navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
-//            }
             navController.navigate(R.id.action_mainPageFragment_to_settingsPageFragment)
         }
     }
@@ -114,6 +107,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.white)
+        }
+    }
+
+    private fun openStartPage() {
+        Log.e("Boolean", prefRepository.getOpenWithStartPage().toString())
+        if (!prefRepository.getOpenWithStartPage()) {
+            navController.navigate(R.id.action_mainPageFragment_to_startPageFragment)
         }
     }
 
@@ -144,6 +144,13 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
         }
     }
 
+    private fun onResetButtonClick() {
+        binding.resetBtn.setOnClickListener {
+            navController.navigate(R.id.action_mainPageFragment_self)
+        }
+
+    }
+
     private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
             var minutesUntilFinished = it / 60000
@@ -168,6 +175,8 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isEnabled = false
                     binding.toolBarSettingsBtn.isEnabled = false
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_rest)
+                    binding.resetBtn.visibility = View.VISIBLE
+
                 }
                 MainPageViewModel.TimerState.Paused -> {
                     binding.pauseBtn.isEnabled = false
@@ -176,6 +185,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isVisible = true
                     binding.toolBarSettingsBtn.isEnabled = false
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_rest)
+                    binding.resetBtn.visibility = View.VISIBLE
 
                 }
                 MainPageViewModel.TimerState.Finished -> {
@@ -185,6 +195,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
                     binding.playBtn.isVisible = true
                     binding.toolBarSettingsBtn.isEnabled = true
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
+                    binding.resetBtn.visibility = View.GONE
                 }
                 else -> {
                     navController.navigate(
@@ -197,7 +208,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
 
     }
 
-    private fun setDefaultOrInitialValues(){
+    private fun setDefaultOrInitialValues() {
         if (prefRepository.getFocusTimerLengthHours() == 0L && prefRepository.getFocusTimerLengthMinutes() == 0L) {
             timerLengthMinutes = 25L
             prefRepository.setFocusTimerLengthMinutes(timerLengthMinutes)

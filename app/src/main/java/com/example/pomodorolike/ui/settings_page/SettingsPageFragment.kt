@@ -44,7 +44,7 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.setContentView(requireActivity(), R.layout.settings_page_fragment)
         navController = Navigation.findNavController(view)
-       // setPageBackgroundColor()
+        setPageBackgroundColor()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,7 +54,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         setStatusBar()
         onEndBreakSoundChooseClick()
         onEndFocusSoundChooseClick()
-//        setNumberPickerProperties()
         setOrangeText()
         onFocusClick()
         onShortBreakClick()
@@ -251,26 +250,6 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-/*    private fun setNumberPickerProperties() {
-        //focus time
-//        binding.focusPickerHours.minValue = 0
-//        binding.focusPickerMinutes.minValue = 0
-//        binding.focusPickerHours.maxValue = 24
-//        binding.focusPickerMinutes.maxValue = 59
-
-        //short break
-        binding.shortBreakPickerHours.minValue = 0
-        binding.shortBreakPickerMinutes.minValue = 0
-        binding.shortBreakPickerHours.maxValue = 24
-        binding.shortBreakPickerMinutes.maxValue = 59
-        //long break
-        binding.longBreakPickerHours.minValue = 0
-        binding.longBreakPickerMinutes.minValue = 0
-        binding.longBreakPickerHours.maxValue = 24
-        binding.longBreakPickerMinutes.maxValue = 59
-        //cycleCount
-    }*/
-
     private fun setOrangeText() {
 
         binding.cycleCountInsideTxt.text = prefRepository.getNumberOfCycles().toString()
@@ -354,61 +333,14 @@ class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
         }
     }
 
-/*    private fun setPageBackgroundColor() {
-        binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.orange_light))
-        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.orange_light))
-        binding.relativeLayoutDropdownNumberOfCycles.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownLongBreak.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownFocus.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.white))
-        binding.relativeLayoutDropdownShortBreak.setBackgroundColor(resources.getColor(R.color.white))
-    }*/
+    private fun setPageBackgroundColor() {
+        binding.nestedScrollView.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.toolBarSettingsPage.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownAutoBreak.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownAutoWork.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownEndBreakSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownEndFocusSound.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+        binding.relativeLayoutDropdownNotifications.setBackgroundColor(resources.getColor(R.color.grey_very_light))
+    }
 
-    /*    @SuppressLint("SoonBlockedPrivateApi")
-    fun setSelectedTextColor(np: NumberPicker, colorRes: Int) {
-        val count = np.childCount
-        for (i in 0 until count) {
-            val child = np.getChildAt(i)
-            if (child is EditText) {
-                try {
-                    val selectorWheelPaintField =
-                        np.javaClass.getDeclaredField("mSelectorWheelPaint")
-                    selectorWheelPaintField.isAccessible = true
-                    child.setTextColor(requireContext().getResources().getColor(colorRes))
-                    np.performClick()
-                } catch (e: NoSuchFieldException) {
-                } catch (e: IllegalArgumentException) {
-                }
-            }
-        }
-    }*/
-
-/*
-    fun setNumberPickerTextColor(numberPicker: NumberPicker) {
-        val color: Int = resources.getColor(R.color.orange)
-        val count = numberPicker.childCount
-        for (i in 0 until count) {
-            val child = numberPicker.getChildAt(i)
-            if (child is EditText) {
-                try {
-                    val selectorWheelPaintField =
-                        numberPicker.javaClass.getField("mSelectorWheelPaint")
-                    selectorWheelPaintField.isAccessible = true
-                    (selectorWheelPaintField[numberPicker] as Paint).color = color
-                    child.setTextColor(color)
-                    numberPicker.invalidate()
-                } catch (e: NoSuchFieldException) {
-                    Log.e("setNumberPickerColor1", "" + e)
-                } catch (e: IllegalAccessException) {
-                    Log.e("setNumberPickerColor2", "" + e)
-                } catch (e: IllegalArgumentException) {
-                    Log.e("setNumberPickerColor3", "" + e)
-                }
-            }
-        }
-    }*/
 }

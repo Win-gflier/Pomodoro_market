@@ -22,4 +22,9 @@
 
     <!--End Focus and Break Soun Page-->
     <string name="none">None</string>
+
+
+    <!--Start Page-->
+    <string name="set_your">Set Your</string>
+
 </resources>
