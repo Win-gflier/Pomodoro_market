@@ -58,6 +58,7 @@ class MainPageFragment : Fragment(R.layout.main_page_fragment) {
             viewModel.pauseTimer()
         }
         super.onStop()
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
