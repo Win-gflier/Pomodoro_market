@@ -1,4 +1,4 @@
-package com.example.pomodorolike.services
+package com.encro.pomodoro.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.core.app.NotificationManagerCompat
 import com.example.pomodorolike.R
-import com.example.pomodorolike.ui.MainActivity
+import com.encro.pomodoro.ui.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

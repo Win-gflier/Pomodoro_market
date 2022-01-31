@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui.settings_page
+package com.encro.pomodoro.ui.settings_page
 
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
-import com.example.pomodorolike.data.preferences.PrefRepository
+import com.encro.pomodoro.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
 import android.widget.Toast
 import androidx.activity.addCallback

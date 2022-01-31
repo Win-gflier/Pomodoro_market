@@ -1,4 +1,4 @@
-package com.example.pomodorolike.data
+package com.encro.pomodoro.data
 
 const val PREFERENCE_NAME = "MY_APP_PREF"
 //FOCUS PAGE

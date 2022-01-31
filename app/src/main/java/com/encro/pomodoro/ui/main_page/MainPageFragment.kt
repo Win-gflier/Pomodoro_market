@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui.main_page
+package com.encro.pomodoro.ui.main_page
 
 import android.content.res.Resources
 import android.os.Build
@@ -18,7 +18,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.pomodorolike.data.preferences.PrefRepository
+import com.encro.pomodoro.data.preferences.PrefRepository
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {

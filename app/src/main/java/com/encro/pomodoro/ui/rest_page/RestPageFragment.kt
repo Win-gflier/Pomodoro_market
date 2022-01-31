@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui.rest_page
+package com.encro.pomodoro.ui.rest_page
 
 import android.content.res.Resources
 import android.os.Build
@@ -18,7 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
-import com.example.pomodorolike.data.preferences.PrefRepository
+import com.encro.pomodoro.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.RestPageFragmentBinding
 
 class RestPageFragment : Fragment(R.layout.rest_page_fragment) {

@@ -1,11 +1,12 @@
-package com.example.pomodorolike.ui.start_page
+package com.encro.pomodoro.ui.settings_page
 
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class StartPageViewModel : ViewModel() {
+class SettingsPageViewModel : ViewModel() {
+
 
     val focusWantsToOpen: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
@@ -25,7 +26,6 @@ class StartPageViewModel : ViewModel() {
 
 
 
-
     fun updateOrangeTextsInt(input: Int, stringInput: String, view: TextView) {
         if (input == 0) {
             view.visibility = View.GONE
@@ -42,4 +42,7 @@ class StartPageViewModel : ViewModel() {
             view.visibility = View.VISIBLE
             view.text = stringInput
         }
-    }}
+    }
+
+
+}

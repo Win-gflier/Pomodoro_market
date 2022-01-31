@@ -1,23 +1,26 @@
-package com.example.pomodorolike.ui.main_page
+package com.encro.pomodoro.ui.rest_page
 
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.encro.pomodoro.ui.main_page.MainPageViewModel
 
-class MainPageViewModel : ViewModel() {
+class RestPageViewModel : ViewModel() {
+    var initialNumber = 0
     var timer: CountDownTimer? = null
     val _mSecondsRemaining: MutableLiveData<Long> by lazy {
         MutableLiveData<Long>()
+    }
+    val _completeCycleCount: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
     }
     val _timerState: MutableLiveData<TimerState> by lazy{
         MutableLiveData<TimerState>()
     }
 
-
     enum class TimerState {
-        Stopped, Paused, Running, Finished
+        Stopped, Paused, Running
     }
-
 
     fun startTimer(time: Long) {
         _timerState.value = TimerState.Running
@@ -26,10 +29,8 @@ class MainPageViewModel : ViewModel() {
                 _mSecondsRemaining.value = p0
             }
             override fun onFinish() = stopTimer()
-
         }.start()
     }
-
 
     fun pauseTimer() {
         _timerState.value = TimerState.Paused
@@ -41,9 +42,5 @@ class MainPageViewModel : ViewModel() {
         timer?.cancel()
     }
 
-    fun finishTimer(){
-        _timerState.value = TimerState.Finished
-        timer?.cancel()
-    }
 
 }

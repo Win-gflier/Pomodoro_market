@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui
+package com.encro.pomodoro.ui
 
 import android.content.Intent
 import android.os.Build

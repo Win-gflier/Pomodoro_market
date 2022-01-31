@@ -1,4 +1,4 @@
-package com.example.pomodorolike.ui.start_page
+package com.encro.pomodoro.ui.start_page
 
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.pomodorolike.R
-import com.example.pomodorolike.data.preferences.PrefRepository
+import com.encro.pomodoro.data.preferences.PrefRepository
 import com.example.pomodorolike.databinding.StartPageFragmentBinding
 
 class StartPageFragment : Fragment(R.layout.start_page_fragment) {

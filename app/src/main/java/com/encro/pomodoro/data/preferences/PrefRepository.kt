@@ -1,8 +1,10 @@
-package com.example.pomodorolike.data.preferences
+package com.encro.pomodoro.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.encro.pomodoro.data.*
+import com.example.pomodoro.data.*
 import com.example.pomodorolike.data.*
 
 class PrefRepository(

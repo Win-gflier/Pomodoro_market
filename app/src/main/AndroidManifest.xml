@@ -17,11 +17,11 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/orange" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.encro.pomodoro.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name="com.encro.pomodoro.ui.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -35,7 +35,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name="com.example.pomodorolike.services.MyFirebaseMessagingService"
+            android:name="com.example.pomodorolike.com.example.pomodoro.services.MyFirebaseMessagingService"
             android:exported="false"
             android:enabled="true">
             <intent-filter>

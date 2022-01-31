@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.example.pomodorolike.ui.main_page.MainPageFragment"
+        android:name="com.encro.pomodoro.ui.main_page.MainPageFragment"
         android:label="MainPageFragment" >
 
         <argument
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/restPageFragment"
-        android:name="com.example.pomodorolike.ui.rest_page.RestPageFragment"
+        android:name="com.encro.pomodoro.ui.rest_page.RestPageFragment"
         android:label="RestPageFragment" >
         <argument
             android:name="cycle_count"
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsPageFragment"
-        android:name="com.example.pomodorolike.ui.settings_page.SettingsPageFragment"
+        android:name="com.encro.pomodoro.ui.settings_page.SettingsPageFragment"
         android:label="SettingsPageFragment" >
         <argument
             android:name="cycle_count"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/startPageFragment"
-        android:name="com.example.pomodorolike.ui.start_page.StartPageFragment"
+        android:name="com.encro.pomodoro.ui.start_page.StartPageFragment"
         android:label="StartPageFragment" >
         <action
             android:id="@+id/action_startPageFragment_to_mainPageFragment"
