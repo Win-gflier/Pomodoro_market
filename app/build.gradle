@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.pomodorolike"
+        applicationId "com.encro.pomodoro"
         minSdk 21
         targetSdk 31
         versionCode 1

@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.databinding.DataBindingUtil
-import com.example.pomodorolike.R
-import com.example.pomodorolike.databinding.MainPageFragmentBinding
 import android.widget.RelativeLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.encro.pomodoro.R
 import com.encro.pomodoro.data.preferences.PrefRepository
+import com.encro.pomodoro.databinding.MainPageFragmentBinding
 
 
 class MainPageFragment : Fragment(R.layout.main_page_fragment) {

@@ -17,9 +17,9 @@ import androidx.core.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.pomodorolike.R
+import com.encro.pomodoro.R
 import com.encro.pomodoro.data.preferences.PrefRepository
-import com.example.pomodorolike.databinding.RestPageFragmentBinding
+import com.encro.pomodoro.databinding.RestPageFragmentBinding
 
 class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private lateinit var binding: RestPageFragmentBinding

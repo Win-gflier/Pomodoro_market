@@ -12,9 +12,9 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.pomodorolike.R
+import com.encro.pomodoro.R
 import com.encro.pomodoro.data.preferences.PrefRepository
-import com.example.pomodorolike.databinding.StartPageFragmentBinding
+import com.encro.pomodoro.databinding.StartPageFragmentBinding
 
 class StartPageFragment : Fragment(R.layout.start_page_fragment) {
     private lateinit var binding: StartPageFragmentBinding

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pomodorolike">
+    package="com.encro.pomodoro">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -35,7 +35,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name="com.example.pomodorolike.com.example.pomodoro.services.MyFirebaseMessagingService"
+            android:name="com.encro.pomodoro.services.MyFirebaseMessagingService"
             android:exported="false"
             android:enabled="true">
             <intent-filter>

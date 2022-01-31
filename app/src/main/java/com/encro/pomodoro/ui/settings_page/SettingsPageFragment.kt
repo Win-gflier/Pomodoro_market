@@ -11,13 +11,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.pomodorolike.R
 import com.encro.pomodoro.data.preferences.PrefRepository
-import com.example.pomodorolike.databinding.SettingsPageFragmentBinding
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import com.encro.pomodoro.R
+import com.encro.pomodoro.databinding.SettingsPageFragmentBinding
 
 
 class SettingsPageFragment : Fragment(R.layout.settings_page_fragment) {
