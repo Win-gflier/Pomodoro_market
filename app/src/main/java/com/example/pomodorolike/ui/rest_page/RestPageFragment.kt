@@ -53,22 +53,36 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         setStatusBar()
         openSettings()
         getPrevCycleCount()
-        addIVCycleWorkPage(numberOfCycles, viewModel.initialNumber)
+        viewModel._completeCycleCount.value = ++viewModel.initialNumber
+        addIVCycleWorkPage(numberOfCycles, viewModel._completeCycleCount.value!!)
         shortOrLongBreakTimeHandler()
         playPauseHandler()
+        updateButtonActiveState()
+        onResetButtonClick()
 
 
     }
+    override fun onStop() {
+        if(viewModel.timer != null){
+            viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+                timerLengthMSeconds = it
+            }
+            viewModel.pauseTimer()
+        }
+        super.onStop()
+    }
 
 
-    fun getPrevCycleCount() {
+    private fun getPrevCycleCount() {
         viewModel.initialNumber = arguments?.getInt("cycle_count")!!
     }
 
     private fun openSettings() {
         binding.toolBarSettingsBtn.setOnClickListener {
+            prefRepository.setPreviousPageIsRest(true)
             navController.navigate(
                 R.id.action_restPageFragment_to_settingsPageFragment,
+                bundleOf("cycle_count" to (viewModel._completeCycleCount.value?.minus(1)))
             )
 
         }
@@ -85,6 +99,14 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
+    private fun onResetButtonClick() {
+        binding.resetBtn.setOnClickListener {
+            prefRepository.setIsComingFromRest(false)
+            navController.navigate(R.id.action_restPageFragment_to_mainPageFragment)
+        }
+
+    }
+
     private fun setPageBackgroundColor() {
         view?.setBackgroundColor(resources.getColor(R.color.orange))
     }
@@ -92,7 +114,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
     private fun addIVCycleWorkPage(numberOfCycles: Int, xthCycle: Int) {
         var i = 1
         while (i < numberOfCycles + 1) {
-            var id = i
+            val id = i
             val ivWorkCycle = ImageView(requireContext())
             binding.circleGroup.addView(ivWorkCycle)
             ivWorkCycle.id = id
@@ -109,6 +131,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_full_cycle_rest))
 
             } else {
+
                 ivWorkCycle.setImageDrawable(resources.getDrawable(R.drawable.ic_empty_cycle_rest))
             }
             i++
@@ -123,6 +146,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isVisible = true
                     binding.playBtn.isEnabled = false
                     binding.toolBarSettingsBtn.isEnabled = false
+                    binding.resetBtn.visibility = View.VISIBLE
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 RestPageViewModel.TimerState.Paused -> {
@@ -131,10 +155,12 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
                     binding.pauseBtn.isVisible = false
                     binding.playBtn.isVisible = true
                     binding.toolBarSettingsBtn.isEnabled = false
+                    binding.resetBtn.visibility = View.VISIBLE
                     binding.toolBarSettingsBtn.setBackgroundResource(R.drawable.ic_settings_btn_work)
                 }
                 else -> {
-                    viewModel._completeCycleCount.value = ++viewModel.initialNumber
+                    prefRepository.setIsComingFromRest(true)
+                    prefRepository.setPreviousPageIsRest(false)
                     navController.navigate(
                         R.id.action_restPageFragment_to_mainPageFragment,
                         bundleOf("cycle_count" to viewModel._completeCycleCount.value)
@@ -152,17 +178,48 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
 
     }
 
-    fun updateCountdownUI() {
+    private fun updateCountdownUI() {
         viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
+            var hoursUntilFinished: Long = it / 3600000
             var minutesUntilFinished = it / 60000
             var secondInMinuteUntilFinished = (it / 1000) - minutesUntilFinished * 60
             var secondsStr = secondInMinuteUntilFinished.toString()
-            binding.timerTxt.text = "$minutesUntilFinished:${
+            var minutesInHoursUntilFinished = (it / 60000) - hoursUntilFinished * 60
+            var minutesSt = minutesInHoursUntilFinished.toString()
+            if (hoursUntilFinished >= 1.0) {
+                binding.timerTxt.textSize = 64F
+                binding.timerTxt.text = "${
+                    if (hoursUntilFinished.toString().length == 2) {
+                        hoursUntilFinished
+                    } else {
+                        "0" + hoursUntilFinished
+                    }
+                }:${
+                    if (minutesSt.length == 2) minutesSt
+                    else "0" + minutesSt
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            } else {
+                binding.timerTxt.textSize = 70F
+                binding.timerTxt.text = "${
+                    if (minutesUntilFinished.toString().length == 2) {
+                        minutesUntilFinished
+                    } else {
+                        "0" + minutesUntilFinished
+                    }
+                }:${
+                    if (secondsStr.length == 2) secondsStr
+                    else "0" + secondsStr
+                }"
+            }
+            /*binding.timerTxt.text = "$minutesUntilFinished:${
                 if (secondsStr.length == 2) secondsStr
                 else "0" + secondsStr
-            }"
+            }"*/
             Log.e("TAG", (it / 1000).toInt().toString())
-            if (viewModel.initialNumber == numberOfCycles - 1) {
+            if (viewModel.initialNumber == numberOfCycles) {
                 binding.progressCountdown.max = longBreakLengthSeconds.toInt()
             } else {
                 binding.progressCountdown.max = timerLengthSeconds.toInt()
@@ -172,7 +229,7 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         }
     }
 
-    private fun setDefaultOrInitialValues(){
+    private fun setDefaultOrInitialValues() {
         if (prefRepository.getShortBreakTimerLengthHours() == 0L && prefRepository.getShortBreakTimerLengthMinutes() == 0L) {
             timerLengthMinutes = 5L
             prefRepository.setShortBreakTimerLengthMinutes(timerLengthMinutes)
@@ -198,23 +255,44 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
         autoStartTimer = prefRepository.getAutoStartBreaks()
     }
 
-    private fun shortOrLongBreakTimeHandler(){
-        if (viewModel.initialNumber == numberOfCycles - 1) {
+    private fun shortOrLongBreakTimeHandler() {
+        if (viewModel.initialNumber == numberOfCycles) {
             binding.workStateTxt.text = resources.getText(R.string.break_state_long)
             longBreakMinutes += (longBreakLengthHours * 60L)
             longBreakLengthSeconds = longBreakMinutes * 60L
             longBreakLengthMSeconds = longBreakMinutes * 60000L
-            binding.timerTxt.text = "$longBreakMinutes:00"
+            var longBreakMinutesInHours = longBreakMinutes - longBreakLengthHours * 60
+            if (longBreakLengthHours >= 1) {
+                binding.timerTxt.textSize = 64F
+                binding.timerTxt.text = "${
+                    if (longBreakLengthHours.toString().length == 2) {
+                        longBreakLengthHours
+                    } else {
+                        "0" + longBreakLengthHours
+                    }
+                }:${
+                    if (longBreakMinutesInHours.toString().length == 2) longBreakMinutesInHours
+                    else "0" + longBreakMinutesInHours
+                }:00"
+            } else {
+                binding.timerTxt.textSize = 70F
+                binding.timerTxt.text = "${
+                    if (longBreakMinutes.toString().length == 2) {
+                        longBreakMinutes
+                    } else {
+                        "0" + longBreakMinutes
+                    }
+                }:00"
+            }
+
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(longBreakLengthMSeconds)
                 updateCountdownUI()
-                updateButtonActiveState()
 
             } else {
                 binding.playBtn.setOnClickListener {
                     viewModel.startTimer(longBreakLengthMSeconds)
                     updateCountdownUI()
-                    updateButtonActiveState()
                 }
             }
         } else {
@@ -222,49 +300,65 @@ class RestPageFragment : Fragment(R.layout.rest_page_fragment) {
             timerLengthMinutes += (timerLengthHours * 60L)
             timerLengthSeconds = timerLengthMinutes * 60L
             timerLengthMSeconds = timerLengthMinutes * 60000L
-            binding.timerTxt.text = "$timerLengthMinutes:00"
+            var shortBreakMinutesInHours = timerLengthMinutes - timerLengthHours * 60
+            if (timerLengthHours >= 1) {
+                binding.timerTxt.text = "${
+                    if (timerLengthHours.toString().length == 2) {
+                        timerLengthHours
+                    } else {
+                        "0" + timerLengthHours
+                    }
+                }:${
+                    if (shortBreakMinutesInHours.toString().length == 2) shortBreakMinutesInHours
+                    else "0" + shortBreakMinutesInHours
+                }:00"
+            } else {
+                binding.timerTxt.text = "${
+                    if (timerLengthMinutes.toString().length == 2) {
+                        timerLengthMinutes
+                    } else {
+                        "0" + timerLengthMinutes
+                    }
+                }:00"
+            }
             if (prefRepository.getAutoStartBreaks()) {
                 viewModel.startTimer(timerLengthMSeconds)
                 updateCountdownUI()
-                updateButtonActiveState()
             } else {
                 binding.playBtn.setOnClickListener {
                     viewModel.startTimer(timerLengthMSeconds)
                     updateCountdownUI()
-                    updateButtonActiveState()
                 }
             }
         }
         updateCountdownUI()
     }
 
-    private fun playPauseHandler(){
+    private fun playPauseHandler() {
         binding.pauseBtn.setOnClickListener {
             viewModel.pauseTimer()
             viewModel._mSecondsRemaining.observe(viewLifecycleOwner) {
-                if (viewModel.initialNumber == numberOfCycles - 1) {
-                    longBreakLengthMSeconds = it
+                if (viewModel.initialNumber == numberOfCycles) {
+                    longBreakLengthMSeconds = it - 1000
 
                 } else {
-                    timerLengthMSeconds = it
+                    timerLengthMSeconds = it - 1000
                 }
-                updateButtonActiveState()
             }
         }
 
         binding.playBtn.setOnClickListener {
-            if (viewModel.initialNumber == numberOfCycles - 1) {
+            if (viewModel.initialNumber == numberOfCycles) {
                 viewModel.startTimer(longBreakLengthMSeconds)
                 updateCountdownUI()
             } else {
                 viewModel.startTimer(timerLengthMSeconds)
                 updateCountdownUI()
             }
-            updateButtonActiveState()
         }
     }
 
-    fun View.setMargins(
+    private fun View.setMargins(
         left: Int = this.marginLeft,
         top: Int = this.marginTop,
         right: Int = this.marginRight,

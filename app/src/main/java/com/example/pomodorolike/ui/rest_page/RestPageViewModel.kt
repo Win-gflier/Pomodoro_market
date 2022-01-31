@@ -7,7 +7,7 @@ import com.example.pomodorolike.ui.main_page.MainPageViewModel
 
 class RestPageViewModel : ViewModel() {
     var initialNumber = 0
-    private lateinit var timer: CountDownTimer
+    var timer: CountDownTimer? = null
     val _mSecondsRemaining: MutableLiveData<Long> by lazy {
         MutableLiveData<Long>()
     }
@@ -34,12 +34,12 @@ class RestPageViewModel : ViewModel() {
 
     fun pauseTimer() {
         _timerState.value = TimerState.Paused
-        timer.cancel()
+        timer?.cancel()
     }
 
     fun stopTimer() {
         _timerState.value = TimerState.Stopped
-        timer.cancel()
+        timer?.cancel()
     }
 
 

@@ -71,9 +71,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_focus"
@@ -85,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/dropdown_focus_minutes_txt"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="65dp"
                         android:fontFamily="@font/poppins"
                         android:textColor="@color/orange"
@@ -205,9 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_short_break"
@@ -340,8 +338,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_centerInParent="true"
                         android:fontFamily="@font/poppins"
 
                         android:gravity="start"
@@ -479,8 +476,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_centerInParent="true"
                         android:fontFamily="@font/poppins"
                         android:gravity="start"
                         android:text="@string/settings_cycle_count"
@@ -658,111 +654,6 @@
                         android:checked="false"
                         android:thumb="@drawable/settings_page_switch_thumb"
                         app:track="@drawable/settings_page_switch_track" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/relative_layout_dropdown_notifications"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_auto_work">
-
-                    <TextView
-                        android:id="@+id/notifications_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="17dp"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="start"
-                        android:text="@string/settings_notifications"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/relative_layout_dropdown_end_focus_sound"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_notifications">
-
-                    <TextView
-                        android:id="@+id/end_focus_sound_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="17dp"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="start"
-                        android:text="@string/settings_end_focus_sound"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <ImageButton
-                        android:id="@+id/dropdown_end_focus_sound_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="15dp"
-                        android:background="@drawable/ic_choose_btn_" />
-
-                    <!--            <ImageButton
-                                    android:id="@+id/dropdown_end_focus_sound_btn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_marginEnd="15dp"
-                                    android:background="@drawable/ic_right_arrow_orange" />-->
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/relative_layout_dropdown_end_break_sound"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relative_layout_dropdown_end_focus_sound">
-
-                    <TextView
-                        android:id="@+id/end_break_sound_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="17dp"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="start"
-                        android:text="@string/settings_end_break_sound"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <ImageButton
-                        android:id="@+id/dropdown_end_break_sound_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="15dp"
-                        android:background="@drawable/ic_choose_btn_" />
-
-                    <!--
-                                <ImageButton
-                                    android:id="@+id/dropdown_end_break_sound_btn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_marginEnd="15dp"
-                                    android:background="@drawable/ic_right_arrow_orange" />-->
 
 
                 </RelativeLayout>

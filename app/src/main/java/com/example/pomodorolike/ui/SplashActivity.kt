@@ -1,6 +1,5 @@
 package com.example.pomodorolike.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -13,12 +12,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.pomodorolike.R
-import com.example.pomodorolike.databinding.EndSoundPageFragmentBinding
 import com.bumptech.glide.load.engine.GlideException
-
-import android.R.attr.resource
 import android.graphics.drawable.Drawable
-import androidx.annotation.Nullable
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -51,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
             this.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             this.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             this.window.statusBarColor =
-                ContextCompat.getColor(this, R.color.white)
+                ContextCompat.getColor(this, R.color.grey_very_light)
         }
     }
     private fun loadImageGif(){

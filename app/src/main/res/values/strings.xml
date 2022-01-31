@@ -3,6 +3,7 @@
     <string name="work_state">Work</string>
     <string name="break_state_short">Short Break</string>
     <string name="break_state_long">Long Break</string>
+    <string name="default_notification_channel_id">notification_channel</string>
 
 
     <!--Settings Page-->
@@ -26,5 +27,6 @@
 
     <!--Start Page-->
     <string name="set_your">Set Your</string>
+    <string name="start">Start</string>
 
 </resources>

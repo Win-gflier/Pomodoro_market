@@ -153,6 +153,17 @@ class PrefRepository(
 
     fun getCycleCountDropdownIsOpen() = CYCLE_COUNT_DROPDOWN_IS_OPEN.getBoolean()
 
+    //Previous Page is Rest
+    fun setPreviousPageIsRest(bool: Boolean){
+        PREVIOUS_PAGE_IS_REST.put(bool)
+    }
+    fun setIsComingFromRest(bool: Boolean){
+        IS_COMING_FROM_REST.put(bool)
+    }
+    fun getPreviousPageIsRest() = PREVIOUS_PAGE_IS_REST.getBoolean()
+
+    fun getIsComingFromRest() = IS_COMING_FROM_REST.getBoolean()
+
     fun clearData() {
         editor.clear()
         editor.commit()
