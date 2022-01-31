@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:772877821783:android:f19d100922e6bb40fbc012",
+        "mobilesdk_app_id": "1:772877821783:android:ff43f7d309b60791fbc012",
         "android_client_info": {
-          "package_name": "com.example.pomodorolike"
+          "package_name": "com.encro.pomodoro"
         }
       },
       "oauth_client": [
